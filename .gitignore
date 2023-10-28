@@ -1,0 +1,8 @@
+# Ignore build output
+/build
+/bin
+/obj
+
+# Ignore any executables
+*.exe
+*.out
