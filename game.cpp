@@ -61,7 +61,7 @@ bool Game::loadMedia()
 	bool success = true;
 	
 	assets = loadTexture("assets.png");
-    gTexture = loadTexture("hu.png");
+    gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
@@ -147,7 +147,7 @@ void Game::run( )
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 
-	    SDL_Delay(200);	//causes sdl engine to delay for specified miliseconds
+	    SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
 	}
 			
 }
