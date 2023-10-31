@@ -15,6 +15,9 @@ private:
     int animationSpeed; // in milliseconds
     int lastFrameChangeTime;
 
+    //Change by ashba
+    float delay_ms;
+
 public:
     Animation(SDL_Renderer* renderer, const char* imagePath, int totalFrames, int speed, int width, int height) :
         spriteSheet(nullptr), totalFrames(totalFrames), currentFrame(0),
