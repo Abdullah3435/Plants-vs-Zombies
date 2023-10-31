@@ -1,5 +1,6 @@
 #include <iostream>
 #include "HUMania.hpp"
+#include "GameObject.cpp"
 #include <vector>
 using namespace std;
 
@@ -8,15 +9,13 @@ using namespace std;
 // These values are taken from the corresponding image in assets file
 // Use spritecow.com to find exact values of other asset images
 
-vector<Unit> zombies;
-vector<Unit> bees;
-vector<Unit> butterflies;
+vector<GameObject> myObjs;
 static int state =  0;
 void drawObjects(SDL_Renderer *gRenderer, SDL_Texture *assets)
 {
-    for (int i = 0; i < zombies.size(); i++)
+    for (int i = 0; i < myObjs.size(); i++)
     {
-        SDL_RenderCopy(gRenderer, assets, &zombies[i].srcRect, &zombies[i].moverRect);
+        SDL_RenderCopy(gRenderer, assets, &myObjs[i].srcRect, &myObjs[i].moverRect);
     }
 }
 
@@ -28,13 +27,7 @@ void createObject(int x, int y)
     switch (random)
     {
     case 0:
-        zombies.push_back({{20, 20, 50, 50}, {x, y, 100, 100}});
-        break;
-    case 1:
-        bees.push_back({{527, 138, 194, 115}, {x, y, 50, 50}});
-        break;
-    case 2:
-        butterflies.push_back({{257, 24, 173, 134}, {x, y, 50, 50}});
+        myObjs.push_back({{0, 0, 352, 352}, {x-50, y-50, 100,100}});
         break;
     default:
         break;
