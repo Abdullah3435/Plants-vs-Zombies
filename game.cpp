@@ -60,7 +60,7 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	
-	assets = loadTexture("assets.png");
+	assets = loadTexture("Plant Sprite Sheets/Peashooter.png");
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets==NULL || gTexture==NULL)
     {
