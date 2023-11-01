@@ -1,10 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-struct Unit {
-    SDL_Rect srcRect;
-    SDL_Rect moverRect;
-};
 
 class Animation {
 private:

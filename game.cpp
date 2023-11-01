@@ -134,7 +134,7 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				createObject(xMouse, yMouse);
+				createObject(xMouse, yMouse,gRenderer);
 			}
 		}
 
@@ -147,7 +147,7 @@ void Game::run( )
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 
-	    SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
 	}
 			
 }
