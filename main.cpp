@@ -12,9 +12,7 @@ int main(int argc, char *argv[]){
         printf( "Failed to load media!\n" );
         return 0;
     }
-
     game.run();
     game.close();
-
     return 0;
 }
