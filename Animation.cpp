@@ -1,6 +1,7 @@
 #pragma once
 #include "Animation.hpp"
 
+
 Animation::Animation(SDL_Renderer* renderer, const char* imagePath, int totalFrames, int speed, int width, int height)
     : sprite(nullptr), totalFrames(totalFrames), currentFrame(0),
     animationSpeed(speed), lastFrameChangeTime(0), frameWidth(width), frameHeight(height) {
@@ -28,7 +29,7 @@ SDL_Texture* Animation::loadTexture(SDL_Renderer* renderer, const char* imagePat
 SDL_Rect Animation::getNextFrame() {
     SDL_Rect unit;
     unit.x = currentFrame%TotalRows * frameWidth;
-    unit.y = currentFrame/TotalRows * frameHeight;
+    unit.y = abs(currentFrame/TotalRows) * frameHeight;
     unit.w = frameWidth;
     unit.h = frameHeight;
 

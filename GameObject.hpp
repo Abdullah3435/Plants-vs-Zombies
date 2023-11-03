@@ -3,17 +3,18 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Transform.hpp"
+#include "Sprite.hpp"
 #include <iostream>
 
 class GameObject {
 public:
     Transform* transform;
-    SDL_Texture* Texture;
-    SDL_Rect* Target_Tex; // Part of the Texture to be displayed
-    SDL_Renderer* gRenderer;
-
+    Sprite* sprite;
+    
 public:
-    GameObject(int x, int y, std::string Tex_path, SDL_Renderer* sourcerenderer);
+    GameObject(int x, int y);
+
+    void SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer);
 
     Transform* Getposition();
 

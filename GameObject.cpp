@@ -2,12 +2,13 @@
 #include "GameObject.hpp"
 #include <iostream>
 
-GameObject::GameObject(int x, int y, std::string Tex_path, SDL_Renderer* sourcerenderer) {
+GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
-    gRenderer = sourcerenderer;
-    Texture = loadTexture(Tex_path);
-    Target_Tex = new SDL_Rect{ 10, 10, 350, 350 };
+}
 
+void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer)
+{
+    sprite =  new Sprite(tex , SDL_Rect{ 10, 10, 350, 350 },sourcerenderer);
 }
 
 Transform* GameObject::Getposition() {
@@ -21,7 +22,7 @@ SDL_Texture* GameObject::loadTexture(std::string path) {
     if (loadedSurface == nullptr) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     } else {
-        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+        newTexture = SDL_CreateTextureFromSurface(sprite->renderer, loadedSurface);
         if (newTexture == nullptr) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }

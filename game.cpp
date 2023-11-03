@@ -1,5 +1,5 @@
 #include "game.hpp"
-#include "HUMania.hpp"
+
 bool Game::init()
 {
 	//Initialization flag
@@ -60,9 +60,10 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	
-	assets = loadTexture("Plant Sprite Sheets/Peashooter.png");
+	assets.plant_tex = loadTexture(paths.Plantstexture);
+	assets.zombie_tex = loadTexture(paths.SimpleZombietexture);
     gTexture = loadTexture("BackgroundPVZ.png");
-	if(assets==NULL || gTexture==NULL)
+	if(assets.plant_tex==NULL||assets.zombie_tex==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -73,8 +74,12 @@ bool Game::loadMedia()
 void Game::close()
 {
 	//Free loaded images
-	SDL_DestroyTexture(assets);
-	assets=NULL;
+	SDL_DestroyTexture(assets.plant_tex);
+	SDL_DestroyTexture(assets.zombie_tex);
+
+	assets.plant_tex=NULL;
+	assets.zombie_tex=NULL;
+
 	SDL_DestroyTexture(gTexture);
 	
 	//Destroy window
@@ -134,7 +139,7 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				createObject(xMouse, yMouse,gRenderer);
+				createObject(xMouse, yMouse,gRenderer,&assets);
 			}
 		}
 
@@ -142,7 +147,7 @@ void Game::run( )
 		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
-		drawObjects(gRenderer, assets);
+		drawObjects(gRenderer, &assets);
 
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer

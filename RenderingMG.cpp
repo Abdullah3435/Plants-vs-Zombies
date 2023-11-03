@@ -1,5 +1,5 @@
 #pragma once
-#include "HUMania.hpp"
+#include "RenderingMG.hpp"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -7,20 +7,21 @@ using namespace std;
 vector<GameObject> myObjs;
 static int state = 0;
 
-void drawObjects(SDL_Renderer* gRenderer, SDL_Texture* assets) {
+void drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
-        SDL_RenderCopy(gRenderer, myObjs[i].Texture, myObjs[i].Target_Tex, myObjs[i].transform->ToScreenPosition());
+        SDL_RenderCopy(gRenderer,myObjs[i].sprite->texture, &myObjs[i].sprite->targetTexture, myObjs[i].transform->ToScreenPosition());
     }
 }
 
-void createObject(int x, int y, SDL_Renderer* renderer) {
+void createObject(int x, int y, SDL_Renderer* renderer,Textures *assets) {
     // TODO: create an object randomly and push it into the corresponding vector
     std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
     int random = rand() % 1;
     switch (random) {
         case 0: {
             // Zombie Creation
-            GameObject myobj(x, y, "Plant Sprite Sheets/Peashooter.png", renderer);
+            GameObject myobj(x, y);
+            myobj.SetSprite(assets->plant_tex,renderer);
             myObjs.push_back(myobj);
             break;
         }

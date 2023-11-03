@@ -1,3 +1,4 @@
+#pragma once
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -6,8 +7,13 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+#include "RenderingMG.hpp"
+
+using namespace std;
 
 class Game{
+    Texturepaths paths;
     //Screen dimension constants
     const int SCREEN_WIDTH = 1920;
     const int SCREEN_HEIGHT = 1080;
@@ -21,7 +27,7 @@ class Game{
     //Current displayed texture
     SDL_Texture* gTexture = NULL;
     //global reference to png image sheets
-    SDL_Texture* assets=NULL;
+    Textures assets;
     
 
 public:

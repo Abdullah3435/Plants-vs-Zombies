@@ -1,14 +1,14 @@
 #pragma once
 #include "Transform.hpp"
 
-Transform::Transform(int _x, int _y) {
+Transform::Transform(int _x = 0, int _y = 0) {
     x = _x;
     y = _y;
     zrot = 0;
 }
 
 SDL_Rect* Transform::ToScreenPosition() {
-    SDL_Rect* screenpos = new SDL_Rect{ x, y, 100, 100 };
+    SDL_Rect* screenpos = new SDL_Rect{ x-100, y-100, 100, 100 };
     return screenpos;
 }
 
