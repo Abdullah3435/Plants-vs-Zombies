@@ -10,22 +10,20 @@ struct Unit {
 class Animation {
 private:
     Sprite* sprite;
-    int frameWidth, frameHeight;
-    int TotalRows, TotalCols;
-    int totalFrames;
-    int currentFrame;
+    // int frameWidth, frameHeight;
+    // int TotalRows, TotalCols;
+    int totalFrames,startframe,endframe,currentFrame; //frames to play starting from currentframe
     int animationSpeed; // in milliseconds
     int lastFrameChangeTime;
-
+    bool Playanim;
 
 public:
-    Animation(SDL_Renderer* renderer, const char* imagePath, int totalFrames, int speed, int width, int height);
+    Animation(Sprite* _sprite,int totalFrames, int speed,int _startframe =0,int _endframe=0);
 
     ~Animation();
 
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath);
-
-    SDL_Rect getNextFrame();
-
-    void update();
+    void ResetFrame();
+    void PlayAnimation();
+    
 };

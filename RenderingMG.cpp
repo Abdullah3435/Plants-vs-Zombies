@@ -19,9 +19,10 @@ void createObject(int x, int y, SDL_Renderer* renderer,Textures *assets) {
     int random = rand() % 1;
     switch (random) {
         case 0: {
-            // Zombie Creation
+            // Plant Creation
             GameObject myobj(x, y);
             myobj.SetSprite(assets->plant_tex,renderer);
+            myobj.StartAnimation();
             myObjs.push_back(myobj);
             break;
         }

@@ -1,46 +1,61 @@
 #pragma once
 #include "Animation.hpp"
+#include<iostream>
+#include <future>
+#include <chrono>
+Animation::Animation(Sprite* _sprite, int totalFrames, int speed,int _startframe ,int _endframe)
+    : sprite(_sprite), totalFrames(totalFrames), currentFrame(0),
+    animationSpeed(speed), lastFrameChangeTime(0) {
+    startframe = _startframe;endframe = totalFrames-1;
 
 
-Animation::Animation(SDL_Renderer* renderer, const char* imagePath, int totalFrames, int speed, int width, int height)
-    : sprite(nullptr), totalFrames(totalFrames), currentFrame(0),
-    animationSpeed(speed), lastFrameChangeTime(0), frameWidth(width), frameHeight(height) {
-
-    sprite->texture = loadTexture(renderer, imagePath);
 }
 
 Animation::~Animation() {
     SDL_DestroyTexture(sprite->texture);
 }
 
-SDL_Texture* Animation::loadTexture(SDL_Renderer* renderer, const char* imagePath) {
-    SDL_Surface* loadedSurface = IMG_Load(imagePath);
-    if (loadedSurface == nullptr) {
-        // Handle error
-        return nullptr;
-    }
-
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-    SDL_FreeSurface(loadedSurface);
-
-    return texture;
-}
-
-SDL_Rect Animation::getNextFrame() {
+void Animation::ResetFrame() {
     SDL_Rect unit;
-    unit.x = currentFrame%TotalRows * frameWidth;
-    unit.y = abs(currentFrame/TotalRows) * frameHeight;
-    unit.w = frameWidth;
-    unit.h = frameHeight;
+    printf("resettiing frame\n");
+    unit.x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
+    unit.y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
+    unit.w = sprite->Texturewidth/sprite->cols;
+    unit.h = sprite->Textureheight/sprite->rows;
 
-    return unit;
+    std::cout<<"SDL Rext "<<unit.x<<","<<unit.y<<","<<unit.w<<","<<unit.h<<std::endl;
+    sprite->targetTexture = unit;
+
+    
 }
 
-void Animation::update() {
-    int currentTime = SDL_GetTicks();
+void Animation::PlayAnimation() {
+    Playanim = true;
+    while(Playanim)
+    {
+        ResetFrame();
+        printf("Animation Playing with current frame:");
+        
+        // std::future<void> result = std::async(std::launch::async, delayedFunction);
+        // result.get(); // Wait for the async operation to complete
+        std::this_thread::sleep_for(std::chrono::seconds(animationSpeed/(endframe-startframe)));
 
-    if (currentTime > lastFrameChangeTime + animationSpeed) {
-        lastFrameChangeTime = currentTime;
-        currentFrame = (currentFrame + 1) % totalFrames;
+    
+
+        if (currentFrame<endframe)
+        {
+            currentFrame++;
+            
+        }
+        else
+        {
+        currentFrame = startframe;
+        }
     }
+    
+}
+
+void delayedFunction() {
+    std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates delay
+    std::cout << "Delayed function executed after 2 seconds." << std::endl;
 }

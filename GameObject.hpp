@@ -5,11 +5,13 @@
 #include "Transform.hpp"
 #include "Sprite.hpp"
 #include <iostream>
+#include "Animation.hpp"
 
 class GameObject {
 public:
     Transform* transform;
     Sprite* sprite;
+    Animation* animation;
     
 public:
     GameObject(int x, int y);
@@ -18,5 +20,6 @@ public:
 
     Transform* Getposition();
 
+    void StartAnimation();
     SDL_Texture* loadTexture(std::string path);
 };

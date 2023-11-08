@@ -61,9 +61,9 @@ bool Game::loadMedia()
 	bool success = true;
 	
 	assets.plant_tex = loadTexture(paths.Plantstexture);
-	assets.zombie_tex = loadTexture(paths.SimpleZombietexture);
+	// assets.zombie_tex = loadTexture(paths.SimpleZombietexture);
     gTexture = loadTexture("BackgroundPVZ.png");
-	if(assets.plant_tex==NULL||assets.zombie_tex==NULL || gTexture==NULL)
+	if(assets.plant_tex==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.hpp"
 #include <iostream>
+#include <thread>
 
 GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
@@ -8,7 +9,19 @@ GameObject::GameObject(int x, int y) {
 
 void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer)
 {
+    printf("sprite is set");
     sprite =  new Sprite(tex , SDL_Rect{ 10, 10, 350, 350 },sourcerenderer);
+    sprite->rows =16;sprite->cols=5;sprite->Texturewidth = 1760;sprite->Textureheight = 5680;
+}
+
+void GameObject::StartAnimation()
+{
+    printf("creating animation\n");
+    animation = new Animation(sprite, 40, 2);
+
+    // Start the animation loop in a separate thread
+    std::thread animThread(&Animation::PlayAnimation, animation);
+    animThread.detach();  // Detach the thread to run independently
 }
 
 Transform* GameObject::Getposition() {
