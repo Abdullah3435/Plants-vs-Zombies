@@ -139,7 +139,7 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				createObject(xMouse, yMouse,gRenderer,&assets);
+				RenderingMG::getInstance().createObject(xMouse, yMouse,gRenderer,&assets);
 			}
 		}
 
