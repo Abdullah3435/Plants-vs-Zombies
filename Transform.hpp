@@ -12,5 +12,5 @@ public:
 
     SDL_Rect* ToScreenPosition();
 
-    void translate(int _x , int _y );
+    void translate(int _x = 0, int _y = 0);
 };

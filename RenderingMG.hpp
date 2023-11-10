@@ -16,9 +16,10 @@ private:
   RenderingMG();
   RenderingMG(const RenderingMG& other) = delete;
   RenderingMG& operator=(const RenderingMG& other) = delete;
-  vector<GameObject>myObjs;
+  
 
 public:
+  vector<GameObject>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
   void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets);

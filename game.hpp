@@ -9,6 +9,7 @@
 #include <time.h>
 #include <iostream>
 #include "RenderingMG.hpp"
+#include "SpawnMG.hpp"
 
 using namespace std;
 

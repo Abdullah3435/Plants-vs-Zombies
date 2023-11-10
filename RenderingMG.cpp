@@ -5,10 +5,23 @@ using namespace std;
 
 static int state = 0;
 
+RenderingMG* RenderingMG::instance = nullptr;
+
 void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
         SDL_RenderCopy(gRenderer,myObjs[i].sprite->texture, &myObjs[i].sprite->targetTexture, myObjs[i].transform->ToScreenPosition());
     }
+}
+
+RenderingMG::RenderingMG(){};
+
+RenderingMG* RenderingMG::getInstance()
+{
+    if(instance == nullptr)
+    {
+        instance = new RenderingMG();
+    }
+    return instance;
 }
 
 void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer,Textures *assets) {
