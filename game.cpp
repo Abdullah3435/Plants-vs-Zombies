@@ -1,4 +1,18 @@
+
 #include "game.hpp"
+
+Game* Game::instance = nullptr;
+
+Game::Game() {
+    // Private constructor for singleton pattern
+}
+
+Game* Game::getInstance() {
+    if (instance == nullptr) {
+        instance = new Game();
+    }
+    return instance;
+}
 
 bool Game::init()
 {
@@ -163,5 +177,4 @@ void Game::run( )
 	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
 		frames_elapsed ++;
 	}
-			
 }

@@ -1,13 +1,19 @@
 // ZombieTypes.hpp
 
 #pragma once
+#include "ZombieTemplate.hpp";
+#include "game.hpp";
 
-#include "ZombieTemplate.hpp"
+
 
 class SimpleZombie : public ZombieTemplate<Simple> {
 public:
     SimpleZombie(int x, int y) : ZombieTemplate<Simple>(x, y) {}
 
+    void Update()
+    {
+        Move();
+    }
     // Implement the pure virtual methods from Simple class
     void Move() const override {
         transform->translate(-1*movementspeed);
@@ -20,7 +26,11 @@ public:
    
     Zombie* Clone()
     {
-        return new SimpleZombie(*this);
+        Game* game = Game::getInstance();
+        SimpleZombie* sz = new SimpleZombie(*this);
+        sz->SetSprite(game->assets.plant_tex,game->gRenderer);
+        RenderingMG::getInstance()->myObjs.push_back(sz);
+        return sz;
     }
     // Implement the pure virtual methods from Zombie class
     void Attack() const override {

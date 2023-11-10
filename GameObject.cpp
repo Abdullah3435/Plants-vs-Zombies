@@ -5,13 +5,23 @@
 
 GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
+    animation = nullptr;
+    sprite = nullptr;
+
 }
 
+void GameObject::Update()
+{
+    if(sprite != nullptr)
+    {
+        render();
+    }
+}
 void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer)
 {
     printf("sprite is set");
     sprite =  new Sprite(tex , SDL_Rect{ 10, 10, 350, 350 },sourcerenderer);
-    sprite->rows =16;sprite->cols=5;sprite->Texturewidth = 1760;sprite->Textureheight = 5680;
+    sprite->rows = 16;sprite->cols=5;sprite->Texturewidth = 1760;sprite->Textureheight = 5680;
 }
 
 void GameObject::StartAnimation()
@@ -42,4 +52,9 @@ SDL_Texture* GameObject::loadTexture(std::string path) {
         SDL_FreeSurface(loadedSurface);
     }
     return newTexture;
+}
+
+
+void GameObject::render() {
+    SDL_RenderCopy(sprite->renderer,sprite->texture, &sprite->targetTexture, transform->ToScreenPosition());
 }

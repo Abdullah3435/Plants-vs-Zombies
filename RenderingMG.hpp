@@ -19,7 +19,7 @@ private:
   
 
 public:
-  vector<GameObject>myObjs;
+  vector<GameObject*>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
   void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets);

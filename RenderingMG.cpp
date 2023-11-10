@@ -1,4 +1,3 @@
-#pragma once
 #include "RenderingMG.hpp"
 
 using namespace std;
@@ -9,7 +8,7 @@ RenderingMG* RenderingMG::instance = nullptr;
 
 void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
-        SDL_RenderCopy(gRenderer,myObjs[i].sprite->texture, &myObjs[i].sprite->targetTexture, myObjs[i].transform->ToScreenPosition());
+       myObjs[i]->Update();
     }
 }
 
@@ -31,9 +30,9 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer,Textures *as
     switch (random) {
         case 0: {
             // Plant Creation
-            GameObject myobj(x, y);
-            myobj.SetSprite(assets->plant_tex,renderer);
-            myobj.StartAnimation();
+            GameObject* myobj = new GameObject(x,y);
+            myobj->SetSprite(assets->plant_tex,renderer);
+            //myobj.StartAnimation();
             myObjs.push_back(myobj);
             break;
         }

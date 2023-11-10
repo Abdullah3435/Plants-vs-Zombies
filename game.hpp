@@ -11,32 +11,27 @@
 #include "RenderingMG.hpp"
 #include "SpawnMG.hpp"
 
-using namespace std;
-
-class Game{
+class Game {
+private:
     Texturepaths paths;
-    //Screen dimension constants
     const int SCREEN_WIDTH = 1920;
     const int SCREEN_HEIGHT = 1080;
-
-    //The window we'll be rendering to
-    SDL_Window* gWindow = NULL;
-
-    //The window renderer
-    SDL_Renderer* gRenderer = NULL;
-
-    //Current displayed texture
-    SDL_Texture* gTexture = NULL;
-    //global reference to png image sheets
-    Textures assets;
+    SDL_Window* gWindow = nullptr;
+    SDL_Texture* gTexture = nullptr;
     
 
-public:
+    Game();  // Private constructor for singleton pattern
 
+public:
+    SDL_Renderer* gRenderer = nullptr;
+    Textures assets;
+    static Game* getInstance();
     bool init();
     bool loadMedia();
     void close();
-    SDL_Texture* loadTexture( std::string path );
+    SDL_Texture* loadTexture(std::string path);
     void run();
-};
 
+private:
+    static Game* instance;  // Singleton instance
+};

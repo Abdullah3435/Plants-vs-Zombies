@@ -22,4 +22,7 @@ public:
 
     void StartAnimation();
     SDL_Texture* loadTexture(std::string path);
+
+    virtual void Update();
+    void render();
 };

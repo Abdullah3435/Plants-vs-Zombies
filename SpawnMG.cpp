@@ -1,3 +1,4 @@
+
 #include "SpawnMG.hpp"
 
 Spawner* Spawner::instance = nullptr;
@@ -18,6 +19,7 @@ void Spawner::spawnRandomZombie(int frame) {
     {
         int randomIndex = rand() % 3;
         Zombie* newZombie = zombieInventory.createZombie(randomIndex);
+
         spawnedZombies.push_back(newZombie);
         std::cout<<"Creating Zombie";
     }

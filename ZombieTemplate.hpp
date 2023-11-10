@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.hpp"
+#include "game.hpp"
 
 class Zombie {
 public:
