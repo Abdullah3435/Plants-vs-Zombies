@@ -1,5 +1,19 @@
+
 #include "game.hpp"
-#include "HUMania.hpp"
+
+Game* Game::instance = nullptr;
+
+Game::Game() {
+    // Private constructor for singleton pattern
+}
+
+Game* Game::getInstance() {
+    if (instance == nullptr) {
+        instance = new Game();
+    }
+    return instance;
+}
+
 bool Game::init()
 {
 	//Initialization flag
@@ -47,7 +61,6 @@ bool Game::init()
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 					success = false;
 				}
-
 			}
 		}
 	}
@@ -60,9 +73,10 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	
-	assets = loadTexture("assets.png");
+	assets.plant_tex = loadTexture(paths.Plantstexture);
+	// assets.zombie_tex = loadTexture(paths.SimpleZombietexture);
     gTexture = loadTexture("BackgroundPVZ.png");
-	if(assets==NULL || gTexture==NULL)
+	if(assets.plant_tex==NULL || gTexture==NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -73,8 +87,12 @@ bool Game::loadMedia()
 void Game::close()
 {
 	//Free loaded images
-	SDL_DestroyTexture(assets);
-	assets=NULL;
+	SDL_DestroyTexture(assets.plant_tex);
+	SDL_DestroyTexture(assets.zombie_tex);
+
+	assets.plant_tex=NULL;
+	assets.zombie_tex=NULL;
+
 	SDL_DestroyTexture(gTexture);
 	
 	//Destroy window
@@ -118,9 +136,17 @@ void Game::run( )
 	bool quit = false;
 	SDL_Event e;
 
+	int frames_elapsed = 0;
 
 	while( !quit )
 	{
+		if (frames_elapsed > 1000);// will reset after 1000 frames or 1000/25 = 40seconds
+		{
+			frames_elapsed = 0;
+		}
+
+		Spawner::getInstance()->spawnRandomZombie(frames_elapsed);
+
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -134,20 +160,21 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				createObject(xMouse, yMouse);
+				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets);
 			}
 		}
+
 
 		SDL_RenderClear(gRenderer); //removes everything from renderer
 		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
-		drawObjects(gRenderer, assets);
+		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
 
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 
-	    SDL_Delay(10);	//causes sdl engine to delay for specified miliseconds
+	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
+		frames_elapsed ++;
 	}
-			
 }

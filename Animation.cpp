@@ -1,70 +1,61 @@
-#include <SDL.h>
-#include <SDL_image.h>
+#pragma once
+#include "Animation.hpp"
+#include<iostream>
+#include <future>
+#include <chrono>
+Animation::Animation(Sprite* _sprite, int totalFrames, int speed,int _startframe ,int _endframe)
+    : sprite(_sprite), totalFrames(totalFrames), currentFrame(0),
+    animationSpeed(speed), lastFrameChangeTime(0) {
+    startframe = _startframe;endframe = totalFrames-1;
 
-struct Unit {
-    SDL_Rect srcRect;
-    SDL_Rect moverRect;
-};
 
-class Animation {
-private:
-    SDL_Texture* spriteSheet;
-    int frameWidth, frameHeight;
-    int totalFrames;
-    int currentFrame;
-    int animationSpeed; // in milliseconds
-    int lastFrameChangeTime;
+}
 
-    //Change by ashba
-    float delay_ms;
+Animation::~Animation() {
+    SDL_DestroyTexture(sprite->texture);
+}
 
-public:
-    Animation(SDL_Renderer* renderer, const char* imagePath, int totalFrames, int speed, int width, int height) :
-        spriteSheet(nullptr), totalFrames(totalFrames), currentFrame(0),
-        animationSpeed(speed), lastFrameChangeTime(0), frameWidth(width), frameHeight(height) {
+void Animation::ResetFrame() {
+    SDL_Rect unit;
+    printf("resettiing frame\n");
+    unit.x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
+    unit.y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
+    unit.w = sprite->Texturewidth/sprite->cols;
+    unit.h = sprite->Textureheight/sprite->rows;
 
-        spriteSheet = loadTexture(renderer, imagePath);
-    }
+    std::cout<<"SDL Rext "<<unit.x<<","<<unit.y<<","<<unit.w<<","<<unit.h<<std::endl;
+    sprite->targetTexture = unit;
 
-    ~Animation() {
-        SDL_DestroyTexture(spriteSheet);
-    }
+    
+}
 
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath) {
-        SDL_Surface* loadedSurface = IMG_Load(imagePath);
-        if (loadedSurface == nullptr) {
-            // Handle error
-            return nullptr;
+void Animation::PlayAnimation() {
+    Playanim = true;
+    while(Playanim)
+    {
+        ResetFrame();
+        printf("Animation Playing with current frame:");
+        
+        // std::future<void> result = std::async(std::launch::async, delayedFunction);
+        // result.get(); // Wait for the async operation to complete
+        std::this_thread::sleep_for(std::chrono::seconds(animationSpeed/(endframe-startframe)));
+
+    
+
+        if (currentFrame<endframe)
+        {
+            currentFrame++;
+            
         }
-
-        SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
-        SDL_FreeSurface(loadedSurface);
-
-        return texture;
-    }
-
-    Unit getNextFrame() {
-        Unit unit;
-        unit.srcRect.x = currentFrame * frameWidth;
-        unit.srcRect.y = 0;
-        unit.srcRect.w = frameWidth;
-        unit.srcRect.h = frameHeight;
-
-        unit.moverRect.x = 0; // Set the destination rect position (x-coordinate)
-        unit.moverRect.y = 0; // Set the destination rect position (y-coordinate)
-        unit.moverRect.w = frameWidth; // Set the width of the destination rect
-        unit.moverRect.h = frameHeight; // Set the height of the destination rect
-
-        return unit;
-    }
-
-    void update() {
-        int currentTime = SDL_GetTicks();
-
-        if (currentTime > lastFrameChangeTime + animationSpeed) {
-            lastFrameChangeTime = currentTime;
-            currentFrame = (currentFrame + 1) % totalFrames;
+        else
+        {
+        currentFrame = startframe;
         }
     }
-};
+    
+}
 
+void delayedFunction() {
+    std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates delay
+    std::cout << "Delayed function executed after 2 seconds." << std::endl;
+}
