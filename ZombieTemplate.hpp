@@ -6,18 +6,13 @@
 class Zombie {
 public:
     int movementspeed;
-    int health,damage;
+    int health, damage;
     virtual void Move() const = 0;
     virtual Zombie* Clone() = 0;
     virtual ~Zombie() = default;
     virtual void getDamage(int dmg) = 0;
-    
-    Zombie()
-    {
-        movementspeed = 1;
-        health = 1500;
-        damage = 100;
-    }
+
+    Zombie();
 };
 
 class Simple : public virtual Zombie {
@@ -38,8 +33,5 @@ public:
 template <typename... BaseClass>
 class ZombieTemplate : public GameObject, public BaseClass... {
 public:
-    ZombieTemplate(int x, int y) : GameObject(x, y) {}
+    ZombieTemplate(int x, int y);
 };
-
-
-

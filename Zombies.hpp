@@ -1,134 +1,65 @@
-// ZombieTypes.hpp
-
 #pragma once
-#include "ZombieTemplate.hpp";
-#include "game.hpp";
-
-
+#include "ZombieTemplate.hpp"
+#include "game.hpp"
 
 class SimpleZombie : public ZombieTemplate<Simple> {
 public:
-    SimpleZombie(int x, int y) : ZombieTemplate<Simple>(x, y) {}
+    SimpleZombie(int x, int y);
 
-    void Update()
-    {
-        Move();
-    }
-    // Implement the pure virtual methods from Simple class
-    void Move() const override {
-        transform->translate(-1*movementspeed);
-        // Implementation for moving
-    }
-    void getDamage(int dmg)
-    {
-        health -= dmg;
-    };
-   
-    Zombie* Clone()
-    {
-        Game* game = Game::getInstance();
-        SimpleZombie* sz = new SimpleZombie(*this);
-        sz->SetSprite(game->assets.plant_tex,game->gRenderer);
-        RenderingMG::getInstance()->myObjs.push_back(sz);
-        return sz;
-    }
-    // Implement the pure virtual methods from Zombie class
-    void Attack() const override {
-        // Implementation for attacking
-    }
+    void Update() override;
+
+    void Move() const override;
+
+    void getDamage(int dmg) override;
+
+    Zombie* Clone() override;
+
+    void Attack() const override;
 };
 
 class DefensiveZombie : public ZombieTemplate<Simple, Protected> {
 public:
-    DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) {}
+    DefensiveZombie(int x, int y);
 
-    // Implement the pure virtual methods from Simple and Protected classes
-    void Move() const override {
-        transform->translate(-1*movementspeed);
-        // Implementation for moving
-    }
+    void Move() const override;
 
-    void Defend(int healthboost) override {
-        health += healthboost;
-        // Implementation for defending
-    }
+    void Defend(int healthboost) override;
 
-    void getDamage(int dmg)
-    {
-        health -= dmg;
-    };
-    Zombie* Clone()
-    {
-        return new DefensiveZombie(*this);
-    }
-    // Implement the pure virtual methods from Zombie class
-    void Attack() const override {
-        // Implementation for attacking
-    }
+    void getDamage(int dmg) override;
+
+    Zombie* Clone() override;
+    
+    void Attack() const override;
 };
 
 class UtilityZombie : public ZombieTemplate<Simple, Utility> {
 public:
-    UtilityZombie(int x, int y) : ZombieTemplate<Simple, Utility>(x, y) {}
+    UtilityZombie(int x, int y);
 
-    // Implement the pure virtual methods from Simple and Utility classes
-    void Move() const override {
-        transform->translate(-1*movementspeed);
+    void Move() const override;
 
-        // Implementation for moving
-    }
-    void getDamage(int dmg)
-    {
-        health -= dmg;
-    };
+    void getDamage(int dmg) override;
 
-    void SpecialAbility() const override {
-        // Implementation for special ability
-    }
+    void SpecialAbility() const override;
 
-    // Implement the pure virtual methods from Zombie class
-    void Attack() const override {
-        // Implementation for attacking
-    }
+    Zombie* Clone() override;
 
-    Zombie* Clone()
-    {
-        return new UtilityZombie(*this);
-    }
+    void Attack() const override;
 };
 
 class SuperZombie : public ZombieTemplate<Simple, Protected, Utility> {
 public:
-    SuperZombie(int x, int y) : ZombieTemplate<Simple, Protected, Utility>(x, y) {}
+    SuperZombie(int x, int y);
 
-    // Implement the pure virtual methods from Simple, Protected, and Utility classes
-    void Move() const override {
-        transform->translate(-1*movementspeed);
-        // Implementation for moving
-    }
+    void Move() const override;
 
-    void Defend(int healthboost) override {
-        // Implementation for defending
-        health += healthboost;
-    }
+    void Defend(int healthboost) override;
 
-    void SpecialAbility() const override {
-        // Implementation for special ability
-    }
+    void SpecialAbility() const override;
 
-    void getDamage(int dmg)
-    {
-        health -= dmg;
-    };
+    void getDamage(int dmg) override;
 
-    Zombie* Clone()
-    {
-        return new SuperZombie(*this);
-    }
+    Zombie* Clone() override;
 
-    // Implement the pure virtual methods from Zombie class
-    void Attack() const override {
-        // Implementation for attacking
-    }
+    void Attack() const override;
 };
-
