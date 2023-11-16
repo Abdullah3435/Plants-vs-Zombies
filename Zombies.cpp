@@ -23,6 +23,7 @@ Zombie* SimpleZombie::Clone(int x , int y) {
     sz->transform = new Transform (*this->transform);
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
+    CollisionMG::getInstance()->AddZombie(sz);
     sz->transform->y = y;
     return sz;
 }

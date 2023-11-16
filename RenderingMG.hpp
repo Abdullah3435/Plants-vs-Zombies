@@ -26,3 +26,31 @@ public:
   void AddObjectforRendering(GameObject* obj);
 
 };
+
+
+class CollisionMG {
+private:
+    // Private constructor to prevent instantiation
+    CollisionMG() {}
+
+    // Static instance of the class
+    static CollisionMG* instance;
+
+    // Private member variables
+    std::vector<GameObject*> Plants;
+    std::vector<GameObject*> Projectiles;
+    std::vector<GameObject*> Zombies;
+
+public:
+    // Public methods
+    static CollisionMG* getInstance();
+
+    void AddPlant(GameObject* plant);
+    void AddProjectile(GameObject* projectile);
+    void AddZombie(GameObject* zombie);
+
+    void CollisionEventLoop();
+    void Zombiewithprojectile();
+    void PlantwithZombie();
+    bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
+};
