@@ -1,6 +1,5 @@
 
 #include "SpawnMG.hpp"
-
 Spawner* Spawner::instance = nullptr;
 
 Spawner::Spawner() : zombieInventory(3) {
@@ -14,15 +13,17 @@ Spawner* Spawner::getInstance() {
     return instance;
 }
 
-void Spawner::spawnRandomZombie(int frame) {
-    if (frame % Spawndelay == 0)
-    {
-        int randomIndex = rand() % 3;
-        Zombie* newZombie = zombieInventory.createZombie(randomIndex);
+void Spawner::spawnRandomZombie() {
+    int ypos[5] = {200,400,600,800,1000};
+    int spawnposx = 1800;
+    int spawnposy = ypos[rand()%5];
 
-        spawnedZombies.push_back(newZombie);
-        std::cout<<"Creating Zombie";
-    }
+    int randomIndex = rand() % 3;
+    Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
+    spawnedZombies.push_back(newZombie);
+
+    std::cout<<"Creating Zombie";
+    
 }
 
 void Spawner::update() {

@@ -8,7 +8,7 @@ Transform::Transform(int _x = 0, int _y = 0) {
 }
 
 SDL_Rect* Transform::ToScreenPosition() {
-    SDL_Rect* screenpos = new SDL_Rect{ x-100, y-100, 100, 100 };
+    SDL_Rect* screenpos = new SDL_Rect{ x-50, y-50, 300, 300};
     return screenpos;
 }
 

@@ -74,7 +74,9 @@ bool Game::loadMedia()
 	bool success = true;
 	
 	assets.plant_tex = loadTexture(paths.Plantstexture);
-	// assets.zombie_tex = loadTexture(paths.SimpleZombietexture);
+	assets.simple_zombie_walk = loadTexture(paths.SimpleZombietexture);
+	assets.simple_zombie_eat = loadTexture(paths.SimpleZombieEat);
+	assets.simple_zombie_die = loadTexture(paths.SimpleZombieDie);
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL)
     {
@@ -88,10 +90,13 @@ void Game::close()
 {
 	//Free loaded images
 	SDL_DestroyTexture(assets.plant_tex);
-	SDL_DestroyTexture(assets.zombie_tex);
+	SDL_DestroyTexture(assets.simple_zombie_walk);
+	SDL_DestroyTexture(assets.simple_zombie_eat);
+	SDL_DestroyTexture(assets.simple_zombie_die);
+
 
 	assets.plant_tex=NULL;
-	assets.zombie_tex=NULL;
+	assets.simple_zombie_walk=NULL;
 
 	SDL_DestroyTexture(gTexture);
 	
@@ -140,12 +145,15 @@ void Game::run( )
 
 	while( !quit )
 	{
-		if (frames_elapsed > 1000);// will reset after 1000 frames or 1000/25 = 40seconds
+		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
 			frames_elapsed = 0;
 		}
 
-		Spawner::getInstance()->spawnRandomZombie(frames_elapsed);
+		if(frames_elapsed %100 == 0)
+		{
+			Spawner::getInstance()->spawnRandomZombie();
+		}
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -175,6 +183,7 @@ void Game::run( )
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 
 	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
-		frames_elapsed ++;
+		frames_elapsed++;
+		std::cout<<frames_elapsed<<std::endl;
 	}
 }

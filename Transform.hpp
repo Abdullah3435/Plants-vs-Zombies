@@ -5,8 +5,13 @@
 
 class Transform {
 public:
+//=========POSITION===========
     int x, y;
     int zrot;
+
+//=========int scale===========
+    int x_sc,y_sc;
+
 
     Transform(int _x , int _y );
 

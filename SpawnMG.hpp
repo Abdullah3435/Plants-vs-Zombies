@@ -18,6 +18,6 @@ private:
 
 public:
     static Spawner* getInstance();
-    void spawnRandomZombie(int frame);
+    void spawnRandomZombie();
     void update();
 };
