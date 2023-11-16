@@ -16,7 +16,7 @@ public:
 public:
     GameObject(int x, int y);
 
-    void SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer);
+    void SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int rows =1 ,int col =1);
 
     Transform* Getposition();
 

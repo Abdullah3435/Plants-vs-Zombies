@@ -2,13 +2,19 @@
 #include "Transform.hpp"
 
 Transform::Transform(int _x = 0, int _y = 0) {
+
     x = _x;
     y = _y;
     zrot = 0;
+    x_sc = 1;
+    y_sc = 1;
+    xx =  100;
+    yy =  100;
 }
 
+
 SDL_Rect* Transform::ToScreenPosition() {
-    SDL_Rect* screenpos = new SDL_Rect{ x-50, y-50, 300, 300};
+    SDL_Rect* screenpos = new SDL_Rect{ x-50, y-50, xx*x_sc, yy*y_sc};
     return screenpos;
 }
 

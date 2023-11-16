@@ -4,6 +4,9 @@
 #include <SDL.h>
 
 class Transform {
+private :
+int xx,yy;
+
 public:
 //=========POSITION===========
     int x, y;

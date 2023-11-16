@@ -19,7 +19,8 @@ void SimpleZombie::getDamage(int dmg) {
 Zombie* SimpleZombie::Clone(int x , int y) {
     Game* game = Game::getInstance();
     SimpleZombie* sz = new SimpleZombie(*this);
-    sz->SetSprite(this->sprite->texture, this->sprite->renderer);
+    sz->sprite = new Sprite(*this->sprite);
+    sz->transform = new Transform (*this->transform);
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     sz->transform->y = y;

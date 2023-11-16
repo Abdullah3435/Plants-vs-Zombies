@@ -36,7 +36,7 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer,Textures *as
         case 0: {
             // Plant Creation
             GameObject* myobj = new GameObject(x,y);
-            myobj->SetSprite(assets->plant_tex,renderer);
+            myobj->SetSprite(assets->plant_tex,renderer,1760,5680,16,5);
             //myobj.StartAnimation();
             myObjs.push_back(myobj);
             break;

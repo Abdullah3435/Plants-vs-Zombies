@@ -4,8 +4,11 @@
 SimpleZombie* ZombieInventory::simpleZombie()
 {
     SimpleZombie* myzomb = new SimpleZombie(0, 0);
-    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->transform->x_sc = 2;
+    myzomb->transform->y_sc = 2;
     return myzomb;
+
 }
 
 DefensiveZombie* ZombieInventory::ConeHeadZombie()
@@ -17,7 +20,9 @@ DefensiveZombie* ZombieInventory::ConeHeadZombie()
 SimpleZombie* ZombieInventory::BucketHeadZombie()
 {
     SimpleZombie* myzomb = new SimpleZombie(0, 0);
-     myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->transform->x_sc = 2;
+    myzomb->transform->y_sc = 2;
     return myzomb;
 }
 
