@@ -1,7 +1,6 @@
 #pragma once
 #include "ZombieTemplate.hpp"
-#include "game.hpp"
-
+#include "RenderingMG.hpp"
 class SimpleZombie : public ZombieTemplate<Simple> {
 public:
     SimpleZombie(int x, int y);
@@ -12,7 +11,7 @@ public:
 
     void getDamage(int dmg) override;
 
-    Zombie* Clone() override;
+    Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
 };
@@ -27,7 +26,7 @@ public:
 
     void getDamage(int dmg) override;
 
-    Zombie* Clone() override;
+    Zombie* Clone(int x , int y) override;
     
     void Attack() const override;
 };
@@ -42,7 +41,7 @@ public:
 
     void SpecialAbility() const override;
 
-    Zombie* Clone() override;
+    Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
 };
@@ -59,7 +58,7 @@ public:
 
     void getDamage(int dmg) override;
 
-    Zombie* Clone() override;
+    Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
 };

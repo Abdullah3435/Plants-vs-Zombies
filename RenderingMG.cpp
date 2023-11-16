@@ -12,6 +12,11 @@ void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     }
 }
 
+void RenderingMG::AddObjectforRendering(GameObject* obj)
+{
+    myObjs.push_back(obj);
+}
+
 RenderingMG::RenderingMG(){};
 
 RenderingMG* RenderingMG::getInstance()

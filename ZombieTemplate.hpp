@@ -1,14 +1,14 @@
 #pragma once
 
 #include "GameObject.hpp"
-#include "game.hpp"
+
 
 class Zombie {
 public:
     int movementspeed;
     int health, damage;
     virtual void Move() const = 0;
-    virtual Zombie* Clone() = 0;
+    virtual Zombie* Clone(int x , int y) = 0;
     virtual ~Zombie() = default;
     virtual void getDamage(int dmg) = 0;
 

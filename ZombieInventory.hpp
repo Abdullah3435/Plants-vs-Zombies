@@ -12,5 +12,5 @@ private:
 
 public:
     ZombieInventory(int level);
-    Zombie* createZombie(int i);
+    Zombie* createZombie(int i,int x,int y);
 };

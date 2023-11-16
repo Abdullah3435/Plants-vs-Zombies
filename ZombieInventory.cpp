@@ -1,8 +1,10 @@
 #include "ZombieInventory.hpp"
+#include "game.hpp"
 
 SimpleZombie* ZombieInventory::simpleZombie()
 {
     SimpleZombie* myzomb = new SimpleZombie(0, 0);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer);
     return myzomb;
 }
 
@@ -15,6 +17,7 @@ DefensiveZombie* ZombieInventory::ConeHeadZombie()
 SimpleZombie* ZombieInventory::BucketHeadZombie()
 {
     SimpleZombie* myzomb = new SimpleZombie(0, 0);
+     myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer);
     return myzomb;
 }
 
@@ -39,7 +42,7 @@ ZombieInventory::ZombieInventory(int level)
     }
 }
 
-Zombie* ZombieInventory::createZombie(int i)
+Zombie* ZombieInventory::createZombie(int i,int x,int y)
 {
-    return allzombies[i]->Clone();
+    return allzombies[i]->Clone(x,y);
 }
