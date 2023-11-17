@@ -53,4 +53,5 @@ public:
     void Zombiewithprojectile();
     void PlantwithZombie();
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
+    void RemoveGameObject(GameObject* gameObject);
 };
