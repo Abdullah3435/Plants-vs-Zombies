@@ -32,7 +32,12 @@ void SimpleZombie::Attack() const {
     // Implementation for attacking
 }
 
-DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) {}
+DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y){}
+
+void DefensiveZombie::Update(){
+    GameObject::Update();
+    Move();
+}
 
 void DefensiveZombie::Move() const {
     transform->translate(-1 * movementspeed);
@@ -49,7 +54,16 @@ void DefensiveZombie::getDamage(int dmg) {
 }
 
 Zombie* DefensiveZombie::Clone(int x , int y) {
-    return new DefensiveZombie(*this);
+    Game* game = Game::getInstance();
+    DefensiveZombie* sz = new DefensiveZombie(*this);
+    sz->sprite = new Sprite(*this->sprite);
+    sz->transform = new Transform (*this->transform);
+    RenderingMG::getInstance()->myObjs.push_back(sz);
+    sz->transform->x = x;
+    CollisionMG::getInstance()->AddZombie(sz);
+    sz->transform->y = y;
+    return sz;
+    
 }
 
 void DefensiveZombie::Attack() const {

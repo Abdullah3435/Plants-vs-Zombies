@@ -37,6 +37,7 @@ bool Sound::initialize(){
     
 }
 bool Sound::loadSound(const string& filePath) {
+    dictionary{}
     mixed_song = Mix_LoadMUS(filePath.c_str());
     if (!mixed_song) {
         cout << "Unable to load music: " << Mix_GetError() << endl;

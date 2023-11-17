@@ -14,6 +14,9 @@ SimpleZombie* ZombieInventory::simpleZombie()
 DefensiveZombie* ZombieInventory::ConeHeadZombie()
 {
     DefensiveZombie* myzomb = new DefensiveZombie(0, 0);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->transform->x_sc = 1;
+    myzomb->transform->y_sc = 1;
     return myzomb;
 }
 
@@ -25,6 +28,28 @@ SimpleZombie* ZombieInventory::BucketHeadZombie()
     myzomb->transform->y_sc = 2;
     return myzomb;
 }
+
+UtilityZombie* ZombieInventory::jumpingZombie()
+{
+    
+    UtilityZombie* myzomb = new UtilityZombie(0, 0);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->transform->x_sc = 3;
+    myzomb->transform->y_sc = 3;
+    return myzomb;
+
+}
+
+SuperZombie* ZombieInventory:: rotSpire()
+{
+    SuperZombie* myzomb = new SuperZombie(0, 0);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->transform->x_sc = 4;
+    myzomb->transform->y_sc = 4;
+    return myzomb;
+
+}
+
 
 ZombieInventory::ZombieInventory(int level)
 {

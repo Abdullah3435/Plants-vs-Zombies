@@ -9,6 +9,8 @@ private:
     SimpleZombie* simpleZombie();
     DefensiveZombie* ConeHeadZombie();
     SimpleZombie* BucketHeadZombie();
+    UtilityZombie* jumpingZombie();
+    SuperZombie* rotSpire();
 
 public:
     ZombieInventory(int level);

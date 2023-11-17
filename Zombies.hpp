@@ -20,6 +20,8 @@ class DefensiveZombie : public ZombieTemplate<Simple, Protected> {
 public:
     DefensiveZombie(int x, int y);
 
+    void Update()override;
+    
     void Move() const override;
 
     void Defend(int healthboost) override;
