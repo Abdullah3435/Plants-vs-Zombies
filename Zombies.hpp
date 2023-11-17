@@ -21,7 +21,7 @@ public:
     DefensiveZombie(int x, int y);
 
     void Update()override;
-    
+
     void Move() const override;
 
     void Defend(int healthboost) override;
@@ -51,6 +51,8 @@ public:
 class SuperZombie : public ZombieTemplate<Simple, Protected, Utility> {
 public:
     SuperZombie(int x, int y);
+
+    void Update()override;
 
     void Move() const override;
 

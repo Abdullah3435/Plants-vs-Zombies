@@ -77,6 +77,8 @@ bool Game::loadMedia()
 	assets.simple_zombie_walk = loadTexture(paths.SimpleZombietexture);
 	assets.simple_zombie_eat = loadTexture(paths.SimpleZombieEat);
 	assets.simple_zombie_die = loadTexture(paths.SimpleZombieDie);
+	assets.conehead_walk = loadTexture(paths.ConeHead);
+	assets.flagzombie_walk=loadTexture(paths.FlagZombie);
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL)
     {
