@@ -6,12 +6,16 @@
 #include "Sprite.hpp"
 #include <iostream>
 #include "Animation.hpp"
+#include "Utilities.hpp"
+
+
 
 class GameObject {
 public:
     Transform* transform;
     Sprite* sprite;
     Animation* animation;
+    Utilities utilities;
     
 public:
     GameObject(int x, int y);
@@ -25,4 +29,5 @@ public:
 
     virtual void Update();
     void render();
+    ~GameObject();
 };

@@ -156,8 +156,9 @@ void Game::run( )
 		{
 			Spawner::getInstance()->spawnRandomZombie();
 		}
+		
 
-		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+		
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -176,12 +177,14 @@ void Game::run( )
 			}
 		}
 
-
+		std::cout<<"Issue here";
 		SDL_RenderClear(gRenderer); //removes everything from renderer
+		std::cout<<"Issue resolved";
 		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
 		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
+		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
 
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
@@ -190,4 +193,21 @@ void Game::run( )
 		frames_elapsed++;
 		std::cout<<frames_elapsed<<std::endl;
 	}
+	
 }
+void Game::DumpGarbage(GameObject* gameObject)
+{
+	vector<GameObject* >& temp = RenderingMG::getInstance()->myObjs;
+	for (int i =0; i<temp.size(); i++)
+	{
+		if (temp[i] == gameObject)
+        {
+			std::cout<<"......NULLIFIEDDDDD....";
+            temp[i] = nullptr;
+            break;  // No need to continue searching
+        }
+	}
+	CollisionMG::getInstance()->RemoveGameObject(gameObject);
+}
+	
+		
