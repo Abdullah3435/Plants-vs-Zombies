@@ -113,3 +113,36 @@ bool CollisionMG::isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
+
+void CollisionMG::RemoveGameObject(GameObject* gameObject)
+{
+    // Iterate through Plants vector
+    for (auto& plant : Plants)
+    {
+        if (plant == gameObject)
+        {
+            plant = nullptr;
+            break;  // No need to continue searching
+        }
+    }
+
+    // Iterate through Projectiles vector
+    for (auto& projectile : Projectiles)
+    {
+        if (projectile == gameObject)
+        {
+            projectile = nullptr;
+            break;  // No need to continue searching
+        }
+    }
+
+    // Iterate through Zombies vector
+    for (auto& zombie : Zombies)
+    {
+        if (zombie == gameObject)
+        {
+            zombie = nullptr;
+            break;  // No need to continue searching
+        }
+    }
+}
