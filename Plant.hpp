@@ -20,8 +20,8 @@ class  Plant:public GameObject
     public:
         Plant(int x,int y);
         void shoot();
-        void Update();
-
+        void Update() override;
+    
 };
 
 
