@@ -155,6 +155,8 @@ void Game::run( )
 			Spawner::getInstance()->spawnRandomZombie();
 		}
 
+		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{

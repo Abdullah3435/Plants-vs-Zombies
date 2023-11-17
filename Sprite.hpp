@@ -16,5 +16,5 @@ public:
 
     Sprite(SDL_Texture* tex, SDL_Rect target, SDL_Renderer* ren,int _rows,int _cols);
 
-    void render();
+    void render(SDL_Rect &targetpoint);
 };

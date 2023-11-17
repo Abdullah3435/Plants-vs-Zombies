@@ -17,11 +17,15 @@ void GameObject::Update()
         render();
     }
 }
-void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer)
+void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col)
 {
     printf("sprite is set");
-    sprite =  new Sprite(tex , SDL_Rect{ 10, 10, 350, 350 },sourcerenderer);
-    sprite->rows = 16;sprite->cols=5;sprite->Texturewidth = 1760;sprite->Textureheight = 5680;
+    sprite =  new Sprite(tex , SDL_Rect{ 0, 0, TexWidth/_col, TexHeight/_rows},sourcerenderer);
+
+    sprite->rows = _rows;
+    sprite->cols= _col;
+    sprite->Texturewidth = TexWidth;
+    sprite->Textureheight = TexHeight;
 }
 
 void GameObject::StartAnimation()
