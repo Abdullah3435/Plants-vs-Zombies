@@ -35,13 +35,14 @@ private:
 
     // Static instance of the class
     static CollisionMG* instance;
-
+    
+public:
     // Private member variables
     std::vector<GameObject*> Plants;
     std::vector<GameObject*> Projectiles;
     std::vector<GameObject*> Zombies;
 
-public:
+
     // Public methods
     static CollisionMG* getInstance();
 
@@ -54,4 +55,6 @@ public:
     void PlantwithZombie();
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
     void RemoveGameObject(GameObject* gameObject);
+    
 };
+

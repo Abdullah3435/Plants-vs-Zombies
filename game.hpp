@@ -10,6 +10,7 @@
 #include <iostream>
 #include "RenderingMG.hpp"
 #include "SpawnMG.hpp"
+#include <vector>
 
 class Game {
 private:
@@ -31,6 +32,8 @@ public:
     void close();
     SDL_Texture* loadTexture(std::string path);
     void run();
+    void DumpGarbage(GameObject* gameobject);
+    
 
 private:
     static Game* instance;  // Singleton instance

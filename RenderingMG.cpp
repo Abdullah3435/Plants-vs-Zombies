@@ -1,4 +1,5 @@
 #include "RenderingMG.hpp"
+#include "game.hpp"
 
 using namespace std;
 
@@ -8,7 +9,11 @@ RenderingMG* RenderingMG::instance = nullptr;
 
 void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
-       myObjs[i]->Update();
+    if(myObjs[i])
+    {
+       std::cout<<std::endl<<"most prolly here"; 
+       myObjs[i]->Update();}
+       std::cout<<std::endl<<"No not here"; 
     }
 }
 
@@ -39,6 +44,7 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer,Textures *as
             myobj->SetSprite(assets->plant_tex,renderer,1760,5680,16,5);
             //myobj.StartAnimation();
             myObjs.push_back(myobj);
+            CollisionMG::getInstance()->AddPlant(myobj);
             break;
         }
         
@@ -68,10 +74,17 @@ void CollisionMG::CollisionEventLoop()
     {
        for (int p = 0; p < Plants.size(); p++) 
         {
-            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[p]->transform->ToScreenPosition()))
+            if(Zombies[z]&&Plants[p])
             {
-                std::cout<<"Collision Occured Here plant and zombie";
-                //Implement Zombie and plant Logic here
+                if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[p]->transform->ToScreenPosition()))
+                {
+                    std::cout<<"Collision Occured Here plant and zombie";
+                    Game::getInstance()->DumpGarbage(Zombies[z]);
+                    delete Zombies[z];
+
+                    std::cout<<"Deletion Successfull";
+                    //Implement Zombie and plant Logic here
+                }
             }
         }
     }
@@ -80,10 +93,13 @@ void CollisionMG::CollisionEventLoop()
     {
        for (int p = 0; p < Projectiles.size(); p++) 
         {
+            if(Zombies[z]&&Projectiles[p])
+            {
             if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[z]->transform->ToScreenPosition()))
             {
                 std::cout<<"Collision Occured Here zombie and projectile";
                 //Implement Zombie and plant Logic here
+            }
             }
         }
     }
@@ -113,6 +129,10 @@ bool CollisionMG::isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
+
+
+
+//=============================================GarbageCollection==================================================
 
 void CollisionMG::RemoveGameObject(GameObject* gameObject)
 {

@@ -23,6 +23,10 @@ void Plant::shoot() {
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
+void Plant::Update()
+{
+    GameObject::Update();
+}
 
 // You need to include the necessary headers and provide the implementation for Zombie,
 // GameObject, Projectile, and Plant in separate header and cpp files.

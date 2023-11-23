@@ -4,7 +4,12 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y){}
 
 void SimpleZombie::Update() {
     GameObject::Update();
-    Move();
+    
+    if(utilities.Delay(10))
+    {
+        Move();
+    }
+    
 }
 
 void SimpleZombie::Move() const {
