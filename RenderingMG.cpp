@@ -33,26 +33,42 @@ RenderingMG* RenderingMG::getInstance()
     return instance;
 }
 
-void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer,Textures *assets) {
-    // TODO: create an object randomly and push it into the corresponding vector
+void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer, Textures *assets, Grid& myGrid) {
     std::cout << "Mouse clicked at: " << x << " -- " << y << std::endl;
-    int random = rand() % 1;
-    switch (random) {
-        case 0: {
-            // Plant Creation
-            GameObject* myobj = new GameObject(x,y);
-            myobj->SetSprite(assets->plant_tex,renderer,1760,5680,16,5);
+
+    // Check if the click is within the grid boundaries
+    if (x >= myGrid.xOffset && x < myGrid.width + myGrid.xOffset &&
+        y >= myGrid.yOffset && y < myGrid.height + myGrid.yOffset) {
+
+        // Calculate the grid index based on mouse coordinates
+        int gridIndex = myGrid.calculateIndex(x, y);
+
+        // Get the adjusted x and y coordinates for the center of the grid block
+        auto coordinates = myGrid.getCoordinates(gridIndex / myGrid.cols, gridIndex % myGrid.cols);
+        int gridX = coordinates.first;
+        int gridY = coordinates.second;
+
+        // Check if the block at the calculated grid index is occupied
+        if (!myGrid.isOccupied(gridX, gridY)) {
+            // If not occupied, create the object
+            GameObject* myobj = new GameObject(gridX, gridY);
+            myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
             //myobj.StartAnimation();
             myObjs.push_back(myobj);
+
+            // Mark the block as occupied in the grid
+            myGrid.occupyBlock(gridX, gridY);
+
             CollisionMG::getInstance()->AddPlant(myobj);
-            break;
+        } else {
+            // Handle case where the block is already occupied (optional)
+            std::cout << "Block at (" << gridX << ", " << gridY << ") is already occupied." << std::endl;
         }
-        
-        default:
-            break;
+    } else {
+        // Handle case where the click is outside the grid boundaries (optional)
+        std::cout << "Click outside the grid boundaries." << std::endl;
     }
 }
-
 
 //==========================================CollisionMG=============================================
 

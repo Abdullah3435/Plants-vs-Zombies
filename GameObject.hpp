@@ -9,7 +9,6 @@
 #include "Utilities.hpp"
 
 
-
 class GameObject {
 public:
     Transform* transform;
@@ -25,9 +24,12 @@ public:
     Transform* Getposition();
 
     void StartAnimation();
+
     SDL_Texture* loadTexture(std::string path);
 
     virtual void Update();
     void render();
+
     ~GameObject();
+
 };

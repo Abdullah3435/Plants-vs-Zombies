@@ -18,6 +18,7 @@ bool Game::init()
 {
 	//Initialization flag
 	bool success = true;
+	mygrid  = new Grid (800,600,5,8,200,100);
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -173,7 +174,7 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets);
+				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
 			}
 		}
 

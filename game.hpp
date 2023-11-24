@@ -19,7 +19,7 @@ private:
     const int SCREEN_HEIGHT = 768;
     SDL_Window* gWindow = nullptr;
     SDL_Texture* gTexture = nullptr;
-    
+    Grid* mygrid;
 
     Game();  // Private constructor for singleton pattern
 

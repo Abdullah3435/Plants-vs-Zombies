@@ -22,7 +22,7 @@ public:
   vector<GameObject*>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
-  void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets);
+  void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets, Grid& myGrid);
   void AddObjectforRendering(GameObject* obj);
 
 };
