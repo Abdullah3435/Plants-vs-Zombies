@@ -10,6 +10,7 @@
 #include <iostream>
 #include "RenderingMG.hpp"
 #include "SpawnMG.hpp"
+#include <vector>
 
 class Game {
 private:
@@ -18,7 +19,7 @@ private:
     const int SCREEN_HEIGHT = 768;
     SDL_Window* gWindow = nullptr;
     SDL_Texture* gTexture = nullptr;
-    
+    Grid* mygrid;
 
     Game();  // Private constructor for singleton pattern
 
@@ -31,6 +32,8 @@ public:
     void close();
     SDL_Texture* loadTexture(std::string path);
     void run();
+    void DumpGarbage(GameObject* gameobject);
+    
 
 private:
     static Game* instance;  // Singleton instance

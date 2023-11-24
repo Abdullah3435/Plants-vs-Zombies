@@ -6,12 +6,15 @@
 #include "Sprite.hpp"
 #include <iostream>
 #include "Animation.hpp"
+#include "Utilities.hpp"
+
 
 class GameObject {
 public:
     Transform* transform;
     Sprite* sprite;
     Animation* animation;
+    Utilities utilities;
     
 public:
     GameObject(int x, int y);
@@ -21,8 +24,12 @@ public:
     Transform* Getposition();
 
     void StartAnimation();
+
     SDL_Texture* loadTexture(std::string path);
 
     virtual void Update();
     void render();
+
+    ~GameObject();
+
 };

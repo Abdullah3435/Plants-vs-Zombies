@@ -14,8 +14,6 @@ public:
 
 //=========int scale===========
     int x_sc,y_sc;
-
-
     Transform(int _x , int _y );
 
     SDL_Rect* ToScreenPosition();

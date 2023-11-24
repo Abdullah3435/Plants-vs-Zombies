@@ -18,6 +18,7 @@ bool Game::init()
 {
 	//Initialization flag
 	bool success = true;
+	mygrid  = new Grid (800,600,5,8,200,100);
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -77,6 +78,8 @@ bool Game::loadMedia()
 	assets.simple_zombie_walk = loadTexture(paths.SimpleZombietexture);
 	assets.simple_zombie_eat = loadTexture(paths.SimpleZombieEat);
 	assets.simple_zombie_die = loadTexture(paths.SimpleZombieDie);
+	assets.conehead_walk = loadTexture(paths.ConeHead);
+	assets.flagzombie_walk=loadTexture(paths.FlagZombie);
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL)
     {
@@ -154,8 +157,9 @@ void Game::run( )
 		{
 			Spawner::getInstance()->spawnRandomZombie();
 		}
+		
 
-		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+		
 
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -170,16 +174,18 @@ void Game::run( )
 			//this is a good location to add pigeon in linked list.
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
-				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets);
+				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
 			}
 		}
 
-
+		std::cout<<"Issue here";
 		SDL_RenderClear(gRenderer); //removes everything from renderer
+		std::cout<<"Issue resolved";
 		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
 		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
+		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
 
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
@@ -188,4 +194,21 @@ void Game::run( )
 		frames_elapsed++;
 		std::cout<<frames_elapsed<<std::endl;
 	}
+	
 }
+void Game::DumpGarbage(GameObject* gameObject)
+{
+	vector<GameObject* >& temp = RenderingMG::getInstance()->myObjs;
+	for (int i =0; i<temp.size(); i++)
+	{
+		if (temp[i] == gameObject)
+        {
+			std::cout<<"......NULLIFIEDDDDD....";
+            temp[i] = nullptr;
+            break;  // No need to continue searching
+        }
+	}
+	CollisionMG::getInstance()->RemoveGameObject(gameObject);
+}
+	
+		

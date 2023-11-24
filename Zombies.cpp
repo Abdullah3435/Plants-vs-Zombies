@@ -4,7 +4,12 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y){}
 
 void SimpleZombie::Update() {
     GameObject::Update();
-    Move();
+    
+    if(utilities.Delay(10))
+    {
+        Move();
+    }
+    
 }
 
 void SimpleZombie::Move() const {
@@ -32,7 +37,12 @@ void SimpleZombie::Attack() const {
     // Implementation for attacking
 }
 
-DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) {}
+DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y){}
+
+void DefensiveZombie::Update(){
+    GameObject::Update();
+    Move();
+}
 
 void DefensiveZombie::Move() const {
     transform->translate(-1 * movementspeed);
@@ -49,7 +59,16 @@ void DefensiveZombie::getDamage(int dmg) {
 }
 
 Zombie* DefensiveZombie::Clone(int x , int y) {
-    return new DefensiveZombie(*this);
+    Game* game = Game::getInstance();
+    DefensiveZombie* sz = new DefensiveZombie(*this);
+    sz->sprite = new Sprite(*this->sprite);
+    sz->transform = new Transform (*this->transform);
+    RenderingMG::getInstance()->myObjs.push_back(sz);
+    sz->transform->x = x;
+    CollisionMG::getInstance()->AddZombie(sz);
+    sz->transform->y = y;
+    return sz;
+    
 }
 
 void DefensiveZombie::Attack() const {
@@ -86,6 +105,11 @@ void SuperZombie::Move() const {
     // Implementation for moving
 }
 
+void SuperZombie::Update()
+{
+    GameObject::Update();
+    Move();
+}
 void SuperZombie::Defend(int healthboost) {
     // Implementation for defending
     health += healthboost;
@@ -100,7 +124,15 @@ void SuperZombie::getDamage(int dmg) {
 }
 
 Zombie* SuperZombie::Clone(int x , int y) {
-    return new SuperZombie(*this);
+    Game* game = Game::getInstance();
+    SuperZombie* sz = new SuperZombie(*this);
+    sz->sprite = new Sprite(*this->sprite);
+    sz->transform = new Transform (*this->transform);
+    RenderingMG::getInstance()->myObjs.push_back(sz);
+    sz->transform->x = x;
+    CollisionMG::getInstance()->AddZombie(sz);
+    sz->transform->y = y;
+    return sz;
 }
 
 void SuperZombie::Attack() const {

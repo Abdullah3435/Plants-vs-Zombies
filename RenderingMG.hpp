@@ -22,7 +22,7 @@ public:
   vector<GameObject*>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
-  void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets);
+  void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets, Grid& myGrid);
   void AddObjectforRendering(GameObject* obj);
 
 };
@@ -35,13 +35,14 @@ private:
 
     // Static instance of the class
     static CollisionMG* instance;
-
+    
+public:
     // Private member variables
     std::vector<GameObject*> Plants;
     std::vector<GameObject*> Projectiles;
     std::vector<GameObject*> Zombies;
 
-public:
+
     // Public methods
     static CollisionMG* getInstance();
 
@@ -53,4 +54,7 @@ public:
     void Zombiewithprojectile();
     void PlantwithZombie();
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
+    void RemoveGameObject(GameObject* gameObject);
+    
 };
+
