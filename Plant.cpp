@@ -11,6 +11,17 @@ Projectile::~Projectile() {
     // Destructor implementation (if needed)
 }
 
+void Projectile::movement()
+{
+    transform->translate(1*speed);
+}
+
+void Projectile::Update()
+{
+    GameObject::Update();
+    movement();
+}
+
 // Plant.cpp
 #include "Plant.hpp"
 
@@ -20,12 +31,17 @@ Plant::Plant(int x, int y) : GameObject(x, y), hp(100) {
 
 void Plant::shoot() {
     Projectile* proh = new Projectile(transform->x,transform->y,100);
+    proh->speed = 2;
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
 void Plant::Update()
 {
     GameObject::Update();
+    if(utilities.Delay(5))
+    {
+        shoot();
+    }
 }
 
 // You need to include the necessary headers and provide the implementation for Zombie,
