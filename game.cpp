@@ -19,6 +19,8 @@ bool Game::init()
 	//Initialization flag
 	bool success = true;
 	mygrid  = new Grid (800,600,5,8,200,100);
+	PlantMg_script = new PlantManager();
+	RenderingMG::getInstance()->PMscript = PlantMg_script; // injecting dependency (Sasta Dependency injetion) not at all a good programming practice just testing
 
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -35,7 +37,7 @@ bool Game::init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "HU Mania", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		gWindow = SDL_CreateWindow( "Plants vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -65,6 +67,10 @@ bool Game::init()
 			}
 		}
 	}
+	if (TTF_Init() == -1) {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "TTF initialization failed: %s", TTF_GetError());
+        return false;
+    }
 
 	return success;
 }
@@ -176,6 +182,11 @@ void Game::run( )
 				SDL_GetMouseState(&xMouse,&yMouse);
 				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
 			}
+
+			if (e.type == SDL_KEYDOWN)
+			{
+				handleKeyboardInput(e.key.keysym);
+			}
 		}
 
 		std::cout<<"Issue here";
@@ -211,4 +222,44 @@ void Game::DumpGarbage(GameObject* gameObject)
 	CollisionMG::getInstance()->RemoveGameObject(gameObject);
 }
 	
-		
+void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
+	std::cout<<"keyboard working" ;
+    switch (keysym.sym) {
+        case SDLK_1:
+            // Handle input for the '1' key
+			std::cout<<"1 pressed";//for testing
+			PlantMg_script->selectedindex = 0;
+            break;
+        case SDLK_2:
+            // Handle input for the '2' key
+			PlantMg_script->selectedindex = 1;
+            break;
+        case SDLK_3:
+            // Handle input for the '3' key
+			PlantMg_script->selectedindex = 2;
+            break;
+        case SDLK_4:
+            // Handle input for the '4' key
+			PlantMg_script->selectedindex = 3;
+            break;
+        case SDLK_5:
+            // Handle input for the '5' key
+            break;
+        case SDLK_6:
+            // Handle input for the '6' key
+            break;
+        case SDLK_7:
+            // Handle input for the '7' key
+            break;
+        case SDLK_8:
+            // Handle input for the '8' key
+            break;
+        case SDLK_9:
+            // Handle input for the '9' key
+            break;
+        // Add more cases as needed
+        default:
+            // Handle any other keys
+            break;
+    }
+}

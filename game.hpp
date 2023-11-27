@@ -11,6 +11,8 @@
 #include "RenderingMG.hpp"
 #include "SpawnMG.hpp"
 #include <vector>
+#include <SDL_ttf.h>
+#include "PlantMG.hpp"
 
 class Game {
 private:
@@ -20,6 +22,7 @@ private:
     SDL_Window* gWindow = nullptr;
     SDL_Texture* gTexture = nullptr;
     Grid* mygrid;
+    PlantManager* PlantMg_script;
 
     Game();  // Private constructor for singleton pattern
 
@@ -33,7 +36,7 @@ public:
     SDL_Texture* loadTexture(std::string path);
     void run();
     void DumpGarbage(GameObject* gameobject);
-    
+    void handleKeyboardInput(const SDL_Keysym& keysym);
 
 private:
     static Game* instance;  // Singleton instance

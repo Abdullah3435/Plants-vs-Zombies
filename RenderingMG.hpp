@@ -4,6 +4,7 @@
 #include "GameObject.hpp"
 #include <iostream>
 #include "TextureMG.cpp"
+#include "PlantMG.hpp"
 #include <vector>
 
 class RenderingMG {
@@ -11,6 +12,7 @@ private:
   static RenderingMG* instance;
   SDL_Renderer* renderer;
   Textures* assets;
+  
 
 
   RenderingMG();
@@ -19,6 +21,7 @@ private:
   
 
 public:
+  PlantManager* PMscript;// injectable dependency for planting commands (a bit risky could possibly lead to issues just make sure that the memory is not initialized or deleted randomly)
   vector<GameObject*>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);

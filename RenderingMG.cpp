@@ -11,9 +11,7 @@ void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
     if(myObjs[i])
     {
-       std::cout<<std::endl<<"most prolly here"; 
        myObjs[i]->Update();}
-       std::cout<<std::endl<<"No not here"; 
     }
 }
 
@@ -51,15 +49,16 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer, Textures *a
         // Check if the block at the calculated grid index is occupied
         if (!myGrid.isOccupied(gridX, gridY)) {
             // If not occupied, create the object
-            GameObject* myobj = new GameObject(gridX, gridY);
-            myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
-            //myobj.StartAnimation();
-            myObjs.push_back(myobj);
+            // GameObject* myobj = new GameObject(gridX, gridY);
+            // myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
+            // //myobj.StartAnimation();
+            // myObjs.push_back(myobj);
+            PMscript->createPlant(PMscript->selectedindex,gridX, gridY);
 
             // Mark the block as occupied in the grid
             myGrid.occupyBlock(gridX, gridY);
 
-            CollisionMG::getInstance()->AddPlant(myobj);
+            //CollisionMG::getInstance()->AddPlant(myobj);
         } else {
             // Handle case where the block is already occupied (optional)
             std::cout << "Block at (" << gridX << ", " << gridY << ") is already occupied." << std::endl;
@@ -145,8 +144,6 @@ bool CollisionMG::isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
-
-
 
 //=============================================GarbageCollection==================================================
 

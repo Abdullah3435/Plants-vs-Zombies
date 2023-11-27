@@ -25,7 +25,7 @@ void Projectile::Update()
 // Plant.cpp
 #include "Plant.hpp"
 
-Plant::Plant(int x, int y) : GameObject(x, y), hp(100) {
+Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp) {
     // Initialization of Plant class members
 }
 
