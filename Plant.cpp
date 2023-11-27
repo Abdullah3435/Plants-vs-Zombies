@@ -2,6 +2,25 @@
 //Projectile::Projectile(int x, int y, int damage) : GameObject(x, y), Damage(damage) {
     // Damage = 100;  // No need for this line; damage is initialized in the member initializer list
 //}
+void Seed::OnClick()
+{
+    //plantmg->selectedindex = SeedIndex;
+}
+
+bool Seed::CheckClick(int x, int y)
+{
+    SDL_Rect* rect = transform->ToScreenPosition();
+    if (x < rect->x ||                   // Point is to the left of the rect
+        x >= rect->x + rect->w ||         // Point is to the right of the rect
+        y < rect->y ||                   // Point is above the rect
+        y >= rect->y + rect->h)           // Point is below the rect
+    {
+        return false;
+    }
+
+    // If none of the above conditions are met, there is an overlap
+    return true;
+}
 
 void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);

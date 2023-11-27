@@ -18,3 +18,5 @@ public:
 
     void render(SDL_Rect &targetpoint);
 };
+
+

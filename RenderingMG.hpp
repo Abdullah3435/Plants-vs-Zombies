@@ -7,6 +7,7 @@
 #include "PlantMG.hpp"
 #include <vector>
 
+class Clickable;
 class RenderingMG {
 private:
   static RenderingMG* instance;
@@ -44,8 +45,8 @@ public:
     std::vector<GameObject*> Plants;
     std::vector<GameObject*> Projectiles;
     std::vector<GameObject*> Zombies;
-
-
+    std::vector<Clickable*>Collectibles;
+    
     // Public methods
     static CollisionMG* getInstance();
 
@@ -58,6 +59,16 @@ public:
     void PlantwithZombie();
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
     void RemoveGameObject(GameObject* gameObject);
+    void CheckClicks(int x, int y);
     
 };
 
+
+//-------------------------------Clickable-------------------------------
+class Clickable
+{
+  public:
+  virtual void OnClick() = 0;
+  virtual bool CheckClick(int x, int y);
+  Clickable();
+};

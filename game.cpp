@@ -189,9 +189,9 @@ void Game::run( )
 			}
 		}
 
-		std::cout<<"Issue here";
+
 		SDL_RenderClear(gRenderer); //removes everything from renderer
-		std::cout<<"Issue resolved";
+
 		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
@@ -240,7 +240,7 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
             break;
         case SDLK_4:
             // Handle input for the '4' key
-			PlantMg_script->selectedindex = 3;
+			PlantMg_script->selectedindex = 8;
             break;
         case SDLK_5:
             // Handle input for the '5' key

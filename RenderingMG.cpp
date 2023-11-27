@@ -104,6 +104,8 @@ void CollisionMG::CollisionEventLoop()
         }
     }
 
+    
+
     for (int z = 0; z < Zombies.size(); z++) 
     {
        for (int p = 0; p < Projectiles.size(); p++) 
@@ -116,6 +118,16 @@ void CollisionMG::CollisionEventLoop()
                 //Implement Zombie and plant Logic here
             }
             }
+        }
+    }
+}
+void CollisionMG::CheckClicks(int x, int y)
+{
+    for (int i =0 ; i < Collectibles.size();i++)
+    {
+        if(Collectibles[i]->CheckClick(x,y))
+        {
+            Collectibles[i]->OnClick();
         }
     }
 }
@@ -178,4 +190,9 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
             break;  // No need to continue searching
         }
     }
+}
+
+Clickable::Clickable()
+{
+    CollisionMG::getInstance()->Collectibles.push_back(this);
 }
