@@ -1,4 +1,5 @@
 #include "Plant.hpp"
+#include "game.hpp"
 //Projectile::Projectile(int x, int y, int damage) : GameObject(x, y), Damage(damage) {
     // Damage = 100;  // No need for this line; damage is initialized in the member initializer list
 //}
@@ -50,14 +51,17 @@ Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp) {
 
 void Plant::shoot() {
     Projectile* proh = new Projectile(transform->x,transform->y,100);
-    proh->speed = 2;
+    CollisionMG::getInstance()->AddProjectile(proh);
+    proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
+    RenderingMG::getInstance()->AddObjectforRendering(proh);
+    proh->speed = 10;
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
 void Plant::Update()
 {
     GameObject::Update();
-    if(utilities.Delay(5))
+    if(utilities.Delay(30))
     {
         shoot();
     }
