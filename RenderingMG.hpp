@@ -69,6 +69,6 @@ class Clickable
 {
   public:
   virtual void OnClick() = 0;
-  virtual bool CheckClick(int x, int y);
+  virtual bool CheckClick(int x, int y)=0;
   Clickable();
 };

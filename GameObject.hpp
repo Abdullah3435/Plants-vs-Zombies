@@ -31,5 +31,4 @@ public:
     void render();
 
     ~GameObject();
-
 };

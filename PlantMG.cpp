@@ -1,6 +1,8 @@
 #include "PlantMG.hpp"
 #include "RenderingMG.hpp"
 #include "game.hpp"
+#include "Plant.hpp"
+
 void PlantManager::Peashooter(int x,int y)
 {
     Plant* plant = new Plant(x,y,100);

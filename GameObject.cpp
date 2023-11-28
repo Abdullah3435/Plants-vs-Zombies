@@ -2,6 +2,7 @@
 #include "GameObject.hpp"
 #include <iostream>
 #include <thread>
+#include <algorithm>
 
 GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
@@ -70,3 +71,5 @@ GameObject::~GameObject()
     delete transform;
     delete sprite;
 }
+
+
