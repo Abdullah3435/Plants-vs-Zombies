@@ -11,6 +11,6 @@ class SeedMG
     int currentSeed;
 
     public:
-    SeedMG(): currentSeed(-1){}
+    SeedMG();
 
 };
