@@ -22,7 +22,7 @@ void GameObject::Update()
 }
 void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col)
 {
-    printf("sprite is set");
+    //printf("sprite is set");
     sprite =  new Sprite(tex , SDL_Rect{ 0, 0, TexWidth/_col, TexHeight/_rows},sourcerenderer);
 
     sprite->rows = _rows;

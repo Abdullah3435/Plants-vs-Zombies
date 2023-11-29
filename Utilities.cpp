@@ -4,6 +4,7 @@ bool Utilities::Delay(int delay)
 {
     static int framedelay = 0;
     framedelay ++;
+    std::cout<<"the delay is: "<<framedelay<<std::endl;
     if (framedelay > delay)
     {
       framedelay=0;
@@ -12,6 +13,19 @@ bool Utilities::Delay(int delay)
     return false;
   }
 
+// bool Utilities::Delay(int milliseconds) {
+//     static auto lastTime = std::chrono::high_resolution_clock::now();
+
+//     auto currentTime = std::chrono::high_resolution_clock::now();
+//     auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+
+//     if (deltaTime >= milliseconds) {
+//         lastTime = currentTime;
+//         return true;
+//     }
+
+//     return false;
+// }
 
   //----------------------------------GRID------------------------------------
 

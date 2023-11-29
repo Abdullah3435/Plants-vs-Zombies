@@ -30,5 +30,5 @@ public:
     virtual void Update();
     void render();
 
-    ~GameObject();
+    virtual ~GameObject();
 };

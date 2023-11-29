@@ -99,6 +99,15 @@ bool Game::loadMedia()
 
 void Game::close()
 {
+	vector<GameObject*> tempobjs = RenderingMG::getInstance()->myObjs;
+	for (int i =0;i<tempobjs.size();i++)
+	{
+		if(tempobjs[i])
+		{
+			DumpGarbage(tempobjs[i]);
+			delete tempobjs[i];
+		}
+	}
 	//Free loaded images
 	SDL_DestroyTexture(assets.plant_tex);
 	SDL_DestroyTexture(assets.simple_zombie_walk);
@@ -149,6 +158,7 @@ SDL_Texture* Game::loadTexture( std::string path )
 }
 void Game::run( )
 {
+	
 	bool quit = false;
 	SDL_Event e;
 
@@ -156,6 +166,7 @@ void Game::run( )
 
 	while( !quit )
 	{
+		std::cout<<"Frame Start\n";
 		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
 			frames_elapsed = 0;
@@ -205,7 +216,8 @@ void Game::run( )
 
 	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
 		frames_elapsed++;
-		std::cout<<frames_elapsed<<std::endl;
+		//std::cout<<frames_elapsed<<std::endl;
+		std::cout<<"Frame End\n";
 	}
 	
 }

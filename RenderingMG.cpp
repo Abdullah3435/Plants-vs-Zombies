@@ -1,6 +1,6 @@
 #include "RenderingMG.hpp"
 #include "game.hpp"
-
+#include "Plant.hpp"
 using namespace std;
 
 static int state = 0;
@@ -112,9 +112,12 @@ void CollisionMG::CollisionEventLoop()
         {
             if(Zombies[z]&&Projectiles[p])
             {
-            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[z]->transform->ToScreenPosition()))
+            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Projectiles[p]->transform->ToScreenPosition()))
             {
                 std::cout<<"Collision Occured Here zombie and projectile";
+                Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
+                Projectile* currentproj = dynamic_cast<Projectile*>(Projectiles[p]);
+                currentproj->giveDamage(currentzomb);
                 //Implement Zombie and plant Logic here
             }
             }

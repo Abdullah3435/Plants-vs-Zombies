@@ -9,7 +9,11 @@ void SimpleZombie::Update() {
     {
         Move();
     }
-    
+    if (health<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
 }
 
 void SimpleZombie::Move() const {
@@ -42,6 +46,11 @@ DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protecte
 void DefensiveZombie::Update(){
     GameObject::Update();
     Move();
+    if (health<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
 }
 
 void DefensiveZombie::Move() const {
@@ -109,6 +118,11 @@ void SuperZombie::Update()
 {
     GameObject::Update();
     Move();
+    if (health<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
 }
 void SuperZombie::Defend(int healthboost) {
     // Implementation for defending
@@ -138,3 +152,11 @@ Zombie* SuperZombie::Clone(int x , int y) {
 void SuperZombie::Attack() const {
     // Implementation for attacking
 }
+
+SimpleZombie::~SimpleZombie(){};
+SuperZombie::~SuperZombie(){};
+UtilityZombie::~UtilityZombie(){};
+DefensiveZombie::~DefensiveZombie(){};
+
+
+

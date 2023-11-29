@@ -25,6 +25,8 @@ bool Seed::CheckClick(int x, int y)
 
 void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
+    Game::getInstance()->DumpGarbage(this);
+    delete this;
 }
 
 Projectile::~Projectile() {
@@ -40,6 +42,12 @@ void Projectile::Update()
 {
     GameObject::Update();
     movement();
+
+    if(utilities.Delay(1500))
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
 }
 
 // Plant.cpp
@@ -55,16 +63,23 @@ void Plant::shoot() {
     proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
     RenderingMG::getInstance()->AddObjectforRendering(proh);
     proh->speed = 10;
+    proh->transform->x_sc =0.5;
+    proh->transform->y_sc =0.5;
+    //std::cout<<"Projectile created right";
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
 void Plant::Update()
 {
+    std::cout<<"Ensure This is called once bw frame";
     GameObject::Update();
-    if(utilities.Delay(30))
+    std::cout<< "THIS IS THE TARGET DELAY\n";
+    if(utilities.Delay(100))
     {
         shoot();
+        //std::cout<<"SHOOOTED PROJ";
     }
+    std::cout<< "TARGET DELAY END\n";
 }
 
 // You need to include the necessary headers and provide the implementation for Zombie,
