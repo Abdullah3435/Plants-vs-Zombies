@@ -33,3 +33,24 @@ public:
     ~GameObject();
 
 };
+
+
+//----------------------------------Object States----------------------------------------
+
+class ObjectStates {
+private:
+    std::vector<std::string> states;
+    std::string currentState;
+
+public:
+    // Parameterized constructor
+    ObjectStates();
+
+    // Other member functions...
+
+    void AddState(const std::string& state);
+    void RemoveState(const std::string& state);
+    void TransitToState(const std::string& newState);
+    const std::string& GetCurrentState() const;
+    void DisplayStates() const;
+};

@@ -2,6 +2,7 @@
 #include "GameObject.hpp"
 #include <iostream>
 #include <thread>
+#include <algorithm>
 
 GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
@@ -69,4 +70,47 @@ GameObject::~GameObject()
 {
     delete transform;
     delete sprite;
+}
+
+//-----------------------Object states---------------------
+
+//------------------------STATES----------------------------
+
+// Non-parameter constructor
+ObjectStates::ObjectStates() {
+    // Add "idle" state by default
+    AddState("idle");
+    // Set the current state to "idle"
+    TransitToState("idle");
+}
+
+void ObjectStates::AddState(const std::string& state) {
+    states.push_back(state);
+}
+
+void ObjectStates::RemoveState(const std::string& state) {
+    auto it = std::find(states.begin(), states.end(), state);
+    if (it != states.end()) {
+        states.erase(it);
+    }
+}
+
+void ObjectStates::TransitToState(const std::string& newState) {
+    if (std::find(states.begin(), states.end(), newState) != states.end()) {
+        currentState = newState;
+    } else {
+        std::cout << "State '" << newState << "' does not exist." << std::endl;
+    }
+}
+
+const std::string& ObjectStates::GetCurrentState() const {
+    return currentState;
+}
+
+void ObjectStates::DisplayStates() const {
+    std::cout << "Available States: ";
+    for (const auto& state : states) {
+        std::cout << state << " ";
+    }
+    std::cout << std::endl;
 }
