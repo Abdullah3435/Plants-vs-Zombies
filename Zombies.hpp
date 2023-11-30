@@ -14,6 +14,7 @@ public:
     Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
+    ~SimpleZombie();
 };
 
 class DefensiveZombie : public ZombieTemplate<Simple, Protected> {
@@ -31,6 +32,8 @@ public:
     Zombie* Clone(int x , int y) override;
     
     void Attack() const override;
+
+    ~DefensiveZombie();
 };
 
 class UtilityZombie : public ZombieTemplate<Simple, Utility> {
@@ -46,6 +49,7 @@ public:
     Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
+    ~UtilityZombie();
 };
 
 class SuperZombie : public ZombieTemplate<Simple, Protected, Utility> {
@@ -65,4 +69,6 @@ public:
     Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
+
+    ~SuperZombie();
 };

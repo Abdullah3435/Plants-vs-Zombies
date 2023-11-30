@@ -1,5 +1,4 @@
 #pragma once;
-#include "Plant.hpp"
 
 class Seed;
 
@@ -8,19 +7,14 @@ class PlantManager
     private :
     Seed* plants[5];
     Seed* selectedplant;
-    void Peashooter();
-    void Sunflower();
-    void WallNut();
-    void PotatoMine();
-    void CherryBomb();
+    void Peashooter(int x, int y);
+    void Sunflower(int x , int y);
+    void WallNut(int x, int y);
+    void PotatoMine(int x, int y);
+    void CherryBomb(int x, int y);
 
     public:
+    int selectedindex;
     void SelectPlant();
-    void createPlant();
-
-
-    
-
-
-
+    void createPlant(int i,int x, int y);
 };

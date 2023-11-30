@@ -5,6 +5,9 @@
 
 class Utilities
 {
+    
+    private:
+    int SelfCount; 
   public:
   bool Delay(int delay);
   

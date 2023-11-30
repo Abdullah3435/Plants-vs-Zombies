@@ -1,6 +1,6 @@
 #include "RenderingMG.hpp"
 #include "game.hpp"
-
+#include "Plant.hpp"
 using namespace std;
 
 static int state = 0;
@@ -11,9 +11,7 @@ void RenderingMG::drawObjects(SDL_Renderer* gRenderer, Textures* assets) {
     for (int i = 0; i < myObjs.size(); i++) {
     if(myObjs[i])
     {
-       std::cout<<std::endl<<"most prolly here"; 
        myObjs[i]->Update();}
-       std::cout<<std::endl<<"No not here"; 
     }
 }
 
@@ -51,15 +49,16 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer, Textures *a
         // Check if the block at the calculated grid index is occupied
         if (!myGrid.isOccupied(gridX, gridY)) {
             // If not occupied, create the object
-            GameObject* myobj = new GameObject(gridX, gridY);
-            myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
-            //myobj.StartAnimation();
-            myObjs.push_back(myobj);
+            // GameObject* myobj = new GameObject(gridX, gridY);
+            // myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
+            // //myobj.StartAnimation();
+            // myObjs.push_back(myobj);
+            PMscript->createPlant(PMscript->selectedindex,gridX, gridY);
 
             // Mark the block as occupied in the grid
             myGrid.occupyBlock(gridX, gridY);
 
-            CollisionMG::getInstance()->AddPlant(myobj);
+            //CollisionMG::getInstance()->AddPlant(myobj);
         } else {
             // Handle case where the block is already occupied (optional)
             std::cout << "Block at (" << gridX << ", " << gridY << ") is already occupied." << std::endl;
@@ -105,18 +104,33 @@ void CollisionMG::CollisionEventLoop()
         }
     }
 
+    
+
     for (int z = 0; z < Zombies.size(); z++) 
     {
        for (int p = 0; p < Projectiles.size(); p++) 
         {
             if(Zombies[z]&&Projectiles[p])
             {
-            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[z]->transform->ToScreenPosition()))
+            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Projectiles[p]->transform->ToScreenPosition()))
             {
                 std::cout<<"Collision Occured Here zombie and projectile";
+                Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
+                Projectile* currentproj = dynamic_cast<Projectile*>(Projectiles[p]);
+                currentproj->giveDamage(currentzomb);
                 //Implement Zombie and plant Logic here
             }
             }
+        }
+    }
+}
+void CollisionMG::CheckClicks(int x, int y)
+{
+    for (int i =0 ; i < Collectibles.size();i++)
+    {
+        if(Collectibles[i]->CheckClick(x,y))
+        {
+            Collectibles[i]->OnClick();
         }
     }
 }
@@ -145,8 +159,6 @@ bool CollisionMG::isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
-
-
 
 //=============================================GarbageCollection==================================================
 
@@ -181,4 +193,9 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
             break;  // No need to continue searching
         }
     }
+}
+
+Clickable::Clickable()
+{
+    CollisionMG::getInstance()->Collectibles.push_back(this);
 }

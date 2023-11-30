@@ -10,6 +10,7 @@ struct Texturepaths
     string SimpleZombieDie = "Zombie Sprite Sheets/SimpleDie.png";
     string ConeHead = "Zombie Sprite Sheets/Conehead/conehead.png";
     string FlagZombie="Zombie Sprite Sheets/Flag/flagzombie.png";
+    string Pea =  "Plant Sprite Sheets/Projectiles/Pea.png";
 };
 
 class Textures
@@ -21,6 +22,7 @@ class Textures
         SDL_Texture* simple_zombie_die;
         SDL_Texture* conehead_walk;
         SDL_Texture* flagzombie_walk;
+        SDL_Texture* Pea;
         
 
     Textures():plant_tex(nullptr), simple_zombie_walk(nullptr){}

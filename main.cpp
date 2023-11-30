@@ -13,7 +13,9 @@ int main(int argc, char *argv[]){
         return 0;
     }
 
+
     Game::getInstance()->run();
     Game::getInstance()->close();
+
     return 0;
 }  

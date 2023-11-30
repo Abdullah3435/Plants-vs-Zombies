@@ -4,13 +4,16 @@
 #include "GameObject.hpp"
 #include <iostream>
 #include "TextureMG.cpp"
+#include "PlantMG.hpp"
 #include <vector>
 
+class Clickable;
 class RenderingMG {
 private:
   static RenderingMG* instance;
   SDL_Renderer* renderer;
   Textures* assets;
+  
 
 
   RenderingMG();
@@ -19,6 +22,7 @@ private:
   
 
 public:
+  PlantManager* PMscript;// injectable dependency for planting commands (a bit risky could possibly lead to issues just make sure that the memory is not initialized or deleted randomly)
   vector<GameObject*>myObjs;
   static RenderingMG* getInstance();
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
@@ -41,8 +45,8 @@ public:
     std::vector<GameObject*> Plants;
     std::vector<GameObject*> Projectiles;
     std::vector<GameObject*> Zombies;
-
-
+    std::vector<Clickable*>Collectibles;
+    
     // Public methods
     static CollisionMG* getInstance();
 
@@ -55,6 +59,16 @@ public:
     void PlantwithZombie();
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
     void RemoveGameObject(GameObject* gameObject);
+    void CheckClicks(int x, int y);
     
 };
 
+
+//-------------------------------Clickable-------------------------------
+class Clickable
+{
+  public:
+  virtual void OnClick() = 0;
+  virtual bool CheckClick(int x, int y)=0;
+  Clickable();
+};
