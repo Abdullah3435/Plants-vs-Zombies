@@ -1,58 +1,60 @@
 #pragma once
 #include "Animation.hpp"
-#include<iostream>
+#include <iostream>
 #include <future>
 #include <chrono>
-Animation::Animation(Sprite* _sprite, int totalFrames, int speed,int _startframe ,int _endframe)
-    : sprite(_sprite), totalFrames(totalFrames), currentFrame(0),
-    animationSpeed(speed), lastFrameChangeTime(0) {
-    startframe = _startframe;endframe = totalFrames-1;
-
-
+#include "game.hpp"
+Animation::Animation(Sprite* _sprite, int _startframe ,int _endframe,SDL_Texture* selftex)
+    : sprite(_sprite), currentFrame(0), lastFrameChangeTime(0) 
+{
+    startframe = _startframe;endframe = _endframe;
+    Selftex = selftex;
 }
 
 Animation::~Animation() {
-    SDL_DestroyTexture(sprite->texture);
+    
 }
 
 void Animation::ResetFrame() {
-    SDL_Rect unit;
+    SDL_Rect* unit = new SDL_Rect();
     printf("resettiing frame\n");
-    unit.x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
-    unit.y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
-    unit.w = sprite->Texturewidth/sprite->cols;
-    unit.h = sprite->Textureheight/sprite->rows;
-
-    std::cout<<"SDL Rext "<<unit.x<<","<<unit.y<<","<<unit.w<<","<<unit.h<<std::endl;
-    sprite->targetTexture = unit;
-
+    unit->x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
+    unit->y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
+    unit->w = sprite->Texturewidth/sprite->cols;
+    unit->h = sprite->Textureheight/sprite->rows;
+    sprite->targetTexture = *unit;
+    std::cout<<"SDL Rext "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
     
 }
 
 void Animation::PlayAnimation() {
     Playanim = true;
-    while(Playanim)
+    if(Selftex)
     {
-        ResetFrame();
-        printf("Animation Playing with current frame:");
-        
-        // std::future<void> result = std::async(std::launch::async, delayedFunction);
-        // result.get(); // Wait for the async operation to complete
-        std::this_thread::sleep_for(std::chrono::seconds(animationSpeed/(endframe-startframe)));
-
+        sprite->texture = Selftex;
+        sprite->rows = (endframe/5)+1;
+        sprite->cols = 5;
+    }
+    ResetFrame();
+    printf("Animation Playing with current frame:");
     
-
-        if (currentFrame<endframe)
-        {
-            currentFrame++;
-            
-        }
-        else
-        {
-        currentFrame = startframe;
-        }
+    // std::future<void> result = std::async(std::launch::async, delayedFunction);
+    // result.get(); // Wait for the async operation to complete
+    // std::this_thread::sleep_for(std::chrono::seconds(animationSpeed/(endframe-startframe)));
+    if (currentFrame<endframe)
+    {
+        currentFrame++;
+    }
+    else
+    {
+    currentFrame = startframe;
     }
     
+    
+}
+void Animation::InitializeSprite(Sprite* _sprite)
+{
+    sprite = _sprite;
 }
 
 void delayedFunction() {

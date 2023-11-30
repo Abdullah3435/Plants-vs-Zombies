@@ -1,11 +1,16 @@
 #include "Zombies.hpp"  // Include the header file that declares all the classes
 #include "game.hpp"
-SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y){}
+SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
+                                            Walkanim(sprite,0,64,Game::getInstance()->assets.simple_zombie_walk),
+                                            Deathanim(sprite,0,34,Game::getInstance()->assets.simple_zombie_die),
+                                            Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat){}
 
 void SimpleZombie::Update() {
+
+    PlayAnim();
     GameObject::Update();
     
-    if(utilities.Delay(10))
+    if(utilities.Delay(1))
     {
         Move();
     }
@@ -14,6 +19,23 @@ void SimpleZombie::Update() {
         Game::getInstance()->DumpGarbage(this);
         delete this;
     }
+
+}
+
+void SimpleZombie::PlayAnim()
+{
+    if(true) //state based conditions check what is the state here
+    {
+        Walkanim.PlayAnimation();
+    }
+    // else if(true)
+    // {
+    //     Eatanim.PlayAnimation();
+    // }
+    // else if(true)
+    // {
+    //     Deathanim.PlayAnimation();
+    // }
 }
 
 void SimpleZombie::Move() const {
@@ -33,7 +55,10 @@ Zombie* SimpleZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-    std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+    sz->Deathanim.InitializeSprite(sz->sprite);
+    sz->Eatanim.InitializeSprite(sz->sprite);
+    sz->Walkanim.InitializeSprite(sz->sprite);
+    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
 }
@@ -76,7 +101,7 @@ Zombie* DefensiveZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-        std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
     
@@ -147,7 +172,7 @@ Zombie* SuperZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-        std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
 }

@@ -27,7 +27,8 @@ void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
     Game::getInstance()->DumpGarbage(this);
     delete this;
-    std::cout<<"This Was Called";
+    std::cout<<"Damage given\n";
+    std::cout<<"new health is : "<<zombie->health<<std::endl;
 }
 
 Projectile::~Projectile() {
@@ -63,9 +64,9 @@ void Plant::shoot() {
     CollisionMG::getInstance()->AddProjectile(proh);
     proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
     RenderingMG::getInstance()->AddObjectforRendering(proh);
-    proh->speed = 10;
-    proh->transform->x_sc =0.5;
-    proh->transform->y_sc =0.5;
+    proh->speed = 20; //set shoot speed
+    proh->transform->x_sc =0.28;
+    proh->transform->y_sc =0.28;
     //std::cout<<"Projectile created right";
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
@@ -75,7 +76,7 @@ void Plant::Update()
 
     GameObject::Update();
 
-    if(utilities.Delay(10))
+    if(utilities.Delay(50))
     {
         shoot();
         //std::cout<<"SHOOOTED PROJ";

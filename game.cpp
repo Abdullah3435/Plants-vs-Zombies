@@ -114,7 +114,6 @@ void Game::close()
 	SDL_DestroyTexture(assets.simple_zombie_eat);
 	SDL_DestroyTexture(assets.simple_zombie_die);
 
-
 	assets.plant_tex=NULL;
 	assets.simple_zombie_walk=NULL;
 
@@ -156,7 +155,7 @@ SDL_Texture* Game::loadTexture( std::string path )
 
 	return newTexture;
 }
-void Game::run( )
+void Game::run()
 {
 	
 	bool quit = false;
@@ -166,7 +165,7 @@ void Game::run( )
 
 	while( !quit )
 	{
-		std::cout<<"Frame Start\n";
+
 		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
 			frames_elapsed = 0;
@@ -217,7 +216,7 @@ void Game::run( )
 	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
 		frames_elapsed++;
 		//std::cout<<frames_elapsed<<std::endl;
-		std::cout<<"Frame End\n";
+
 	}
 	
 }
@@ -228,7 +227,7 @@ void Game::DumpGarbage(GameObject* gameObject)
 	{
 		if (temp[i] == gameObject)
         {
-			std::cout<<"......NULLIFIEDDDDD....";
+			//std::cout<<"......NULLIFIEDDDDD....";
             temp[i] = nullptr;
             break;  // No need to continue searching
         }

@@ -1,10 +1,11 @@
 #pragma once
-
+#include <iostream>
 #include "GameObject.hpp"
 
 
 class Zombie {
 public:
+    std::string State;
     int movementspeed;
     int health, damage;
     virtual void Move() const = 0;
@@ -13,6 +14,7 @@ public:
     virtual void getDamage(int dmg) = 0;
 
     Zombie();
+    void UpdateState(std::string state);
 };
 
 class Simple : public virtual Zombie {

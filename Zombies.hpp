@@ -1,8 +1,15 @@
 #pragma once
 #include "ZombieTemplate.hpp"
 #include "RenderingMG.hpp"
+#include "Animation.hpp"
 class SimpleZombie : public ZombieTemplate<Simple> {
+private:
+    
+
 public:
+Animation Walkanim;
+    Animation Eatanim;
+    Animation Deathanim;
     SimpleZombie(int x, int y);
 
     void Update() override;
@@ -14,6 +21,7 @@ public:
     Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
+    void PlayAnim();
     ~SimpleZombie();
 };
 
