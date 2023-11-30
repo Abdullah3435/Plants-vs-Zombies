@@ -27,6 +27,7 @@ void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
     Game::getInstance()->DumpGarbage(this);
     delete this;
+    std::cout<<"This Was Called";
 }
 
 Projectile::~Projectile() {
@@ -71,15 +72,15 @@ void Plant::shoot() {
 }
 void Plant::Update()
 {
-    std::cout<<"Ensure This is called once bw frame";
+
     GameObject::Update();
-    std::cout<< "THIS IS THE TARGET DELAY\n";
-    if(utilities.Delay(100))
+
+    if(utilities.Delay(10))
     {
         shoot();
         //std::cout<<"SHOOOTED PROJ";
     }
-    std::cout<< "TARGET DELAY END\n";
+
 }
 
 // You need to include the necessary headers and provide the implementation for Zombie,

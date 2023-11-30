@@ -33,6 +33,7 @@ Zombie* SimpleZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
+    std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
 }
@@ -75,6 +76,7 @@ Zombie* DefensiveZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
+        std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
     
@@ -145,6 +147,7 @@ Zombie* SuperZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
+        std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
 }
