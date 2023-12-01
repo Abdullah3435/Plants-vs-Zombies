@@ -24,8 +24,9 @@ public:
 
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath, SDL_Texture* newtex);
     void ResetFrame();
-    void PlayAnimation();
-    void InitializeSprite(Sprite*);
+    void PlayAnimation(Sprite* parentSprite);
+    void InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col);
+    
     
     
 };

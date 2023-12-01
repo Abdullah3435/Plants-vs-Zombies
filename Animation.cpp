@@ -27,13 +27,11 @@ void Animation::ResetFrame() {
     
 }
 
-void Animation::PlayAnimation() {
+void Animation::PlayAnimation(Sprite* parentSprite) {
     Playanim = true;
-    if(Selftex)
+    if(parentSprite != sprite)
     {
-        sprite->texture = Selftex;
-        sprite->rows = (endframe/5)+1;
-        sprite->cols = 5;
+        parentSprite = sprite; // set to the Animation Sprite if parent sprite != Animation Sprite
     }
     ResetFrame();
     printf("Animation Playing with current frame:");
@@ -52,12 +50,17 @@ void Animation::PlayAnimation() {
     
     
 }
-void Animation::InitializeSprite(Sprite* _sprite)
+void Animation::InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col)
 {
-    sprite = _sprite;
+    sprite =  new Sprite(tex , SDL_Rect{ 0, 0, TexWidth/_col, TexHeight/_rows},sourcerenderer);
+
+    sprite->rows = _rows;
+    sprite->cols= _col;
+    sprite->Texturewidth = TexWidth;
+    sprite->Textureheight = TexHeight;
 }
 
-void delayedFunction() {
-    std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates delay
-    std::cout << "Delayed function executed after 2 seconds." << std::endl;
-}
+// void delayedFunction() {
+//     std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates delay
+//     std::cout << "Delayed function executed after 2 seconds." << std::endl;
+// }

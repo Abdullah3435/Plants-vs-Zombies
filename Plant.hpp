@@ -26,6 +26,7 @@ class Projectile:public GameObject
     Projectile(int x,int y, int Damage):GameObject(x,y),Damage(Damage){};
     
     void giveDamage(Zombie* zombie);
+    
 
     void movement();
     void Update();
@@ -43,6 +44,7 @@ class  Plant:public GameObject
         Plant(int x,int y,int hp);
         void shoot();
         void Update() override;
+        bool getDamage(int );
 };
 
 

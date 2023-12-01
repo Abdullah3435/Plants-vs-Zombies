@@ -94,8 +94,22 @@ void CollisionMG::CollisionEventLoop()
                 if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[p]->transform->ToScreenPosition()))
                 {
                     std::cout<<"Collision Occured Here plant and zombie";
+
                     Game::getInstance()->DumpGarbage(Zombies[z]);
                     delete Zombies[z];
+                    Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
+                    Plant* currentplant = dynamic_cast<Plant*>(Plants[p]);
+                    if(currentplant->getDamage(currentzomb->damage))
+                    {
+                        currentzomb->UpdateState ("Idle");
+                    }
+                    else 
+                    {
+                        currentzomb->UpdateState ("Eat");
+                    }
+                    
+                    
+
 
                     std::cout<<"Deletion Successfull";
                     //Implement Zombie and plant Logic here

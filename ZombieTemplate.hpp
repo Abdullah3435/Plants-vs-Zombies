@@ -12,6 +12,7 @@ public:
     virtual Zombie* Clone(int x , int y) = 0;
     virtual ~Zombie() = default;
     virtual void getDamage(int dmg) = 0;
+    Utilities DeathDelay;
 
     Zombie();
     void UpdateState(std::string state);

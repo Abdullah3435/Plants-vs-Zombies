@@ -213,7 +213,7 @@ void Game::run()
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer
 
-	    SDL_Delay(40);	//causes sdl engine to delay for specified miliseconds //25fps almost
+	    SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
 		frames_elapsed++;
 		//std::cout<<frames_elapsed<<std::endl;
 

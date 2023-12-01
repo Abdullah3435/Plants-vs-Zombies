@@ -22,6 +22,7 @@ Animation Walkanim;
 
     void Attack() const override;
     void PlayAnim();
+
     ~SimpleZombie();
 };
 

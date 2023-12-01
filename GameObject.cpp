@@ -37,8 +37,8 @@ void GameObject::StartAnimation()
     animation = new Animation(sprite, 2, 40, sprite->texture);
 
     // Start the animation loop in a separate thread
-    std::thread animThread(&Animation::PlayAnimation, animation);
-    animThread.detach();  // Detach the thread to run independently
+    // std::thread animThread(&Animation::PlayAnimation, animation);
+    // animThread.detach();  // Detach the thread to run independently
 }
 
 Transform* GameObject::Getposition() {

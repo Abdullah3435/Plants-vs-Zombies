@@ -7,6 +7,13 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
 
 void SimpleZombie::Update() {
 
+    if (health<0)
+    {
+        State = "Die";
+        // Game::getInstance()->DumpGarbage(this);
+        // delete this;
+    }
+
     PlayAnim();
     GameObject::Update();
     
@@ -14,28 +21,30 @@ void SimpleZombie::Update() {
     {
         Move();
     }
-    if (health<0)
-    {
-        Game::getInstance()->DumpGarbage(this);
-        delete this;
-    }
-
+    
 }
+
 
 void SimpleZombie::PlayAnim()
 {
-    if(true) //state based conditions check what is the state here
+    if(State == "Idle") //state based conditions check what is the state here
     {
-        Walkanim.PlayAnimation();
+        Walkanim.PlayAnimation(sprite);
     }
-    // else if(true)
-    // {
-    //     Eatanim.PlayAnimation();
-    // }
-    // else if(true)
-    // {
-    //     Deathanim.PlayAnimation();
-    // }
+    else if(State == "Eat")
+    {
+        Eatanim.PlayAnimation(sprite);
+    }
+    else if(State == "Die")
+    {
+        Deathanim.PlayAnimation(sprite);
+        if(DeathDelay.Delay(34))
+        {
+            Game::getInstance()->DumpGarbage(this);
+            delete this;
+        }
+
+    }
 }
 
 void SimpleZombie::Move() const {
@@ -55,9 +64,9 @@ Zombie* SimpleZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-    sz->Deathanim.InitializeSprite(sz->sprite);
-    sz->Eatanim.InitializeSprite(sz->sprite);
-    sz->Walkanim.InitializeSprite(sz->sprite);
+    sz->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    sz->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
+    sz->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
     //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;
@@ -81,6 +90,7 @@ void DefensiveZombie::Update(){
 
 void DefensiveZombie::Move() const {
     transform->translate(-1 * movementspeed);
+
     // Implementation for moving
 }
 
