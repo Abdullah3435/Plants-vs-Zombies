@@ -15,6 +15,7 @@ struct Texturepaths
     string gameover="openOrEnd/gameover.png";
     string SeedSLots = "Plant Sprite Sheets/Seeds/SeedSlot.png";
     string PeashooterSeed = "Plant Sprite Sheets/Seeds/Peashooter_Seed.png";
+    string Sun =  "Plant Sprite Sheets/Sun.png";
 
 };
 
@@ -32,6 +33,7 @@ class Textures
         SDL_Texture* gameover;
         SDL_Texture* SeedSlots;
         SDL_Texture* Peashooter_Seed;
+        SDL_Texture* Sun;
 
     Textures():plant_tex(nullptr), simple_zombie_walk(nullptr){}
 };

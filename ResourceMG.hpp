@@ -1,4 +1,7 @@
+#pragma once
 #include <iostream>
+#include "GameObject.hpp"
+#include "RenderingMG.hpp"
 #include <vector>
 
 class ResourceMG
@@ -14,4 +17,20 @@ public:
     void subtractResource(int amount);
 
     int getResources();
+};
+
+
+class Sun:public GameObject, public Clickable
+{
+    private:
+        int Sun_energy = 25;
+        bool Fall;
+        int Fallduration,elapsedduration;
+
+    public:
+        Sun(int x , int y);
+        void Update();
+        void OnClick();
+        bool CheckClick(int x, int y);
+        
 };

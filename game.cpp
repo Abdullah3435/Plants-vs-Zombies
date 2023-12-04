@@ -90,6 +90,7 @@ bool Game::loadMedia()
 	assets.gameover=loadTexture(paths.gameover);
 	assets.SeedSlots = loadTexture(paths.SeedSLots);
 	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);
+	assets.Sun = loadTexture(paths.Sun);
 	
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL||assets.Peashooter_Seed== NULL)
@@ -174,7 +175,8 @@ void Game::run()
 	
 	while( !quit )
 	{
-
+		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),100,100);//Update Sun Count
+		SpawnSun();
 		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
 			frames_elapsed = 0;
@@ -330,4 +332,12 @@ bool Game::WelcomeScreen()
 
 	}
 	return false;
+}
+
+void Game::SpawnSun()
+{
+	if (SunDelay.Delay(300))
+	{
+		new Sun(rand()%1000,0);
+	}
 }

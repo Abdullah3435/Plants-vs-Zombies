@@ -12,6 +12,8 @@ AudioManager::AudioManager() {
     addSound("bgMusic",loadSound(audiopaths.BG));
     addSound("chomp",loadSound(audiopaths.Chomp));
     addSound("hit",loadSound(audiopaths.Hit));
+    addSound("Sunclick",loadSound(audiopaths.SunClick));
+    
 }
 
 AudioManager::~AudioManager() {

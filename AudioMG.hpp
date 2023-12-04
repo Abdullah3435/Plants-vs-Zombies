@@ -12,6 +12,7 @@ struct AudioPaths
     string BG = "music/background2.wav";
     string Hit = "music/hit.wav";
     string Chomp = "music/chomp.wav";
+    string SunClick =  "music/sun.wav";
     //add more paths here when needed
 };
 

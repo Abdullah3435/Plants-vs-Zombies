@@ -2,6 +2,7 @@
 #include "game.hpp"
 #include "Plant.hpp"
 
+
 using namespace std;
 
 static int state = 0;
@@ -146,9 +147,12 @@ void CollisionMG::CheckClicks(int x, int y)
 {
     for (int i =0 ; i < Collectibles.size();i++)
     {
-        if(Collectibles[i]->CheckClick(x,y))
+        if(Collectibles[i])
         {
-            Collectibles[i]->OnClick();
+            if(Collectibles[i]->CheckClick(x,y))
+            {
+                Collectibles[i]->OnClick();
+            }
         }
     }
 }
@@ -211,6 +215,14 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
             break;  // No need to continue searching
         }
     }
+    for (auto& collectible : Collectibles)
+    {
+        if (collectible == dynamic_cast<Clickable*>(gameObject))
+        {
+            collectible == nullptr;
+            break;
+        }
+    }
 }
 
 Clickable::Clickable()
@@ -225,7 +237,7 @@ TextRenderer::TextRenderer() {
         std::cerr << "TTF_Init failed: " << TTF_GetError() << std::endl;
     }
     // Replace "your_font_file.ttf" with the path to your TrueType font file
-    font = TTF_OpenFont("your_font_file.ttf", 24);
+    font = TTF_OpenFont("Fonts/Portilla.ttf", 24);
     if (!font) {
         std::cerr << "TTF_OpenFont failed: " << TTF_GetError() << std::endl;
     }
@@ -240,6 +252,7 @@ TextRenderer* TextRenderer::getInstance() {
 TextRenderer::~TextRenderer() {
     TTF_CloseFont(font);
     TTF_Quit();
+
 }
 void TextRenderer::renderText(SDL_Renderer* renderer, const std::string& text, int x, int y) {
     SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), textColor);

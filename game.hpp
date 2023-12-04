@@ -14,6 +14,7 @@
 #include <SDL_ttf.h>
 #include "PlantMG.hpp"
 #include "AudioMG.hpp"
+#include "ResourceMG.hpp"
 
 class Game {
 private:
@@ -24,10 +25,12 @@ private:
     SDL_Texture* gTexture = nullptr;
     Grid* mygrid;
     PlantManager* PlantMg_script;
-
+    Utilities SunDelay;
+    
     Game();  // Private constructor for singleton pattern
 
 public:
+    ResourceMG _resourcemg; 
     SDL_Renderer* gRenderer = nullptr;
     Textures assets;
     static Game* getInstance();
@@ -40,6 +43,7 @@ public:
     void handleKeyboardInput(const SDL_Keysym& keysym);
     bool WelcomeScreen();
     void SetSeedIndex(int index);
+    void SpawnSun();
 
 private:
     static Game* instance;  // Singleton instance
