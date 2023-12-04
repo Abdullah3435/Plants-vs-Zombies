@@ -12,6 +12,7 @@ SimpleZombie* ZombieInventory::simpleZombie()
     myzomb->State = "Idle";
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 500;
+    myzomb->movementspeed =2.5;
     return myzomb;
 }
 

@@ -166,11 +166,12 @@ void Game::run()
 
 	int frames_elapsed = 0;
 
-	quit = WelcomeScreen();
 	
 	AudioManager::getInstance()->playSoundOnLoop("bgMusic");
 	PlantMg_script->InitializeSeeds(1);
 	PlantMg_script->selectedplant = nullptr;
+	quit = WelcomeScreen();
+	
 	while( !quit )
 	{
 
@@ -282,12 +283,6 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
             // Handle any other keys
             break;
     }
-}
-
-void Game::SetSeedIndex(int i)
-{
-	PlantMg_script->selectedindex = i;
-	PlantMg_script->SelectPlant();
 }
 
 void Game::SetSeedIndex(int i)

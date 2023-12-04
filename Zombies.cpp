@@ -17,10 +17,9 @@ void SimpleZombie::Update() {
     
     GameObject::Update();
     
-    if(utilities.Delay(1))
-    {
-        Move();
-    }
+    
+    
+    
     PlayAnim();
     
 }
@@ -31,6 +30,7 @@ void SimpleZombie::PlayAnim()
     {
         //std::cout<<sprite<<std::endl;
         sprite = Walkanim.PlayAnimation();
+        Move();
     }
     else if(State == "Eat")
     {
