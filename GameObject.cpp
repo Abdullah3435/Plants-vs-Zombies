@@ -64,7 +64,8 @@ SDL_Texture* GameObject::loadTexture(std::string path) {
 
 void GameObject::render() {
     SDL_RenderCopy(sprite->renderer,sprite->texture, &sprite->targetTexture, transform->ToScreenPosition());
-    std::cout<<"\nHere is the ACCESSED SDL Rect "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
+    //std::cout<<"\nHere is the ACCESSED SDL Rect "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
+    //std::cout<<sprite<<std::endl;
 }
 
 GameObject::~GameObject()

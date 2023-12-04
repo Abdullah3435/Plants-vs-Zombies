@@ -5,8 +5,8 @@ class Seed;
 class PlantManager
 {
     private :
-    Seed* plants[5];
-    Seed* selectedplant;
+    Seed** plants;
+    
     void Peashooter(int x, int y);
     void Sunflower(int x , int y);
     void WallNut(int x, int y);
@@ -14,7 +14,9 @@ class PlantManager
     void CherryBomb(int x, int y);
 
     public:
+    Seed* selectedplant;
     int selectedindex;
     void SelectPlant();
-    void createPlant(int i,int x, int y);
+    void createPlant(int x, int y);
+    void InitializeSeeds(int level);
 };

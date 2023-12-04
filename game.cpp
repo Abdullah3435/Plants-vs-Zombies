@@ -18,10 +18,9 @@ bool Game::init()
 {
 	//Initialization flag
 	bool success = true;
-	mygrid  = new Grid (800,600,5,8,200,100);
+	mygrid  = new Grid (1100,600,5,9,190,100);
 	PlantMg_script = new PlantManager();
 	RenderingMG::getInstance()->PMscript = PlantMg_script; // injecting dependency (Sasta Dependency injetion) not at all a good programming practice just testing
-
 	//Initialize SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
 	{
@@ -87,9 +86,11 @@ bool Game::loadMedia()
 	assets.conehead_walk = loadTexture(paths.ConeHead);
 	assets.flagzombie_walk=loadTexture(paths.FlagZombie);
 	assets.Pea = loadTexture(paths.Pea);
+	assets.SeedSlots = loadTexture(paths.SeedSLots);
+	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);
 	
     gTexture = loadTexture("BackgroundPVZ.png");
-	if(assets.plant_tex==NULL || gTexture==NULL)
+	if(assets.plant_tex==NULL || gTexture==NULL||assets.Peashooter_Seed== NULL)
     {
         printf("Unable to run due to error: %s\n",SDL_GetError());
         success =false;
@@ -162,7 +163,10 @@ void Game::run()
 	SDL_Event e;
 
 	int frames_elapsed = 0;
-
+	
+	AudioManager::getInstance()->playSoundOnLoop("bgMusic");
+	PlantMg_script->InitializeSeeds(1);
+	PlantMg_script->selectedplant = nullptr;
 	while( !quit )
 	{
 
@@ -176,9 +180,6 @@ void Game::run()
 			Spawner::getInstance()->spawnRandomZombie();
 		}
 		
-
-		
-
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
 		{
@@ -193,6 +194,7 @@ void Game::run()
 				int xMouse, yMouse;
 				SDL_GetMouseState(&xMouse,&yMouse);
 				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
+				CollisionMG::getInstance()->CheckClicks(xMouse,yMouse);// check for multiple clicks ove here if needed
 			}
 
 			if (e.type == SDL_KEYDOWN)
@@ -203,8 +205,9 @@ void Game::run()
 
 
 		SDL_RenderClear(gRenderer); //removes everything from renderer
+		SDL_Rect* targetbg = new SDL_Rect{100,0,630,489};
 
-		SDL_RenderCopy(gRenderer, gTexture, NULL, NULL);//Draws background to renderer
+		SDL_RenderCopy(gRenderer, gTexture, targetbg, NULL);//Draws background to renderer
 		//***********************draw the objects here********************
 
 		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
@@ -253,7 +256,7 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
             break;
         case SDLK_4:
             // Handle input for the '4' key
-			PlantMg_script->selectedindex = 8;
+			PlantMg_script->selectedindex = 3;
             break;
         case SDLK_5:
             // Handle input for the '5' key
@@ -275,4 +278,10 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
             // Handle any other keys
             break;
     }
+}
+
+void Game::SetSeedIndex(int i)
+{
+	PlantMg_script->selectedindex = i;
+	PlantMg_script->SelectPlant();
 }

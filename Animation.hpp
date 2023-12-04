@@ -3,6 +3,8 @@
 #include <SDL_image.h>
 #include "Sprite.hpp"
 
+
+
 struct Unit {
     SDL_Rect srcRect, moverRect;
 };
@@ -16,6 +18,7 @@ private:
     int lastFrameChangeTime;
     bool Playanim;
     SDL_Texture* Selftex;
+    void ResetFrame();
 
 public:
     Animation(Sprite* _sprite,int _startframe ,int _endframe, SDL_Texture* newtex = nullptr);
@@ -23,8 +26,8 @@ public:
     ~Animation();
 
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath, SDL_Texture* newtex);
-    void ResetFrame();
-    void PlayAnimation(Sprite* parentSprite);
+    
+    Sprite* PlayAnimation();
     void InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col);
     
     

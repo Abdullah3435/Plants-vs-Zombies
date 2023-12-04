@@ -1,6 +1,7 @@
 #include "RenderingMG.hpp"
 #include "game.hpp"
 #include "Plant.hpp"
+
 using namespace std;
 
 static int state = 0;
@@ -53,10 +54,19 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer, Textures *a
             // myobj->SetSprite(assets->plant_tex, renderer, 1760, 5680, 16, 5);
             // //myobj.StartAnimation();
             // myObjs.push_back(myobj);
-            PMscript->createPlant(PMscript->selectedindex,gridX, gridY);
-
-            // Mark the block as occupied in the grid
-            myGrid.occupyBlock(gridX, gridY);
+            if(PMscript->selectedplant)
+            {
+                if(PMscript->selectedplant->Use())
+                {
+                    PMscript->createPlant(gridX, gridY);
+                    PMscript->selectedplant = nullptr;
+                    PMscript->selectedindex =-1; //after using make no the seed to not be used again easily
+                     // Mark the block as occupied in the grid
+                    myGrid.occupyBlock(gridX, gridY);
+                }
+            }
+            
+           
 
             //CollisionMG::getInstance()->AddPlant(myobj);
         } else {
@@ -94,9 +104,6 @@ void CollisionMG::CollisionEventLoop()
                 if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[p]->transform->ToScreenPosition()))
                 {
                     std::cout<<"Collision Occured Here plant and zombie";
-
-                    Game::getInstance()->DumpGarbage(Zombies[z]);
-                    delete Zombies[z];
                     Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
                     Plant* currentplant = dynamic_cast<Plant*>(Plants[p]);
                     if(currentplant->getDamage(currentzomb->damage))
@@ -108,9 +115,6 @@ void CollisionMG::CollisionEventLoop()
                         currentzomb->UpdateState ("Eat");
                     }
                     
-                    
-
-
                     std::cout<<"Deletion Successfull";
                     //Implement Zombie and plant Logic here
                 }
@@ -213,3 +217,6 @@ Clickable::Clickable()
 {
     CollisionMG::getInstance()->Collectibles.push_back(this);
 }
+
+
+

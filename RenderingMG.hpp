@@ -6,6 +6,7 @@
 #include "TextureMG.cpp"
 #include "PlantMG.hpp"
 #include <vector>
+#include <SDL_ttf.h>
 
 class Clickable;
 class RenderingMG {
@@ -68,7 +69,10 @@ public:
 class Clickable
 {
   public:
+  bool isInteractable;
   virtual void OnClick() = 0;
   virtual bool CheckClick(int x, int y)=0;
   Clickable();
 };
+
+

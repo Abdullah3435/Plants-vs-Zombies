@@ -13,6 +13,7 @@
 #include <vector>
 #include <SDL_ttf.h>
 #include "PlantMG.hpp"
+#include "AudioMG.hpp"
 
 class Game {
 private:
@@ -37,6 +38,7 @@ public:
     void run();
     void DumpGarbage(GameObject* gameobject);
     void handleKeyboardInput(const SDL_Keysym& keysym);
+    void SetSeedIndex(int index);
 
 private:
     static Game* instance;  // Singleton instance

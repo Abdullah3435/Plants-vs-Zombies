@@ -1,7 +1,7 @@
 #include "ZombieTemplate.hpp"
 
 // Zombie class implementation
-Zombie::Zombie() : movementspeed(1), health(1500), damage(100), State("Idle"){}
+Zombie::Zombie() : movementspeed(1), health(1500), damage(10), State("Idle"){}
 
 void Zombie::UpdateState(std::string _State)
 {

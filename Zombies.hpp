@@ -1,10 +1,10 @@
 #pragma once
 #include "ZombieTemplate.hpp"
 #include "RenderingMG.hpp"
+#include "AudioMG.hpp"
 #include "Animation.hpp"
 class SimpleZombie : public ZombieTemplate<Simple> {
 private:
-    
 
 public:
 Animation Walkanim;

@@ -1,11 +1,13 @@
 #include "Plant.hpp"
 #include "game.hpp"
+#include "AudioMG.hpp"
 //Projectile::Projectile(int x, int y, int damage) : GameObject(x, y), Damage(damage) {
     // Damage = 100;  // No need for this line; damage is initialized in the member initializer list
 //}
 void Seed::OnClick()
 {
-    //plantmg->selectedindex = SeedIndex;
+    std::cout<<"Seed Clicked\n";
+    Game::getInstance()->SetSeedIndex(SeedIndex);
 }
 
 bool Seed::CheckClick(int x, int y)
@@ -22,9 +24,35 @@ bool Seed::CheckClick(int x, int y)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
+void Seed::Update()
+{
+    if(currenttime>=refreshtime)
+    {
+        ready = true;
+        isInteractable = true;
+    }
+
+    currenttime++;
+    GameObject::Update();
+}
+
+bool Seed::Use()
+{
+    if(ready)
+    {
+        currenttime = 0;
+        ready = false;
+        isInteractable = false;
+        return true;
+    }
+    
+    else
+    {std::cout<<"The plant is not ready\n";return false;} 
+}
 
 void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
+    AudioManager::getInstance()->playSound("hit");
     Game::getInstance()->DumpGarbage(this);
     delete this;
     std::cout<<"Damage given\n";
@@ -55,7 +83,7 @@ void Projectile::Update()
 // Plant.cpp
 #include "Plant.hpp"
 
-Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp) {
+Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr){
     // Initialization of Plant class members
 }
 
@@ -80,6 +108,10 @@ void Plant::Update()
         shoot();
         //std::cout<<"SHOOOTED PROJ";
     }
+    if (Plantanim)
+    {
+    Plantanim->PlayAnimation();
+    }
 }
 
 bool Plant::getDamage(int dmg)
@@ -89,7 +121,7 @@ bool Plant::getDamage(int dmg)
     {
         Game::getInstance()->DumpGarbage(this);
         delete this;
-        return true;
+        return true;// have to fix this as it notifies only the last zombie bite
     }
     return false;
 }

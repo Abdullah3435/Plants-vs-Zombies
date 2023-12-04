@@ -17,24 +17,24 @@ Animation::~Animation() {
 
 void Animation::ResetFrame() {
     SDL_Rect* unit = new SDL_Rect();
-    printf("resettiing frame\n");
+    //printf("resettiing frame\n");
     unit->x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
     unit->y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
     unit->w = sprite->Texturewidth/sprite->cols;
     unit->h = sprite->Textureheight/sprite->rows;
     sprite->targetTexture = *unit;
-    std::cout<<"SDL Rext "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
+    //std::cout<<"SDL Rext "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
     
 }
 
-void Animation::PlayAnimation(Sprite* parentSprite) {
+Sprite* Animation::PlayAnimation() {
     Playanim = true;
-    if(parentSprite != sprite)
-    {
-        parentSprite = sprite; // set to the Animation Sprite if parent sprite != Animation Sprite
-    }
+    // if(parentSprite != sprite)
+    // set to the Animation Sprite if parent sprite != Animation Sprite
+
+    // }
     ResetFrame();
-    printf("Animation Playing with current frame:");
+    //printf("Animation Playing with current frame:");
     
     // std::future<void> result = std::async(std::launch::async, delayedFunction);
     // result.get(); // Wait for the async operation to complete
@@ -45,8 +45,9 @@ void Animation::PlayAnimation(Sprite* parentSprite) {
     }
     else
     {
-    currentFrame = startframe;
+        currentFrame = startframe;
     }
+    return sprite;
     
     
 }
@@ -57,7 +58,7 @@ void Animation::InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,
     sprite->rows = _rows;
     sprite->cols= _col;
     sprite->Texturewidth = TexWidth;
-    sprite->Textureheight = TexHeight;
+    sprite->Textureheight = TexHeight;//Play animation atleast once to synchronize the animation sprite with gameobj sprite before rendering 
 }
 
 // void delayedFunction() {

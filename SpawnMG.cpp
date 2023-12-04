@@ -14,7 +14,7 @@ Spawner* Spawner::getInstance() {
 }
 
 void Spawner::spawnRandomZombie() {
-    int ypos[5] = {200,325,450,575,700};
+    int ypos[5] = {140,270,400,530,660};
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 

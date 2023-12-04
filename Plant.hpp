@@ -10,10 +10,14 @@ class Seed:public GameObject,public Clickable
         //PlantManager* plantmg;
         int SeedIndex;
         bool ready;
+        
     public :
-        bool isready();
+        int refreshtime,currenttime=0;
+        bool Use();
         void OnClick();
         bool CheckClick(int x, int y);
+        Seed (int x, int y,int i):GameObject(x,y),SeedIndex(i),ready(false){};
+        void Update();
 };
 
 class Projectile:public GameObject
@@ -40,7 +44,9 @@ class  Plant:public GameObject
     private:
         int hp;
         
+        
     public:
+        Animation* Plantanim;
         Plant(int x,int y,int hp);
         void shoot();
         void Update() override;
