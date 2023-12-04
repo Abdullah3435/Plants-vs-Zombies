@@ -7,7 +7,7 @@ class Utilities
 {
     
     private:
-    int SelfCount; 
+    int SelfCount = 0; 
   public:
   bool Delay(int delay);
   

@@ -2,12 +2,10 @@
 
 bool Utilities::Delay(int delay)
 {
-    static int framedelay = 0;
-    framedelay ++;
-    std::cout<<"the delay is: "<<framedelay<<std::endl;
-    if (framedelay > delay)
+    SelfCount ++;
+    if (SelfCount > delay)
     {
-      framedelay=0;
+      SelfCount=0;
       return true;
     }
     return false;

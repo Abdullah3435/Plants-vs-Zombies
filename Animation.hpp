@@ -12,18 +12,21 @@ private:
     Sprite* sprite;
     // int frameWidth, frameHeight;
     // int TotalRows, TotalCols;
-    int totalFrames,startframe,endframe,currentFrame; //frames to play starting from currentframe
-    int animationSpeed; // in milliseconds
+    int startframe,endframe,currentFrame; //frames to play starting from currentframe // in milliseconds
     int lastFrameChangeTime;
     bool Playanim;
+    SDL_Texture* Selftex;
 
 public:
-    Animation(Sprite* _sprite,int totalFrames, int speed,int _startframe =0,int _endframe=0);
+    Animation(Sprite* _sprite,int _startframe ,int _endframe, SDL_Texture* newtex = nullptr);
 
     ~Animation();
 
-    SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath);
+    SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath, SDL_Texture* newtex);
     void ResetFrame();
-    void PlayAnimation();
+    void PlayAnimation(Sprite* parentSprite);
+    void InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col);
+    
+    
     
 };

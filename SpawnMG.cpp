@@ -18,11 +18,9 @@ void Spawner::spawnRandomZombie() {
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 
-    int randomIndex = rand() % 3;
+    int randomIndex = rand() % 1;
     Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
     spawnedZombies.push_back(newZombie);
-
-    std::cout<<"Creating Zombie";
     
 }
 

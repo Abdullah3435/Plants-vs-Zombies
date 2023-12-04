@@ -27,6 +27,8 @@ void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
     Game::getInstance()->DumpGarbage(this);
     delete this;
+    std::cout<<"Damage given\n";
+    std::cout<<"new health is : "<<zombie->health<<std::endl;
 }
 
 Projectile::~Projectile() {
@@ -43,7 +45,7 @@ void Projectile::Update()
     GameObject::Update();
     movement();
 
-    if(utilities.Delay(1500))
+    if(utilities.Delay(150))
     {
         Game::getInstance()->DumpGarbage(this);
         delete this;
@@ -62,25 +64,34 @@ void Plant::shoot() {
     CollisionMG::getInstance()->AddProjectile(proh);
     proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
     RenderingMG::getInstance()->AddObjectforRendering(proh);
-    proh->speed = 10;
-    proh->transform->x_sc =0.5;
-    proh->transform->y_sc =0.5;
+    proh->speed = 10; //set shoot speed
+    proh->transform->x_sc =0.35;
+    proh->transform->y_sc =0.35;
     //std::cout<<"Projectile created right";
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
 void Plant::Update()
 {
-    std::cout<<"Ensure This is called once bw frame";
     GameObject::Update();
-    std::cout<< "THIS IS THE TARGET DELAY\n";
-    if(utilities.Delay(100))
+
+    if(utilities.Delay(40))
     {
         shoot();
         //std::cout<<"SHOOOTED PROJ";
     }
-    std::cout<< "TARGET DELAY END\n";
 }
 
+bool Plant::getDamage(int dmg)
+{
+    hp -= dmg;
+    if(hp<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+        return true;
+    }
+    return false;
+}
 // You need to include the necessary headers and provide the implementation for Zombie,
 // GameObject, Projectile, and Plant in separate header and cpp files.
