@@ -37,6 +37,7 @@ public:
     void run();
     void DumpGarbage(GameObject* gameobject);
     void handleKeyboardInput(const SDL_Keysym& keysym);
+    bool WelcomeScreen();
 
 private:
     static Game* instance;  // Singleton instance

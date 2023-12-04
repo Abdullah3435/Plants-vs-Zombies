@@ -87,6 +87,8 @@ bool Game::loadMedia()
 	assets.conehead_walk = loadTexture(paths.ConeHead);
 	assets.flagzombie_walk=loadTexture(paths.FlagZombie);
 	assets.Pea = loadTexture(paths.Pea);
+	assets.OpenGame=loadTexture(paths.OpenGame);
+	assets.gameover=loadTexture(paths.gameover);
 	
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL)
@@ -162,6 +164,8 @@ void Game::run()
 	SDL_Event e;
 
 	int frames_elapsed = 0;
+
+	quit = WelcomeScreen();
 
 	while( !quit )
 	{
@@ -275,4 +279,45 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
             // Handle any other keys
             break;
     }
+}
+
+bool Game::WelcomeScreen()
+{
+	bool Clicked = false;
+	SDL_Event e;
+
+	while( !Clicked)
+	{
+		//Handle events on queue
+		while( SDL_PollEvent(&e ) != 0 )
+		{
+			//User requests quit
+			if( e.type == SDL_QUIT )
+			{
+				return true;
+			}
+
+			if(e.type == SDL_MOUSEBUTTONDOWN){
+			//this is a good location to add pigeon in linked list.
+				int xMouse, yMouse;
+				SDL_GetMouseState(&xMouse,&yMouse);
+				Clicked = true;
+			}
+		}
+
+
+		SDL_RenderClear(gRenderer); //removes everything from renderer
+
+		SDL_RenderCopy(gRenderer, assets.OpenGame, NULL, NULL);//Draws background to renderer
+		//***********************draw the objects here********************
+
+		//****************************************************************
+    	SDL_RenderPresent(gRenderer); //displays the updated renderer
+
+	    SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
+		//std::cout<<frames_elapsed<<std::endl;
+		
+
+	}
+	return false;
 }
