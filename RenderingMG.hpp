@@ -1,5 +1,5 @@
 #pragma once
-
+#include<SDL_ttf.h>
 #include <SDL.h>
 #include "GameObject.hpp"
 #include <iostream>
@@ -76,3 +76,19 @@ class Clickable
 };
 
 
+
+
+
+
+//------------------------------TextRendering-----------------------------------
+class TextRenderer {
+private:
+    static TextRenderer* instance;
+    TTF_Font* font;
+    SDL_Color textColor;
+    TextRenderer();
+public:
+    static TextRenderer* getInstance();
+    ~TextRenderer();
+    void renderText(SDL_Renderer* renderer, const std::string& text, int x, int y);
+};
