@@ -213,3 +213,45 @@ Clickable::Clickable()
 {
     CollisionMG::getInstance()->Collectibles.push_back(this);
 }
+
+//----------------------------------------TextMG-------------------------------------------
+TextRenderer* TextRenderer::instance = nullptr;
+TextRenderer::TextRenderer() {
+    if (TTF_Init() == -1) {
+        std::cerr << "TTF_Init failed: " << TTF_GetError() << std::endl;
+    }
+    // Replace "your_font_file.ttf" with the path to your TrueType font file
+    font = TTF_OpenFont("your_font_file.ttf", 24);
+    if (!font) {
+        std::cerr << "TTF_OpenFont failed: " << TTF_GetError() << std::endl;
+    }
+    textColor = {255, 255, 255};  // White text color
+}
+TextRenderer* TextRenderer::getInstance() {
+    if (!instance) {
+        instance = new TextRenderer();
+    }
+    return instance;
+}
+TextRenderer::~TextRenderer() {
+    TTF_CloseFont(font);
+    TTF_Quit();
+}
+void TextRenderer::renderText(SDL_Renderer* renderer, const std::string& text, int x, int y) {
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), textColor);
+    if (!surface) {
+        std::cerr << "TTF_RenderText_Blended failed: " << TTF_GetError() << std::endl;
+        return;
+    }
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    if (!texture) {
+        std::cerr << "SDL_CreateTextureFromSurface failed: " << SDL_GetError() << std::endl;
+        return;
+    }
+    int width, height;
+    SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+    SDL_Rect dstRect = {x, y, width, height};
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);
+    SDL_DestroyTexture(texture);
+}
