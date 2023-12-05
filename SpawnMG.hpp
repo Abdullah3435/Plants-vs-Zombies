@@ -12,11 +12,14 @@ private:
     static Spawner* instance;
     ZombieInventory zombieInventory;
     std::vector<Zombie*> spawnedZombies;
-    int Spawndelay;
+    Utilities SpawnDelay,WaveDelay;
+    bool Spawn;
+
 
     Spawner();
 
 public:
+    int _spawndelay,_wavedelay,no_waves;
     static Spawner* getInstance();
     void spawnRandomZombie();
     void update();

@@ -1,13 +1,17 @@
 #include "Utilities.hpp"
 
+
 bool Utilities::Delay(int delay)
 {
-    SelfCount ++;
-    if (SelfCount > delay)
-    {
-      SelfCount=0;
-      return true;
+    std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
+    std::chrono::duration<int, std::milli> elapsedMilliseconds =
+        std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - startTime);
+
+    if (elapsedMilliseconds.count() > delay) {
+        startTime = std::chrono::steady_clock::now();
+        return true;
     }
+
     return false;
   }
 

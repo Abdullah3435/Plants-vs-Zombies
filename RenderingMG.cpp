@@ -219,7 +219,7 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
     {
         if (collectible == dynamic_cast<Clickable*>(gameObject))
         {
-            collectible == nullptr;
+            collectible = nullptr;
             break;
         }
     }
