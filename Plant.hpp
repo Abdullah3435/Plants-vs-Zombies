@@ -27,7 +27,7 @@ class Projectile:public GameObject
 
     public:
     int speed;
-    Projectile(int x,int y, int Damage):GameObject(x,y),Damage(Damage){};
+    Projectile(int x,int y, int Damage):GameObject(x,y),Damage(Damage){setCollider(25,25);};
     
     void giveDamage(Zombie* zombie);
     
@@ -39,7 +39,7 @@ class Projectile:public GameObject
 
 };
 
-class  Plant:public GameObject
+class Plant:public GameObject
 {
     private:
         int hp;
@@ -53,55 +53,15 @@ class  Plant:public GameObject
         bool getDamage(int );
 };
 
+// class UtilityPlant: public Plant{
+//     public:
+//     void Update();
+//     UtilityPlant(int x, int y , int hp);
+// };
 
-class Digit:public GameObject
-{
-    private:
-        int digit;
-    public:
-        Digit(int x,int y);
-        void UpdateDigit()
-        {
-            switch(digit)
-            {
-                case 0:
-                    sprite->targetTexture = {0,0,0,0};
-                    //Use Sprite cow to write all cases below using the given sprite
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                default:
-                    break;
-
-            }
-        }
-};
-
-class SunAmount:public GameObject
-{
-    private:
-    int Amount;
-    vector<Digit*> digits;
-
-    public:
-    void CreateNumber();
-    void UpdateAmount();
+class Bombplant: public Plant{
+    public :
     void Update();
+    int Blasttime;
+    Bombplant(int x, int y , int hp,int );
 };
-

@@ -7,15 +7,28 @@
 #include <iostream>
 #include "Animation.hpp"
 #include "Utilities.hpp"
+class Collider
+{
+    private:
+    int width;
+    int height;
 
+    public: 
+    Collider(int Width, int Height);
+    SDL_Rect getCollider(int pos_x,int pos_y);
+};
 
 class GameObject {
+private:
+    Collider* _collider;
+
 public:
     Transform* transform;
     Sprite* sprite;
     Animation* animation;
     Utilities utilities;
     
+
 public:
     GameObject(int x, int y);
 
@@ -26,6 +39,9 @@ public:
     void StartAnimation();
 
     SDL_Texture* loadTexture(std::string path);
+
+    void setCollider(int width, int height);
+    SDL_Rect getCollider();
 
     virtual void Update();
     void render();

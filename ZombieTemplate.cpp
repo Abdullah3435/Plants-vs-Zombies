@@ -19,7 +19,7 @@ void Zombie::UpdateState(std::string _State)
 
 // ZombieTemplate class implementation
 template <typename... BaseClass>
-ZombieTemplate<BaseClass...>::ZombieTemplate(int x, int y) : GameObject(x, y) {}
+ZombieTemplate<BaseClass...>::ZombieTemplate(int x, int y) : GameObject(x, y) {setCollider(50,50);}
 
 // Explicit instantiation of ZombieTemplate for specific base classes
 template class ZombieTemplate<>;

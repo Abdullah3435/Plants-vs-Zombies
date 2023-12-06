@@ -66,6 +66,7 @@ Zombie* SimpleZombie::Clone(int x , int y) {
     SimpleZombie* sz = new SimpleZombie(*this);
     sz->sprite = new Sprite(*this->sprite);
     sz->transform = new Transform (*this->transform);
+    sz->setCollider(50,50);
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);

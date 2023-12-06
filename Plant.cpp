@@ -84,11 +84,12 @@ void Projectile::Update()
 #include "Plant.hpp"
 
 Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr){
+    setCollider(50,50);
     // Initialization of Plant class members
 }
 
 void Plant::shoot() {
-    Projectile* proh = new Projectile(transform->x,transform->y,100);
+    Projectile* proh = new Projectile(transform->x+10,transform->y+4,100);
     CollisionMG::getInstance()->AddProjectile(proh);
     proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
     RenderingMG::getInstance()->AddObjectforRendering(proh);
@@ -112,6 +113,12 @@ void Plant::Update()
     {
     Plantanim->PlayAnimation();
     }
+
+    if(hp<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
 }
 
 bool Plant::getDamage(int dmg)
@@ -119,11 +126,42 @@ bool Plant::getDamage(int dmg)
     hp -= dmg;
     if(hp<0)
     {
-        Game::getInstance()->DumpGarbage(this);
-        delete this;
         return true;// have to fix this as it notifies only the last zombie bite
     }
     return false;
 }
 // You need to include the necessary headers and provide the implementation for Zombie,
 // GameObject, Projectile, and Plant in separate header and cpp files.
+
+//---------------------------extra plants--------------------------------
+void Bombplant::Update()
+{
+    GameObject::Update();
+    if (Plantanim)
+    {
+    Plantanim->PlayAnimation();
+    }
+    if (utilities.Delay(Blasttime))
+    {
+        SDL_Rect blastaura{transform->x-150,transform->y-150,300,300};
+        for (int i = 0 ;i<CollisionMG::getInstance()->Zombies.size();i++) 
+        {
+            if(CollisionMG::getInstance()->Zombies[i])
+            {
+                if(CollisionMG::getInstance()->isCollision(CollisionMG::getInstance()->Zombies[i]->getCollider(),blastaura))
+                {
+                    dynamic_cast<Zombie*>(CollisionMG::getInstance()->Zombies[i])->getDamage(2000);
+                }
+            }
+        }
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
+
+    
+}
+
+Bombplant::Bombplant(int x, int y , int hp, int blasttime):Plant(x,y,hp)
+{
+    Blasttime=blasttime;
+}

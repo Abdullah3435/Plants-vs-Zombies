@@ -104,6 +104,7 @@ bool Game::loadMedia()
 	assets.plant_tex = loadTexture(paths.Plantstexture);
 	assets.Sunflower = loadTexture(paths.Sunflower);
 	assets.WallNut = loadTexture(paths.WallNut);
+	assets.CherryBomb = loadTexture(paths.CherryBomb);
 
 	
     gTexture = loadTexture("BackgroundPVZ.png");

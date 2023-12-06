@@ -21,7 +21,7 @@ struct Texturepaths
     string PeashooterSeed = "Plant Sprite Sheets/Seeds/Peashooter_Seed.png";
     string Sun =  "Plant Sprite Sheets/Sun.png";
     string Sunflower = "Plant Sprite Sheets/Sunflower.png";
-    //string CherryBomb = "";
+    string CherryBomb = "Plant Sprite Sheets/Cherrybomb.png";
     string WallNut = "Plant Sprite Sheets/WallNut.png";
     //string PotatoMine = ""
     
@@ -52,6 +52,7 @@ class Textures
         //plants
         SDL_Texture* Sunflower;
         SDL_Texture* WallNut;
+        SDL_Texture* CherryBomb;
 
         //resources
         SDL_Texture* Sun;

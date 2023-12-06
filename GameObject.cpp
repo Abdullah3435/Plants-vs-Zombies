@@ -4,12 +4,37 @@
 #include <thread>
 #include <algorithm>
 
+Collider::Collider(int wd,int ht)
+{
+    width = wd;
+    height = ht;
+}
+
+SDL_Rect Collider::getCollider(int posx,int posy)
+{
+    return SDL_Rect{posx-(width/2),posy-(height/2),width,height};
+}
+
+void GameObject::setCollider(int width, int height)
+{
+    _collider = new Collider(width,height);
+}
+
+SDL_Rect GameObject::getCollider()
+{
+    if (_collider)
+    {
+        return _collider->getCollider(transform->x,transform->y);
+    }
+}
+
 GameObject::GameObject(int x, int y) {
     transform = new Transform(x, y);
     animation = nullptr;
     sprite = nullptr;
-
+    _collider = nullptr;
 }
+
 
 void GameObject::Update()
 {

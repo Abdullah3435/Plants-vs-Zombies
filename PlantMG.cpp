@@ -42,10 +42,14 @@ void PlantManager::PotatoMine(int x,int y)
 
 void PlantManager::CherryBomb(int x,int y)
 {
-    Plant* plant = new Plant(x,y,100);
+    Bombplant* plant = new Bombplant(x,y,500,1000);
     RenderingMG::getInstance()->AddObjectforRendering(plant);
     CollisionMG::getInstance()->AddPlant(plant);
-    plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
+    plant->SetSprite(Game::getInstance()->assets.CherryBomb, Game::getInstance()->gRenderer, 577, 432, 5, 5);
+    plant->transform->x_sc = 3;
+    plant->transform->y_sc = 3;
+    plant->Plantanim = new Animation(plant->sprite,0,17,nullptr);
+
 }
 
 //Seeds here
@@ -146,28 +150,28 @@ void PlantManager::InitializeSeeds(int level)
             break; 
         case 2:
             PeashooterSeed(260,50);
-            SunflowerSeed(310,50);
+            SunflowerSeed(330,50);
 
         case 3:
             PeashooterSeed(260,50);
-            SunflowerSeed(310,50);
-            WallnutSeed(360,50);
+            SunflowerSeed(330,50);
+            WallnutSeed(400,50);
             break;
 
 
         case 4:
             PeashooterSeed(260,50);
-            SunflowerSeed(310,50);
-            WallnutSeed(360,50);
-            PotatomineSeed(410,50);
+            SunflowerSeed(330,50);
+            WallnutSeed(400,50);
+            PotatomineSeed(470,50);
             break;
 
         case 5:
             PeashooterSeed(260,50);
-            SunflowerSeed(310,50);
-            WallnutSeed(360,50);
-            PotatomineSeed(410,50);
-            CherrybombSeed(460,50);
+            SunflowerSeed(330,50);
+            WallnutSeed(400,50);
+            PotatomineSeed(470,50);
+            CherrybombSeed(540,50);
             break;
 
         default :

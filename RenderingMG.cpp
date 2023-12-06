@@ -102,7 +102,7 @@ void CollisionMG::CollisionEventLoop()
         {
             if(Zombies[z]&&Plants[p])
             {
-                if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Plants[p]->transform->ToScreenPosition()))
+                if(isCollision(Zombies[z]->getCollider(),Plants[p]->getCollider()))
                 {
                     std::cout<<"Collision Occured Here plant and zombie";
                     Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
@@ -115,23 +115,18 @@ void CollisionMG::CollisionEventLoop()
                     {
                         currentzomb->UpdateState ("Eat");
                     }
-                    
-                    std::cout<<"Deletion Successfull";
                     //Implement Zombie and plant Logic here
                 }
             }
         }
     }
-
-    
-
     for (int z = 0; z < Zombies.size(); z++) 
     {
        for (int p = 0; p < Projectiles.size(); p++) 
         {
             if(Zombies[z]&&Projectiles[p])
             {
-            if(isCollision(*Zombies[z]->transform->ToScreenPosition(),*Projectiles[p]->transform->ToScreenPosition()))
+            if(isCollision(Zombies[z]->getCollider(),Projectiles[p]->getCollider()))
             {
                 std::cout<<"Collision Occured Here zombie and projectile";
                 Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
