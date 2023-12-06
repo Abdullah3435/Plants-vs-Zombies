@@ -12,7 +12,7 @@ SimpleZombie* ZombieInventory::simpleZombie()
     myzomb->State = "Idle";
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 500;
-    myzomb->movementspeed =2.5;
+    myzomb->movementspeed =1.5;
     return myzomb;
 }
 
@@ -58,6 +58,10 @@ SuperZombie* ZombieInventory:: rotSpire()
 
 ZombieInventory::ZombieInventory(int level)
 {
+    for (int i =0; i<5;i++)
+    {
+        allzombies[i] = nullptr;
+    }
     switch (level)
     {
     case 1:
@@ -69,15 +73,23 @@ ZombieInventory::ZombieInventory(int level)
         allzombies[1] = ConeHeadZombie();
         break;
 
-    default:
+    case 3:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
         allzombies[2] = rotSpire();
+        break;
+
+    default:
+        allzombies[0] = simpleZombie();
         break;
     }
 }
 
 Zombie* ZombieInventory::createZombie(int i,int x,int y)
 {
+    if(allzombies[i])
+    {
     return allzombies[i]->Clone(x,y);
+    }
+    else return nullptr;
 }

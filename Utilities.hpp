@@ -8,8 +8,10 @@ class Utilities
     
     private:
     int SelfCount = 0; 
+    std::chrono::steady_clock::time_point startTime ;
   public:
   bool Delay(int delay);
+  Utilities();
   
 };
 

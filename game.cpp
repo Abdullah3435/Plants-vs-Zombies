@@ -1,5 +1,7 @@
 
 #include "game.hpp"
+#include <fstream>
+
 
 Game* Game::instance = nullptr;
 
@@ -18,6 +20,7 @@ bool Game::init()
 {
 	//Initialization flag
 	bool success = true;
+	currentlevel =loadLevelNumber();
 	mygrid  = new Grid (1100,600,5,9,190,100);
 	PlantMg_script = new PlantManager();
 	RenderingMG::getInstance()->PMscript = PlantMg_script; // injecting dependency (Sasta Dependency injetion) not at all a good programming practice just testing
@@ -128,6 +131,8 @@ void Game::close()
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
+
+	saveLevelNumber(currentlevel); //save current progress
 	//Quit SDL subsystems
 	IMG_Quit();
 	SDL_Quit();
@@ -172,20 +177,19 @@ void Game::run()
 	PlantMg_script->InitializeSeeds(1);
 	PlantMg_script->selectedplant = nullptr;
 	quit = WelcomeScreen();
+	LevelManager::getInstance()->startLevel(currentlevel);
 	
 	while( !quit )
 	{
-		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),100,100);//Update Sun Count
+		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),400,400);//Update Sun Count
 		SpawnSun();
 		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
 			frames_elapsed = 0;
 		}
 
-		if(frames_elapsed %100 == 0)
-		{
-			Spawner::getInstance()->spawnRandomZombie();
-		}
+		
+		Spawner::getInstance()->update();
 		
 		//Handle events on queue
 		while( SDL_PollEvent( &e ) != 0 )
@@ -336,8 +340,34 @@ bool Game::WelcomeScreen()
 
 void Game::SpawnSun()
 {
-	if (SunDelay.Delay(300))
+	if (SunDelay.Delay(5000))
 	{
 		new Sun(rand()%1000,0);
 	}
+}
+
+void Game::saveLevelNumber(int levelNumber) {
+    std::ofstream file("level_data.txt");
+    if (file.is_open()) {
+        file << levelNumber;
+        file.close();
+        std::cout << "Level number saved: " << levelNumber << std::endl;
+    } else {
+        std::cerr << "Error: Unable to save level number." << std::endl;
+    }
+}
+
+int Game::loadLevelNumber() {
+    int levelNumber = 1; // Default level number if the file is not found or cannot be read
+
+    std::ifstream file("level_data.txt");
+    if (file.is_open()) {
+        file >> levelNumber;
+        file.close();
+        std::cout << "Level number loaded: " << levelNumber << std::endl;
+    } else {
+        std::cerr << "Warning: Unable to open level data file. Using default level number." << std::endl;
+    }
+
+    return levelNumber;
 }

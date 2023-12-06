@@ -10,17 +10,19 @@
 class Spawner {
 private:
     static Spawner* instance;
+    int level;
     ZombieInventory zombieInventory;
     std::vector<Zombie*> spawnedZombies;
-    Utilities SpawnDelay,WaveDelay;
-    bool Spawn;
+    Utilities SpawnDelay,WaveDelay, Waveduration;
+    bool Spawn, wave;
 
 
     Spawner();
 
 public:
-    int _spawndelay,_wavedelay,no_waves;
+    int _generalspawndelay,_spawndelay,_wavedelay,no_waves,_passedwaves,_waveduration;
     static Spawner* getInstance();
     void spawnRandomZombie();
+    void spawnwave();
     void update();
 };

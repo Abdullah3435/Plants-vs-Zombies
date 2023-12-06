@@ -15,6 +15,7 @@
 #include "PlantMG.hpp"
 #include "AudioMG.hpp"
 #include "ResourceMG.hpp"
+#include "ProgressionMG.hpp"
 
 class Game {
 private:
@@ -44,7 +45,9 @@ public:
     bool WelcomeScreen();
     void SetSeedIndex(int index);
     void SpawnSun();
-
+    void saveLevelNumber(int levelNumber);
+    int loadLevelNumber();
 private:
     static Game* instance;  // Singleton instance
+    int currentlevel = 1; // Set level from here
 };

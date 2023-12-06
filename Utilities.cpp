@@ -3,18 +3,26 @@
 
 bool Utilities::Delay(int delay)
 {
+    if (SelfCount == 0)
+    {
+        startTime = std::chrono::steady_clock::now();
+    }
     std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
     std::chrono::duration<int, std::milli> elapsedMilliseconds =
         std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - startTime);
+    SelfCount ++;
 
     if (elapsedMilliseconds.count() > delay) {
-        startTime = std::chrono::steady_clock::now();
+        SelfCount = 0;
         return true;
     }
 
     return false;
   }
-
+Utilities::Utilities()
+{
+    startTime = std::chrono::steady_clock::now();
+}
 // bool Utilities::Delay(int milliseconds) {
 //     static auto lastTime = std::chrono::high_resolution_clock::now();
 

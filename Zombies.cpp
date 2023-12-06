@@ -35,7 +35,7 @@ void SimpleZombie::PlayAnim()
     else if(State == "Eat")
     {
          sprite = Eatanim.PlayAnimation();
-         if (EatDelay.Delay(5))
+         if (EatDelay.Delay(1000))
          {
             AudioManager::getInstance()->playSound("chomp");
          }
@@ -43,7 +43,7 @@ void SimpleZombie::PlayAnim()
     else if(State == "Die")
     {
         sprite = Deathanim.PlayAnimation();
-        if(DeathDelay.Delay(34))
+        if(DeathDelay.Delay(1200))
         {
             Game::getInstance()->DumpGarbage(this);
             delete this;

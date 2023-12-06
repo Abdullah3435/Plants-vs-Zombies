@@ -2,8 +2,15 @@
 #include "SpawnMG.hpp"
 Spawner* Spawner::instance = nullptr;
 
-Spawner::Spawner() : zombieInventory(3) {
-    Spawndelay = 40;
+Spawner::Spawner() : zombieInventory(1) {
+    _spawndelay = 10000;
+    _generalspawndelay = 10000;
+    no_waves = 1;
+    _passedwaves = 0;
+    _waveduration = 100000;
+    _wavedelay = 1000; // 1 second wave
+    Spawn = true;
+    wave = false;
 }
 
 Spawner* Spawner::getInstance() {
@@ -18,15 +25,50 @@ void Spawner::spawnRandomZombie() {
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 
-    int randomIndex = rand() % 1;
-    Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
-    spawnedZombies.push_back(newZombie);
+    int randomIndex = rand() % 5;
     
+    Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
+
+    if(newZombie)
+    {
+        spawnedZombies.push_back(newZombie);
+    }
 }
 
 void Spawner::update() {
-    for (auto& zombie : spawnedZombies) {
-        // Update logic for zombies
-        // You can implement movement, animation, etc. here
+    if (WaveDelay.Delay(_wavedelay)) // check if its the time for wave
+    {
+        spawnwave();
+        wave = true;
     }
+
+    if (wave)// do this only while the wave is being played
+    {
+       
+        if(Waveduration.Delay(_waveduration))//countdown for wave resetting
+        {
+             _spawndelay = _generalspawndelay ;// back to normal delay
+            _passedwaves++;
+            if(_passedwaves>=no_waves)
+            {
+                Spawn = false; //infinite delay
+                // GameWonCondition
+            }
+            wave = false;
+        }
+    }
+
+    if (SpawnDelay.Delay(_spawndelay)) //spawn zombies RANDOMLY here
+    {
+        if(Spawn)
+        {
+        spawnRandomZombie();
+        }
+    }
+    
+}
+
+void Spawner::spawnwave()
+{
+    _spawndelay = 100;
 }

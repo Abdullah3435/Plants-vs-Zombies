@@ -73,7 +73,7 @@ void Projectile::Update()
     GameObject::Update();
     movement();
 
-    if(utilities.Delay(150))
+    if(utilities.Delay(5000))
     {
         Game::getInstance()->DumpGarbage(this);
         delete this;
@@ -103,7 +103,7 @@ void Plant::Update()
 {
     GameObject::Update();
 
-    if(utilities.Delay(40))
+    if(utilities.Delay(2000))
     {
         shoot();
         //std::cout<<"SHOOOTED PROJ";

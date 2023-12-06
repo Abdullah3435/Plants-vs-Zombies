@@ -71,7 +71,7 @@ void Sun::Update()
         transform->translate(0,1);
     }
     else{
-        if(utilities.Delay(50))
+        if(utilities.Delay(2000))
         {
             Game::getInstance()->DumpGarbage(this);
             delete this;

@@ -39,9 +39,17 @@ void LevelManager::startLevel(int level) {
 void LevelManager::level1()
 {
     Spawner::getInstance()->_wavedelay =100000;   // 100 seconds delay between waves         // 60 second delay before starting the level
-    Spawner::getInstance()->_spawndelay = 10000;  // 10 second delay between zombie spawns
-    Spawner::getInstance()->no_waves = 1 ;
+    Spawner::getInstance()->_spawndelay = 5000;  // 10 second delay between zombie spawns
+    Spawner::getInstance()->_generalspawndelay = 5000;
+    Spawner::getInstance()->_waveduration = 2000; //2 second duration of the wave
+    Spawner::getInstance()->no_waves = 2 ; // number of waves to be spawned
+
 };
+
+void LevelManager::level2(){}
+void LevelManager::level3(){}
+void LevelManager::level4(){}
+void LevelManager::level5(){}
 
 
 // void LevelManager::update() {
