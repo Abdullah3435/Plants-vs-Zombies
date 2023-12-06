@@ -82,7 +82,6 @@ bool Game::loadMedia()
 	//Loading success flag
 	bool success = true;
 	
-	assets.plant_tex = loadTexture(paths.Plantstexture);
 	assets.simple_zombie_walk = loadTexture(paths.SimpleZombietexture);
 	assets.simple_zombie_eat = loadTexture(paths.SimpleZombieEat);
 	assets.simple_zombie_die = loadTexture(paths.SimpleZombieDie);
@@ -92,8 +91,20 @@ bool Game::loadMedia()
 	assets.OpenGame=loadTexture(paths.OpenGame);
 	assets.gameover=loadTexture(paths.gameover);
 	assets.SeedSlots = loadTexture(paths.SeedSLots);
-	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);
 	assets.Sun = loadTexture(paths.Sun);
+
+	//seeds
+	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);
+	assets.Cherrybomb_Seed = loadTexture(paths.cherrybombseed);
+	assets.Sunflower_Seed = loadTexture(paths.sunflowerseed);
+	assets.Potatomine_Seed = loadTexture(paths.potatomineseed);
+	assets.WallNut_Seed = loadTexture(paths.wallnutseed);
+
+	//plants
+	assets.plant_tex = loadTexture(paths.Plantstexture);
+	assets.Sunflower = loadTexture(paths.Sunflower);
+	assets.WallNut = loadTexture(paths.WallNut);
+
 	
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL||assets.Peashooter_Seed== NULL)
@@ -174,7 +185,7 @@ void Game::run()
 
 	
 	AudioManager::getInstance()->playSoundOnLoop("bgMusic");
-	PlantMg_script->InitializeSeeds(1);
+	PlantMg_script->InitializeSeeds(currentlevel);
 	PlantMg_script->selectedplant = nullptr;
 	quit = WelcomeScreen();
 	LevelManager::getInstance()->startLevel(currentlevel);
@@ -232,8 +243,8 @@ void Game::run()
 		//std::cout<<frames_elapsed<<std::endl;
 
 	}
-	
 }
+
 void Game::DumpGarbage(GameObject* gameObject)
 {
 	vector<GameObject* >& temp = RenderingMG::getInstance()->myObjs;
@@ -250,7 +261,7 @@ void Game::DumpGarbage(GameObject* gameObject)
 }
 	
 void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
-	std::cout<<"keyboard working" ;
+	std::cout<<"keyboard working";
     switch (keysym.sym) {
         case SDLK_1:
             // Handle input for the '1' key

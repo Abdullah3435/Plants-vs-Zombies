@@ -3,6 +3,8 @@
 #include "game.hpp"
 #include "Plant.hpp"
 
+
+//Plants here
 void PlantManager::Peashooter(int x,int y)
 {
     Plant* plant = new Plant(x,y,500);
@@ -12,21 +14,22 @@ void PlantManager::Peashooter(int x,int y)
     plant->Plantanim=new Animation(plant->sprite,0,74,nullptr);
 
 }
-
 void PlantManager::Sunflower(int x,int y)
 {
-    Plant* plant = new Plant(x,y,100);
+    Plant* plant = new Plant(x,y,500);
     RenderingMG::getInstance()->AddObjectforRendering(plant);
     CollisionMG::getInstance()->AddPlant(plant);
-    plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
+    plant->SetSprite(Game::getInstance()->assets.Sunflower, Game::getInstance()->gRenderer, 1810, 2904, 8, 5);
+    plant->Plantanim=new Animation(plant->sprite,0,35,nullptr);
 }
 
 void PlantManager::WallNut(int x,int y)
 {
-    Plant* plant = new Plant(x,y,100);
+    Plant* plant = new Plant(x,y,2500);
     RenderingMG::getInstance()->AddObjectforRendering(plant);
     CollisionMG::getInstance()->AddPlant(plant);
-    plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
+    plant->SetSprite(Game::getInstance()->assets.WallNut, Game::getInstance()->gRenderer, 320, 648, 9, 5);
+    plant->Plantanim=new Animation(plant->sprite,0,43,nullptr);
 }
 
 void PlantManager::PotatoMine(int x,int y)
@@ -45,6 +48,59 @@ void PlantManager::CherryBomb(int x,int y)
     plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
 }
 
+//Seeds here
+void PlantManager::PeashooterSeed(int x , int y)
+{
+    plants[0] = new Seed(x,y,0);
+    plants[0]->refreshtime = 100;
+    plants[0]->SetSprite(Game::getInstance()->assets.Peashooter_Seed,Game::getInstance()->gRenderer,47,68);
+    plants[0]->transform->x_sc =0.47*1.4;plants[0]->transform->y_sc =0.65*1.4;
+    RenderingMG::getInstance()->AddObjectforRendering(plants[0]);
+    CollisionMG::getInstance()->Collectibles.push_back(plants[0]);
+}
+
+void PlantManager::SunflowerSeed(int x , int y)
+{
+    plants[1] = new Seed(x,y,1);
+    plants[1]->refreshtime = 100;
+    plants[1]->SetSprite(Game::getInstance()->assets.Sunflower_Seed,Game::getInstance()->gRenderer,47,68);
+    plants[1]->transform->x_sc =0.47*1.4;plants[1]->transform->y_sc =0.65*1.4;
+    RenderingMG::getInstance()->AddObjectforRendering(plants[1]);
+    CollisionMG::getInstance()->Collectibles.push_back(plants[1]);
+}
+
+void PlantManager::WallnutSeed(int x , int y)
+{
+    plants[2] = new Seed(x,y,2);
+    plants[2]->refreshtime = 100;
+    plants[2]->SetSprite(Game::getInstance()->assets.WallNut_Seed,Game::getInstance()->gRenderer,47,68);
+    plants[2]->transform->x_sc =0.47*1.4;plants[2]->transform->y_sc =0.65*1.4;
+    RenderingMG::getInstance()->AddObjectforRendering(plants[2]);
+    CollisionMG::getInstance()->Collectibles.push_back(plants[2]);
+}
+
+void PlantManager::PotatomineSeed(int x , int y)
+{
+    plants[3] = new Seed(x,y,3);
+    plants[3]->refreshtime = 100;
+    plants[3]->SetSprite(Game::getInstance()->assets.Potatomine_Seed,Game::getInstance()->gRenderer,47,68);
+    plants[3]->transform->x_sc =0.47*1.4;plants[3]->transform->y_sc =0.65*1.4;
+    RenderingMG::getInstance()->AddObjectforRendering(plants[3]);
+    CollisionMG::getInstance()->Collectibles.push_back(plants[3]);
+}
+
+void PlantManager::CherrybombSeed(int x , int y)
+{
+    plants[4] = new Seed(x,y,4);
+    plants[4]->refreshtime = 100;
+    plants[4]->SetSprite(Game::getInstance()->assets.Cherrybomb_Seed,Game::getInstance()->gRenderer,47,68);
+    plants[4]->transform->x_sc =0.47*1.4;plants[4]->transform->y_sc =0.65*1.4;
+    RenderingMG::getInstance()->AddObjectforRendering(plants[4]);
+    CollisionMG::getInstance()->Collectibles.push_back(plants[4]);
+}
+
+
+
 void PlantManager::createPlant(int x, int y)
 {
     switch(selectedindex)
@@ -56,11 +112,14 @@ void PlantManager::createPlant(int x, int y)
             Sunflower(x,y);
             break;
         case 2:
-            PotatoMine(x,y);
-        case 3:
             WallNut(x,y);
+            break;
+        case 3:
+            PotatoMine(x,y);
+            break;
         case 4:
             CherryBomb(x,y);
+            break;
         default:
             break;
     }
@@ -82,17 +141,42 @@ void PlantManager::InitializeSeeds(int level)
     switch(level)
     {
         case 1:
-            plants[0] = new Seed(260,50,0);
-            plants[0]->refreshtime = 100;
-            plants[0]->SetSprite(Game::getInstance()->assets.Peashooter_Seed,Game::getInstance()->gRenderer,47,68);
-            plants[0]->transform->x_sc =0.47*1.4;plants[0]->transform->y_sc =0.65*1.4;
-            RenderingMG::getInstance()->AddObjectforRendering(plants[0]);
-            CollisionMG::getInstance()->Collectibles.push_back(plants[0]);
+            PeashooterSeed(260,50);
             std::cout<<"\nShould have Created peashooter seed here\n";
             break; 
+        case 2:
+            PeashooterSeed(260,50);
+            SunflowerSeed(310,50);
+
+        case 3:
+            PeashooterSeed(260,50);
+            SunflowerSeed(310,50);
+            WallnutSeed(360,50);
+            break;
+
+
+        case 4:
+            PeashooterSeed(260,50);
+            SunflowerSeed(310,50);
+            WallnutSeed(360,50);
+            PotatomineSeed(410,50);
+            break;
+
+        case 5:
+            PeashooterSeed(260,50);
+            SunflowerSeed(310,50);
+            WallnutSeed(360,50);
+            PotatomineSeed(410,50);
+            CherrybombSeed(460,50);
+            break;
+
         default :
+            PeashooterSeed(260,50);
+            std::cout<<"\nShould have Created peashooter seed here\n";
+            break; 
             break;
 
     }
 
 }
+

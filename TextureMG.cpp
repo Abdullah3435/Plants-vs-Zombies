@@ -14,8 +14,17 @@ struct Texturepaths
     string OpenGame="openOrEnd/open.png";
     string gameover="openOrEnd/gameover.png";
     string SeedSLots = "Plant Sprite Sheets/Seeds/SeedSlot.png";
+    string sunflowerseed = "Plant Sprite Sheets/Seeds/Sunflower.png";
+    string wallnutseed = "Plant Sprite Sheets/Seeds/WallNut.png";
+    string cherrybombseed = "Plant Sprite Sheets/Seeds/CherryBomb.png";
+    string potatomineseed = "Plant Sprite Sheets/Seeds/PotatoMine.png";
     string PeashooterSeed = "Plant Sprite Sheets/Seeds/Peashooter_Seed.png";
     string Sun =  "Plant Sprite Sheets/Sun.png";
+    string Sunflower = "Plant Sprite Sheets/Sunflower.png";
+    //string CherryBomb = "";
+    string WallNut = "Plant Sprite Sheets/WallNut.png";
+    //string PotatoMine = ""
+    
 
 };
 
@@ -32,8 +41,21 @@ class Textures
         SDL_Texture* OpenGame;
         SDL_Texture* gameover;
         SDL_Texture* SeedSlots;
+
+        //seeds
         SDL_Texture* Peashooter_Seed;
+        SDL_Texture* Sunflower_Seed;
+        SDL_Texture* Potatomine_Seed;
+        SDL_Texture* Cherrybomb_Seed;
+        SDL_Texture* WallNut_Seed;
+
+        //plants
+        SDL_Texture* Sunflower;
+        SDL_Texture* WallNut;
+
+        //resources
         SDL_Texture* Sun;
+        
 
     Textures():plant_tex(nullptr), simple_zombie_walk(nullptr){}
 };
