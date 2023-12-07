@@ -7,7 +7,7 @@ class SimpleZombie : public ZombieTemplate<Simple> {
 private:
 
 public:
-Animation Walkanim;
+    Animation Walkanim;
     Animation Eatanim;
     Animation Deathanim;
     SimpleZombie(int x, int y);
@@ -28,6 +28,11 @@ Animation Walkanim;
 
 class DefensiveZombie : public ZombieTemplate<Simple, Protected> {
 public:
+
+    Animation Walkanim;
+    Animation Eatanim;
+    Animation Deathanim;
+
     DefensiveZombie(int x, int y);
 
     void Update()override;
@@ -42,11 +47,17 @@ public:
     
     void Attack() const override;
 
+    void PlayAnim();
+
     ~DefensiveZombie();
 };
 
 class UtilityZombie : public ZombieTemplate<Simple, Utility> {
 public:
+    Animation Walkanim;
+    Animation Eatanim;
+    Animation Deathanim;
+    
     UtilityZombie(int x, int y);
 
     void Move() const override;
@@ -58,6 +69,8 @@ public:
     Zombie* Clone(int x , int y) override;
 
     void Attack() const override;
+    void PlayAnim();
+    
     ~UtilityZombie();
 };
 

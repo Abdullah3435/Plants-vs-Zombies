@@ -89,7 +89,7 @@ Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr
 }
 
 void Plant::shoot() {
-    Projectile* proh = new Projectile(transform->x+10,transform->y+4,100);
+    Projectile* proh = new Projectile(transform->x+45,transform->y-25,100);
     CollisionMG::getInstance()->AddProjectile(proh);
     proh->SetSprite(Game::getInstance()->assets.Pea,Game::getInstance()->gRenderer,28,28);
     RenderingMG::getInstance()->AddObjectforRendering(proh);
