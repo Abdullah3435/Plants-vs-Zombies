@@ -28,6 +28,9 @@ DefensiveZombie* ZombieInventory::ConeHeadZombie()
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 1000;
     myzomb->movementspeed =2.5;
+
+    //operator overloading to add a protection obj to an existing DEFENSIVE ZOmbie ONLY
+    *myzomb + Cone();
     return myzomb;
 }
 //tryiing 
@@ -93,4 +96,14 @@ Zombie* ZombieInventory::createZombie(int i,int x,int y)
         return allzombies[i]->Clone(x,y);
     }
     return nullptr;
+}
+
+GameObject& ZombieInventory::Cone()
+{
+    GameObject* cone = new GameObject(0,0);
+    cone->SetSprite(Game::getInstance()->assets.Cone,Game::getInstance()->gRenderer,178,57,1,3);
+    cone->transform->x_sc = 0.5;
+    cone->transform->y_sc = 0.65;
+    RenderingMG::getInstance()->AddObjectforRendering(cone);
+    return *cone;
 }

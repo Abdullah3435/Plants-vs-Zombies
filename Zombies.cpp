@@ -85,14 +85,18 @@ void SimpleZombie::Attack() const {
 }
 
 DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) ,
-                                            protection(new GameObject(transform->x,transform->y)),
                                             Walkanim(sprite,20,64,Game::getInstance()->assets.simple_zombie_walk),
                                             Deathanim(sprite,0,34,Game::getInstance()->assets.simple_zombie_die),
                                             Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat),Zombie()
 {
-    protection->SetSprite(Game::getInstance()->assets.Cone,Game::getInstance()->gRenderer,178,57,1,3);
-    RenderingMG::getInstance()->AddObjectforRendering(protection);
+    
 
+}
+//Operator overloading for adding a protection to zombie
+// bind an external protection object to the defensive zombie using Operator overloading
+void DefensiveZombie::operator+(GameObject& other)
+{
+    protection = &other;
 }
 
 void DefensiveZombie::Update(){
@@ -111,7 +115,6 @@ void DefensiveZombie::Update(){
 
     
     GameObject::Update();
-    
     PlayAnim();
     
 }
@@ -127,6 +130,7 @@ void DefensiveZombie::PlayAnim()
         if(protection)
         {
             protection->transform->x = transform->x;
+            protection->transform->y = transform->y-80;
         }
     }
     else if(State == "Eat")

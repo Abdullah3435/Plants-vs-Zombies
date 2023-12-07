@@ -25,7 +25,7 @@ void Spawner::spawnRandomZombie() {
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 
-    int randomIndex = rand() % 5;
+    int randomIndex = rand() % 2;
     
     Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
 

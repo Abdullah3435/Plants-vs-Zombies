@@ -50,6 +50,8 @@ public:
 
     void PlayAnim();
 
+    void operator+(GameObject& other);
+
     ~DefensiveZombie();
 };
 
