@@ -2,7 +2,7 @@
 #include "SpawnMG.hpp"
 Spawner* Spawner::instance = nullptr;
 
-Spawner::Spawner() : zombieInventory(1) {
+Spawner::Spawner() : zombieInventory(2) {
     _spawndelay = 10000;
     _generalspawndelay = 10000;
     no_waves = 1;

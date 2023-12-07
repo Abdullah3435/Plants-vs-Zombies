@@ -12,19 +12,26 @@ SimpleZombie* ZombieInventory::simpleZombie()
     myzomb->State = "Idle";
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 500;
-    myzomb->movementspeed =1.5;
+    myzomb->movementspeed =2.5;
     return myzomb;
 }
 
 DefensiveZombie* ZombieInventory::ConeHeadZombie()
 {
     DefensiveZombie* myzomb = new DefensiveZombie(0, 0);
-    myzomb->SetSprite(Game::getInstance()->assets.conehead_walk, Game::getInstance()->gRenderer,1140,1364,4,5);
+    myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
     myzomb->transform->x_sc = 2;
-    myzomb->transform->y_sc = 2;
+    myzomb->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
+    myzomb->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
+    myzomb->State = "Idle";
+    myzomb->transform->y_sc = 1.7;
     myzomb->health = 1000;
+    myzomb->movementspeed =2.5;
     return myzomb;
 }
+//tryiing 
+
 
 SimpleZombie* ZombieInventory::BucketHeadZombie()
 {
@@ -57,10 +64,8 @@ SuperZombie* ZombieInventory:: rotSpire()
 }
 
 ZombieInventory::ZombieInventory(int level)
-{
-    for (int i =0; i<5;i++)
-    {
-        allzombies[i] = nullptr;
+{   for(int i=0;i<5;i++){
+        allzombies[i]=nullptr;
     }
     switch (level)
     {
@@ -72,13 +77,11 @@ ZombieInventory::ZombieInventory(int level)
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
         break;
-
     case 3:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
         allzombies[2] = rotSpire();
         break;
-
     default:
         allzombies[0] = simpleZombie();
         break;
@@ -86,10 +89,8 @@ ZombieInventory::ZombieInventory(int level)
 }
 
 Zombie* ZombieInventory::createZombie(int i,int x,int y)
-{
-    if(allzombies[i])
-    {
-    return allzombies[i]->Clone(x,y);
+{   if (allzombies[i]){
+        return allzombies[i]->Clone(x,y);
     }
-    else return nullptr;
+    return nullptr;
 }

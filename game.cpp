@@ -92,6 +92,7 @@ bool Game::loadMedia()
 	assets.gameover=loadTexture(paths.gameover);
 	assets.SeedSlots = loadTexture(paths.SeedSLots);
 	assets.Sun = loadTexture(paths.Sun);
+	assets.Cone = loadTexture(paths.cone);
 
 	//seeds
 	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);
@@ -193,7 +194,7 @@ void Game::run()
 	
 	while( !quit )
 	{
-		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),400,400);//Update Sun Count
+		
 		SpawnSun();
 		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
 		{
@@ -235,6 +236,7 @@ void Game::run()
 
 		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
 		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),125,75);//Update Sun Count
 
 		//****************************************************************
     	SDL_RenderPresent(gRenderer); //displays the updated renderer

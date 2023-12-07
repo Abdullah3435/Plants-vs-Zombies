@@ -85,11 +85,23 @@ void SimpleZombie::Attack() const {
 }
 
 DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) ,
+                                            protection(new GameObject(transform->x,transform->y)),
                                             Walkanim(sprite,20,64,Game::getInstance()->assets.simple_zombie_walk),
                                             Deathanim(sprite,0,34,Game::getInstance()->assets.simple_zombie_die),
-                                            Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat),Zombie(){}
+                                            Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat),Zombie()
+{
+    protection->SetSprite(Game::getInstance()->assets.Cone,Game::getInstance()->gRenderer,178,57,1,3);
+    RenderingMG::getInstance()->AddObjectforRendering(protection);
+
+}
 
 void DefensiveZombie::Update(){
+    if(health <= 500)
+    {
+        Game::getInstance()->DumpGarbage(protection);
+        protection = nullptr;
+        delete protection;
+    }
     if (health<0)
     {
         State = "Die";
@@ -99,9 +111,6 @@ void DefensiveZombie::Update(){
 
     
     GameObject::Update();
-    
-    
-    
     
     PlayAnim();
     
@@ -115,6 +124,10 @@ void DefensiveZombie::PlayAnim()
         //std::cout<<sprite<<std::endl;
         sprite = Walkanim.PlayAnimation();
         Move();
+        if(protection)
+        {
+            protection->transform->x = transform->x;
+        }
     }
     else if(State == "Eat")
     {
@@ -156,20 +169,18 @@ Zombie* DefensiveZombie::Clone(int x , int y) {
     DefensiveZombie* sz = new DefensiveZombie(*this);
     sz->sprite = new Sprite(*this->sprite);
     sz->transform = new Transform (*this->transform);
+    sz->setCollider(50,50);
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
     //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
-
     sz->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
     sz->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
     sz->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
     sz->State = "Idle";
     //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
-    
     return sz;
-    
 }
 
 void DefensiveZombie::Attack() const {

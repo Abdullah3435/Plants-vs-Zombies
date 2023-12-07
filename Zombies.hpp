@@ -32,6 +32,7 @@ public:
     Animation Walkanim;
     Animation Eatanim;
     Animation Deathanim;
+    GameObject* protection;
 
     DefensiveZombie(int x, int y);
 
