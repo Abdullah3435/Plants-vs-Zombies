@@ -93,6 +93,7 @@ bool Game::loadMedia()
 	assets.SeedSlots = loadTexture(paths.SeedSLots);
 	assets.Sun = loadTexture(paths.Sun);
 	assets.Cone = loadTexture(paths.cone);
+	assets.Buckethead=loadTexture(paths.buckethead);
 
 	//seeds
 	assets.Peashooter_Seed = loadTexture(paths.PeashooterSeed);

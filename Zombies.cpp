@@ -182,6 +182,8 @@ Zombie* DefensiveZombie::Clone(int x , int y) {
     sz->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
     sz->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
     sz->State = "Idle";
+    sz->protection = new GameObject(*protection);
+    sz->protection->sprite = new Sprite(*protection->sprite);
     //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
     sz->transform->y = y;
     return sz;

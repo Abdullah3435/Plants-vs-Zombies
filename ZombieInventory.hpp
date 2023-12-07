@@ -8,7 +8,7 @@ private:
 
     SimpleZombie* simpleZombie();
     DefensiveZombie* ConeHeadZombie();
-    SimpleZombie* BucketHeadZombie();
+    DefensiveZombie* BucketHeadZombie();
     UtilityZombie* jumpingZombie();
     SuperZombie* rotSpire();
 
@@ -16,5 +16,7 @@ public:
     ZombieInventory(int level);
     Zombie* createZombie(int i,int x,int y);
     GameObject& Cone();
+    GameObject& Bucket();
+
     
 };

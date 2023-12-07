@@ -36,17 +36,25 @@ DefensiveZombie* ZombieInventory::ConeHeadZombie()
 //tryiing 
 
 
-SimpleZombie* ZombieInventory::BucketHeadZombie()
+DefensiveZombie* ZombieInventory::BucketHeadZombie()
 {
-    SimpleZombie* myzomb = new SimpleZombie(0, 0);
+    DefensiveZombie* myzomb = new DefensiveZombie(0, 0);
     myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
     myzomb->transform->x_sc = 2;
-    myzomb->transform->y_sc = 2;
+    myzomb->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
+    myzomb->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
+    myzomb->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
+    myzomb->State = "Idle";
+    myzomb->transform->y_sc = 1.7;
     myzomb->health = 2000;
+    myzomb->movementspeed =2.5;
+
+    *myzomb + Bucket();
+
     return myzomb;
 }
 
-UtilityZombie* ZombieInventory::jumpingZombie()
+UtilityZombie* ZombieInventory::jumpingZombie() // not used yet but if assets are availablle we can also implement using similar functionality
 {
     UtilityZombie* myzomb = new UtilityZombie(0, 0);
     myzomb->SetSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
@@ -83,7 +91,7 @@ ZombieInventory::ZombieInventory(int level)
     case 3:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
-        allzombies[2] = rotSpire();
+        allzombies[2] = BucketHeadZombie();
         break;
     default:
         allzombies[0] = simpleZombie();
@@ -102,6 +110,16 @@ GameObject& ZombieInventory::Cone()
 {
     GameObject* cone = new GameObject(0,0);
     cone->SetSprite(Game::getInstance()->assets.Cone,Game::getInstance()->gRenderer,178,57,1,3);
+    cone->transform->x_sc = 0.5;
+    cone->transform->y_sc = 0.65;
+    RenderingMG::getInstance()->AddObjectforRendering(cone);
+    return *cone;
+}
+
+GameObject& ZombieInventory::Bucket()
+{
+    GameObject* cone = new GameObject(0,0);
+    cone->SetSprite(Game::getInstance()->assets.Buckethead,Game::getInstance()->gRenderer,512,512);
     cone->transform->x_sc = 0.5;
     cone->transform->y_sc = 0.65;
     RenderingMG::getInstance()->AddObjectforRendering(cone);

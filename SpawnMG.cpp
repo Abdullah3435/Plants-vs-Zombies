@@ -2,7 +2,7 @@
 #include "SpawnMG.hpp"
 Spawner* Spawner::instance = nullptr;
 
-Spawner::Spawner() : zombieInventory(2) {
+Spawner::Spawner() : zombieInventory(3) {
     _spawndelay = 10000;
     _generalspawndelay = 10000;
     no_waves = 1;
@@ -25,9 +25,9 @@ void Spawner::spawnRandomZombie() {
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 
-    int randomIndex = rand() % 2;
+    int randomIndex = rand() % 3;
     
-    Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
+    Zombie* newZombie = zombieInventory.createZombie(1,spawnposx,spawnposy);
 
     if(newZombie)
     {
