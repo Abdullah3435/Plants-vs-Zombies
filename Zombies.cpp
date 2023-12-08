@@ -6,6 +6,10 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
                                             Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat),Zombie(){}
 
 void SimpleZombie::Update() {
+    if(transform->x<50)
+    {
+        Game::getInstance()->SetGameOver();
+    }
 
     if (health<0)
     {
@@ -100,6 +104,12 @@ void DefensiveZombie::operator+(GameObject& other)
 }
 
 void DefensiveZombie::Update(){
+
+    if(transform->x<50)
+    {
+        Game::getInstance()->SetGameOver();
+    }
+
     if(health <= 500)
     {
         Game::getInstance()->DumpGarbage(protection);

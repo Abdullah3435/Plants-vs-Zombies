@@ -27,6 +27,7 @@ private:
     Grid* mygrid;
     PlantManager* PlantMg_script;
     Utilities SunDelay;
+    bool Gameover,GameStart,Gamewon;
     
     Game();  // Private constructor for singleton pattern
 
@@ -47,6 +48,8 @@ public:
     void SpawnSun();
     void saveLevelNumber(int levelNumber);
     int loadLevelNumber();
+
+    void SetGameOver();
 private:
     static Game* instance;  // Singleton instance
     int currentlevel = 1; // Set level from here

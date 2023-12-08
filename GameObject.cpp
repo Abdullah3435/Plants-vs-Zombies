@@ -40,9 +40,7 @@ void GameObject::Update()
 {
     if(sprite != nullptr)
     {
-        std::cout<<"Render Start";
         render();
-        std::cout<<"Render End";
     }
 }
 void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col)
