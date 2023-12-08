@@ -193,58 +193,77 @@ void Game::run()
 	quit = WelcomeScreen();
 	LevelManager::getInstance()->startLevel(currentlevel);
 	
-	while( !quit )
+	while( !quit)
 	{
-		
-		SpawnSun();
-		if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
+		while( !Gameover)
 		{
-			frames_elapsed = 0;
+			SpawnSun();
+			if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
+			{
+				frames_elapsed = 0;
+			}
+
+			
+			Spawner::getInstance()->update();
+			
+			//Handle events on queue
+			while( SDL_PollEvent( &e ) != 0 )
+			{
+				//User requests quit
+				if( e.type == SDL_QUIT )
+				{
+					quit = true;
+					Gameover = true;
+				}
+
+				if(e.type == SDL_MOUSEBUTTONDOWN){
+				//this is a good location to add pigeon in linked list.
+					int xMouse, yMouse;
+					SDL_GetMouseState(&xMouse,&yMouse);
+					RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
+					CollisionMG::getInstance()->CheckClicks(xMouse,yMouse);// check for multiple clicks ove here if needed
+				}
+
+				if (e.type == SDL_KEYDOWN)
+				{
+					handleKeyboardInput(e.key.keysym);
+				}
+			}
+
+
+			SDL_RenderClear(gRenderer); //removes everything from renderer
+			SDL_Rect* targetbg = new SDL_Rect{100,0,630,489};
+
+			SDL_RenderCopy(gRenderer, gTexture, targetbg, NULL);//Draws background to renderer
+			//***********************draw the objects here********************
+
+			RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
+			CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+			TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),125,75);//Update Sun Count
+
+			//****************************************************************
+			SDL_RenderPresent(gRenderer); //displays the updated renderer
+
+			SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
+			frames_elapsed++;
+			//std::cout<<frames_elapsed<<std::endl;
+			if(Gameover)
+			{
+				while(true)
+				{
+					SDL_Delay(20);
+				}
+			}
+			if(Gamewon)
+			{
+				while(true)
+				{
+					SDL_Delay(20);
+				}
+			}
 		}
 
-		
-		Spawner::getInstance()->update();
-		
-		//Handle events on queue
-		while( SDL_PollEvent( &e ) != 0 )
-		{
-			//User requests quit
-			if( e.type == SDL_QUIT )
-			{
-				quit = true;
-			}
 
-			if(e.type == SDL_MOUSEBUTTONDOWN){
-			//this is a good location to add pigeon in linked list.
-				int xMouse, yMouse;
-				SDL_GetMouseState(&xMouse,&yMouse);
-				RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
-				CollisionMG::getInstance()->CheckClicks(xMouse,yMouse);// check for multiple clicks ove here if needed
-			}
-
-			if (e.type == SDL_KEYDOWN)
-			{
-				handleKeyboardInput(e.key.keysym);
-			}
-		}
-
-
-		SDL_RenderClear(gRenderer); //removes everything from renderer
-		SDL_Rect* targetbg = new SDL_Rect{100,0,630,489};
-
-		SDL_RenderCopy(gRenderer, gTexture, targetbg, NULL);//Draws background to renderer
-		//***********************draw the objects here********************
-
-		RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
-		CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
-		TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),125,75);//Update Sun Count
-
-		//****************************************************************
-    	SDL_RenderPresent(gRenderer); //displays the updated renderer
-
-	    SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
-		frames_elapsed++;
-		//std::cout<<frames_elapsed<<std::endl;
 
 	}
 }
@@ -306,6 +325,10 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
     }
 }
 
+void Game::SetGameOver()
+{
+	Gameover = true;
+}
 void Game::SetSeedIndex(int i)
 {
 	PlantMg_script->selectedindex = i;

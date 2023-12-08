@@ -38,6 +38,7 @@ void Spawner::spawnRandomZombie() {
 void Spawner::update() {
     if (WaveDelay.Delay(_wavedelay)) // check if its the time for wave
     {
+        std::cout<<"Spawning Wave\n";
         spawnwave();
         wave = true;
     }
@@ -52,6 +53,7 @@ void Spawner::update() {
             if(_passedwaves>=no_waves)
             {
                 Spawn = false; //infinite delay
+                std::cout<<"GameWon is true";
                 // GameWonCondition
             }
             wave = false;
@@ -62,6 +64,7 @@ void Spawner::update() {
     {
         if(Spawn)
         {
+            std::cout<<"Spawning Zombie\n";
         spawnRandomZombie();
         }
     }

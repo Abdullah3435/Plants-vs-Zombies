@@ -16,7 +16,6 @@ bool Utilities::Delay(int delay)
         SelfCount = 0;
         return true;
     }
-
     return false;
   }
 Utilities::Utilities()
