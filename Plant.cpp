@@ -170,3 +170,51 @@ Bombplant::Bombplant(int x, int y , int hp, int blasttime):Plant(x,y,hp)
 {
     Blasttime=blasttime;
 }
+
+
+
+
+
+
+//=======================SomeButton=============================
+
+
+bool Button::CheckClick(int x,int y){
+    SDL_Rect* rect = transform->ToScreenPosition();
+    if (x < rect->x ||                   // Point is to the left of the rect
+        x >= rect->x + rect->w ||         // Point is to the right of the rect
+        y < rect->y ||                   // Point is above the rect
+        y >= rect->y + rect->h)           // Point is below the rect
+    {
+        return false;
+    }
+
+    // If none of the above conditions are met, there is an overlap
+    return true;
+};
+
+void Button::Update(){GameObject::Update();}
+
+void Button::OnClick(){
+    if (ButtonName == "Restart")
+    {
+        // Do Something
+        Game::getInstance()->EndGame();
+        Game::getInstance()->StartGame();
+    }
+
+    else if (ButtonName == "NextLevel")
+    {
+        // Do Something
+        Game::getInstance()->EndGame();
+        Game::getInstance()->StartGame();
+    }
+
+    else if (ButtonName == "End")
+    {
+        // Do Something
+        
+    }
+
+    else {std::cout << "Game Event for such name not found";}
+};

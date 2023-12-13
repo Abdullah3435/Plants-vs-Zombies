@@ -48,9 +48,16 @@ public:
     void SpawnSun();
     void saveLevelNumber(int levelNumber);
     int loadLevelNumber();
-
+    void EndGame();
+    void StartGame();
+    void Updatelevel();
+    int getlevel();
     void SetGameOver();
+    void quitgame();
+
+
 private:
     static Game* instance;  // Singleton instance
     int currentlevel = 1; // Set level from here
+    bool forcequit;
 };

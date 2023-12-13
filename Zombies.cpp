@@ -8,14 +8,12 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
 void SimpleZombie::Update() {
     if(transform->x<50)
     {
-        //Game::getInstance()->SetGameOver();
+        Game::getInstance()->SetGameOver();
     }
 
     if (health<0)
     {
         State = "Die";
-        // Game::getInstance()->DumpGarbage(this);
-        // delete this;
     }
 
     
@@ -107,7 +105,7 @@ void DefensiveZombie::Update(){
 
     if(transform->x<50)
     {
-        //Game::getInstance()->SetGameOver();
+        Game::getInstance()->SetGameOver();
     }
 
     if(health <= 500)

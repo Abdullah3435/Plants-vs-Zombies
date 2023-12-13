@@ -1,7 +1,7 @@
 
 #include "game.hpp"
 #include <fstream>
-
+#include "Plant.hpp"
 
 Game* Game::instance = nullptr;
 
@@ -20,6 +20,7 @@ bool Game::init()
 {
 	Gameover = false;
 	Gamewon = false;
+	forcequit = false;
 	//Initialization flag
 	bool success = true;
 	currentlevel =loadLevelNumber();
@@ -108,7 +109,7 @@ bool Game::loadMedia()
 	assets.Sunflower = loadTexture(paths.Sunflower);
 	assets.WallNut = loadTexture(paths.WallNut);
 	assets.CherryBomb = loadTexture(paths.CherryBomb);
-
+	assets.gameoverbar = loadTexture(paths.gameoverbar);
 	
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL||assets.Peashooter_Seed== NULL)
@@ -179,6 +180,53 @@ SDL_Texture* Game::loadTexture( std::string path )
 
 	return newTexture;
 }
+void Game::quitgame()
+{
+	forcequit = true;
+}
+
+void Game::EndGame()
+{
+	vector<GameObject*> tempobjs = RenderingMG::getInstance()->myObjs;
+	for (int i =0;i<tempobjs.size();i++)
+	{
+		if(tempobjs[i])
+		{
+			DumpGarbage(tempobjs[i]);
+			delete tempobjs[i];
+		}
+	}
+
+	std::cout<<"Successfully deleted all Game objs";
+
+	// the above will safely dump every game object when engame is called
+
+	delete CollisionMG::getInstance();
+	delete RenderingMG::getInstance();
+	delete LevelManager::getInstance();
+	std::cout<<"Successfully deleted singletons ";
+
+}
+
+void Game::StartGame()
+{
+	CollisionMG::getInstance();
+	RenderingMG::getInstance();
+
+	//AudioManager::getInstance()->playSoundOnLoop("bgMusic");
+	PlantMg_script->InitializeSeeds(currentlevel);
+	PlantMg_script->selectedplant = nullptr;
+	LevelManager::getInstance()->startLevel(currentlevel);
+	Gameover = false;
+	Gamewon = false;
+	//Initialization flag
+	bool success = true;
+	delete mygrid;
+	mygrid  = new Grid (1100,600,5,9,190,100);
+	std::cout <<"Done everything";
+
+}
+
 void Game::run()
 {
 	
@@ -194,18 +242,14 @@ void Game::run()
 	quit = WelcomeScreen();
 	LevelManager::getInstance()->startLevel(currentlevel);
 	
-	while( !quit)
+	while( !quit && !forcequit)
 	{
-		while( !Gameover)
-		{
-			SpawnSun();
-			if (frames_elapsed > 1000)// will reset after 1000 frames or 1000/25 = 40seconds
+		std::cout<<"D1";
+			if(!Gameover)
 			{
-				frames_elapsed = 0;
+				SpawnSun();
+				
 			}
-
-
-			
 			Spawner::getInstance()->update();
 			
 			//Handle events on queue
@@ -222,8 +266,10 @@ void Game::run()
 				//this is a good location to add pigeon in linked list.
 					int xMouse, yMouse;
 					SDL_GetMouseState(&xMouse,&yMouse);
+					std::cout<<"D2";
 					RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
 					CollisionMG::getInstance()->CheckClicks(xMouse,yMouse);// check for multiple clicks ove here if needed
+					std::cout<<"D3";
 				}
 
 				if (e.type == SDL_KEYDOWN)
@@ -232,40 +278,24 @@ void Game::run()
 				}
 			}
 
-
 			SDL_RenderClear(gRenderer); //removes everything from renderer
 			SDL_Rect* targetbg = new SDL_Rect{100,0,630,489};
 
 			SDL_RenderCopy(gRenderer, gTexture, targetbg, NULL);//Draws background to renderer
 			//***********************draw the objects here********************
 
+			std::cout<<"D4";
 			RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
+			std::cout<<"D5";
 			CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
+			std::cout<<"D6";
 			TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),125,75);//Update Sun Count
-
+			std::cout<<"D1";
 			//****************************************************************
 			SDL_RenderPresent(gRenderer); //displays the updated renderer
 
 			SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
 			frames_elapsed++;
-			//std::cout<<frames_elapsed<<std::endl;
-			// if(Gameover)
-			// {
-			// 	while(true)
-			// 	{
-			// 		SDL_Delay(20);
-			// 	}
-			// }
-			// if(Gamewon)
-			// {
-			// 	while(true)
-			// 	{
-			// 		SDL_Delay(20);
-			// 	}
-			// }
-		}
-
-
 
 	}
 }
@@ -330,11 +360,37 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
 void Game::SetGameOver()
 {
 	Gameover = true;
+	Spawner::getInstance()->Spawn = false;
+	GameObject* gameoverbg = new GameObject(500,500);
+	Button* restartbutton = new Button (300,300,"Restart");
+	Button* End = new Button (400,300,"End");
+
+	gameoverbg->SetSprite(assets.gameoverbar,gRenderer,717,348); // set all the sprites here
+	restartbutton->SetSprite(assets.gameoverbar,gRenderer,717,348);
+	End->SetSprite(assets.gameoverbar,gRenderer,717,348);
+
+	gameoverbg->transform->x_sc = 5;
+	gameoverbg->transform->y_sc = 5;
+
+	RenderingMG::getInstance()->AddObjectforRendering(gameoverbg);
+	RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
+	RenderingMG::getInstance()->AddObjectforRendering(End);
+	// also have to set sprites here
+
 }
 void Game::SetSeedIndex(int i)
 {
 	PlantMg_script->selectedindex = i;
 	PlantMg_script->SelectPlant();
+}
+
+void Game::Updatelevel()
+{
+	currentlevel ++;
+}
+int Game::getlevel()
+{
+	return currentlevel;
 }
 
 bool Game::WelcomeScreen()
@@ -344,6 +400,7 @@ bool Game::WelcomeScreen()
 
 	while( !Clicked)
 	{
+		
 		//Handle events on queue
 		while( SDL_PollEvent(&e ) != 0 )
 		{
@@ -408,6 +465,5 @@ int Game::loadLevelNumber() {
     } else {
         std::cerr << "Warning: Unable to open level data file. Using default level number." << std::endl;
     }
-
     return levelNumber;
 }

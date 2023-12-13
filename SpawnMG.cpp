@@ -1,8 +1,9 @@
 
 #include "SpawnMG.hpp"
+#include "Game.hpp"
 Spawner* Spawner::instance = nullptr;
 
-Spawner::Spawner() : zombieInventory(2) {
+Spawner::Spawner() : zombieInventory(Game::getInstance()->getlevel()) {
     _spawndelay = 10000;
     _generalspawndelay = 10000;
     no_waves = 1;
@@ -25,13 +26,14 @@ void Spawner::spawnRandomZombie() {
     int spawnposx = 1200;
     int spawnposy = ypos[rand()%5];
 
-    int randomIndex = rand() % 2;
+    int randomIndex = rand() % 5;
     
     Zombie* newZombie = zombieInventory.createZombie(randomIndex,spawnposx,spawnposy);
 
     if(newZombie)
     {
         spawnedZombies.push_back(newZombie);
+
     }
 }
 
@@ -68,7 +70,6 @@ void Spawner::update() {
         spawnRandomZombie();
         }
     }
-    
 }
 
 void Spawner::spawnwave()
