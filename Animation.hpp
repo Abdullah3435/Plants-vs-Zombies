@@ -29,7 +29,4 @@ public:
     
     Sprite* PlayAnimation();
     void InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col);
-    
-    
-    
 };

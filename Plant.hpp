@@ -45,7 +45,9 @@ class Plant:public GameObject
         int hp;
         
         
+        
     public:
+        bool _shooter,_sunshooter;
         Animation* Plantanim;
         Plant(int x,int y,int hp);
         void shoot();

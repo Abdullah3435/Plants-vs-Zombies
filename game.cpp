@@ -18,6 +18,8 @@ Game* Game::getInstance() {
 
 bool Game::init()
 {
+	Gameover = false;
+	Gamewon = false;
 	//Initialization flag
 	bool success = true;
 	currentlevel =loadLevelNumber();
@@ -202,6 +204,7 @@ void Game::run()
 				frames_elapsed = 0;
 			}
 
+
 			
 			Spawner::getInstance()->update();
 			
@@ -246,20 +249,20 @@ void Game::run()
 			SDL_Delay(20);	//causes sdl engine to delay for specified miliseconds //25fps almost
 			frames_elapsed++;
 			//std::cout<<frames_elapsed<<std::endl;
-			if(Gameover)
-			{
-				while(true)
-				{
-					SDL_Delay(20);
-				}
-			}
-			if(Gamewon)
-			{
-				while(true)
-				{
-					SDL_Delay(20);
-				}
-			}
+			// if(Gameover)
+			// {
+			// 	while(true)
+			// 	{
+			// 		SDL_Delay(20);
+			// 	}
+			// }
+			// if(Gamewon)
+			// {
+			// 	while(true)
+			// 	{
+			// 		SDL_Delay(20);
+			// 	}
+			// }
 		}
 
 

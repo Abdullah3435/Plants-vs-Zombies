@@ -85,6 +85,8 @@ void Projectile::Update()
 
 Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr){
     setCollider(50,50);
+    _shooter = false;
+    _sunshooter = false;
     // Initialization of Plant class members
 }
 
@@ -106,7 +108,10 @@ void Plant::Update()
 
     if(utilities.Delay(2000))
     {
-        shoot();
+        if(_shooter)
+        {
+            shoot();
+        }
         //std::cout<<"SHOOOTED PROJ";
     }
     if (Plantanim)

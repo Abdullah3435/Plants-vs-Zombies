@@ -43,7 +43,6 @@ void LevelManager::level1()
     Spawner::getInstance()->_generalspawndelay = 1000;
     Spawner::getInstance()->_waveduration = 4000; //2 second duration of the wave
     Spawner::getInstance()->no_waves = 1 ; // number of waves to be spawned
-
 };
 
 void LevelManager::level2(){
