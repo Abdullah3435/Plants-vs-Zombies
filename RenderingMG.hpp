@@ -29,6 +29,7 @@ public:
   void drawObjects(SDL_Renderer* gRnderer, Textures* assets);
   void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets, Grid& myGrid);
   void AddObjectforRendering(GameObject* obj);
+  void ClearVector();
 
 };
 
@@ -61,6 +62,7 @@ public:
     bool isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB);
     void RemoveGameObject(GameObject* gameObject);
     void CheckClicks(int x, int y);
+    void ClearVector();
     
 };
 

@@ -200,10 +200,9 @@ void Game::EndGame()
 	std::cout<<"Successfully deleted all Game objs";
 
 	// the above will safely dump every game object when engame is called
+	RenderingMG::getInstance()->ClearVector();
+	CollisionMG::getInstance()->ClearVector();
 
-	delete CollisionMG::getInstance();
-	delete RenderingMG::getInstance();
-	delete LevelManager::getInstance();
 	std::cout<<"Successfully deleted singletons ";
 
 }

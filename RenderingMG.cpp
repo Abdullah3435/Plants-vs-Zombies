@@ -80,6 +80,10 @@ void RenderingMG::createObject(int x, int y, SDL_Renderer* renderer, Textures *a
     }
 }
 
+void RenderingMG::ClearVector()
+{
+    myObjs.clear();
+}
 //==========================================CollisionMG=============================================
 
 void CollisionMG::AddPlant(GameObject* plant)
@@ -175,6 +179,14 @@ bool CollisionMG::isCollision(const SDL_Rect& rectA, const SDL_Rect& rectB)
 
     // If none of the above conditions are met, there is an overlap
     return true;
+}
+
+void CollisionMG::ClearVector()
+{
+    Zombies.clear();
+    Plants.clear();
+    Collectibles.clear();
+    Projectiles.clear();
 }
 
 //=============================================GarbageCollection==================================================
