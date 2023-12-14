@@ -11,6 +11,7 @@ class Utilities
     std::chrono::steady_clock::time_point startTime ;
   public:
   bool Delay(int delay);
+  void resettime();
   Utilities();
   
 };

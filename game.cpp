@@ -52,6 +52,7 @@ bool Game::init()
 		{
 			//Create renderer for window
 			gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED );
+
 			if( gRenderer == NULL )
 			{
 				printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -61,6 +62,8 @@ bool Game::init()
 			{
 				//Initialize renderer color
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+				
 
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
@@ -110,6 +113,8 @@ bool Game::loadMedia()
 	assets.Sunflower = loadTexture(paths.Sunflower);
 	assets.WallNut = loadTexture(paths.WallNut);
 	assets.CherryBomb = loadTexture(paths.CherryBomb);
+	assets.unreadymine = loadTexture(paths.UnreadyMine);
+	assets.readymine = loadTexture(paths.readymine);
 
 	assets.gameoverbar = loadTexture(paths.gameoverbar);
 	assets.nextlevel = loadTexture(paths.Nextlevel);
@@ -369,20 +374,20 @@ void Game::SetGameOver()
 {
 	Gameover = true;
 	Spawner::getInstance()->Spawn = false;
-	GameObject* gameoverbg = new GameObject(500,500);
-	Button* restartbutton = new Button (300,300,"Restart");
-	Button* End = new Button (400,300,"End");
+	GameObject* gameoverbg = new GameObject(600,350);
+	Button* restartbutton = new Button (550,430,"Restart");
+	Button* End = new Button (650,430,"End");
 
 	gameoverbg->SetSprite(assets.gameoverbar,gRenderer,717,348); // set all the sprites here
 	restartbutton->SetSprite(assets.gameoverbar,gRenderer,717,348);
 	End->SetSprite(assets.gameoverbar,gRenderer,717,348);
 
-	gameoverbg->transform->x_sc = 5;
+	gameoverbg->transform->x_sc = 8;
 	gameoverbg->transform->y_sc = 5;
 
 	RenderingMG::getInstance()->AddObjectforRendering(gameoverbg);
-	RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
-	RenderingMG::getInstance()->AddObjectforRendering(End);
+	//RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
+	//RenderingMG::getInstance()->AddObjectforRendering(End);
 	// also have to set sprites here
 }
 

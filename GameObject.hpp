@@ -44,7 +44,7 @@ public:
     SDL_Rect getCollider();
 
     virtual void Update();
-    void render();
+    void render(bool DimRendering = false);
 
     ~GameObject();
 
