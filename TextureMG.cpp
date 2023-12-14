@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+// Structure to hold paths for all textures
 struct Texturepaths
 {
     string Plantstexture = "Plant Sprite Sheets/Peashooter.png";
@@ -28,7 +29,7 @@ struct Texturepaths
     string Nextlevel = "OpenOrEnd/Next LEvel.png";
     string UnreadyMine = "Plant Sprite Sheets/Unarmed_PotatoMine.png";
     string readymine =  "Plant Sprite Sheets/PotatomineIDLE.png";
-    //string PotatoMine = ""
+
     
 
 };
@@ -36,6 +37,7 @@ struct Texturepaths
 class Textures
 {
     public:
+    // Pointers to SDL textures for different game elements
         SDL_Texture* plant_tex;
         SDL_Texture* simple_zombie_walk;
         SDL_Texture* simple_zombie_eat;

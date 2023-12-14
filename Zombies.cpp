@@ -1,5 +1,7 @@
 #include "Zombies.hpp"  // Include the header file that declares all the classes
 #include "game.hpp"
+
+//constructor
 SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
                                             Walkanim(sprite,20,64,Game::getInstance()->assets.simple_zombie_walk),
                                             Deathanim(sprite,0,34,Game::getInstance()->assets.simple_zombie_die),
@@ -26,11 +28,12 @@ void SimpleZombie::Update() {
     
 }
 
+//play animation 
 void SimpleZombie::PlayAnim()
 {
     if(State == "Idle") //state based conditions check what is the state here
     {
-        //std::cout<<sprite<<std::endl;
+        
         sprite = Walkanim.PlayAnimation();
         Move();
     }
@@ -60,25 +63,35 @@ void SimpleZombie::Move() const {
     // Implementation for moving
 }
 
+//reducing zombies health
 void SimpleZombie::getDamage(int dmg) {
     health -= dmg;
 }
 
 Zombie* SimpleZombie::Clone(int x , int y) {
+    // Get the singleton instance of the game
     Game* game = Game::getInstance();
+     // Create a new SimpleZombie object as a copy of the current instance
     SimpleZombie* sz = new SimpleZombie(*this);
+     // Copy the sprite and transform of the current instance to the new one
     sz->sprite = new Sprite(*this->sprite);
     sz->transform = new Transform (*this->transform);
+    // Set collider dimensions for collision detection
     sz->setCollider(50,50);
+    // Add the new SimpleZombie to the rendering manager's list of objects
     RenderingMG::getInstance()->myObjs.push_back(sz);
+    // Set the x-coordinate of the new SimpleZombie's transform
     sz->transform->x = x;
+    // Add the new SimpleZombie to the collision manager's list of zombies
     CollisionMG::getInstance()->AddZombie(sz);
 
+    // Initialize sprite animations for walk, eat, and die
     sz->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
     sz->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
     sz->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
+     // Set the initial state to idle
     sz->State = "Idle";
-    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+     // Set the y-coordinate of the zombie
     sz->transform->y = y;
     return sz;
 }
@@ -87,6 +100,7 @@ void SimpleZombie::Attack() const {
     // Implementation for attacking
 }
 
+// Constructor
 DefensiveZombie::DefensiveZombie(int x, int y) : ZombieTemplate<Simple, Protected>(x, y) ,
                                             Walkanim(sprite,20,64,Game::getInstance()->assets.simple_zombie_walk),
                                             Deathanim(sprite,0,34,Game::getInstance()->assets.simple_zombie_die),
@@ -118,8 +132,7 @@ void DefensiveZombie::Update(){
     if (health<0)
     {
         State = "Die";
-        // Game::getInstance()->DumpGarbage(this);
-        // delete this;
+       
     }
 
     
@@ -133,7 +146,6 @@ void DefensiveZombie::PlayAnim()
 {
     if(State == "Idle") //state based conditions check what is the state here
     {
-        //std::cout<<sprite<<std::endl;
         sprite = Walkanim.PlayAnimation();
         Move();
         if(protection)
@@ -177,7 +189,7 @@ void DefensiveZombie::Defend(int healthboost) {
 void DefensiveZombie::getDamage(int dmg) {
     health -= dmg;
 }
-
+// Clone method for DefensiveZombie similar to super zombie
 Zombie* DefensiveZombie::Clone(int x , int y) {
     Game* game = Game::getInstance();
     DefensiveZombie* sz = new DefensiveZombie(*this);
@@ -187,12 +199,12 @@ Zombie* DefensiveZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+    
     sz->Walkanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_walk, Game::getInstance()->gRenderer,1130,1987,13,5);
     sz->Eatanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_eat, Game::getInstance()->gRenderer,1130,1210,8,5);
     sz->Deathanim.InitializeSprite(Game::getInstance()->assets.simple_zombie_die, Game::getInstance()->gRenderer,1130,1060,7,5);
     sz->State = "Idle";
-    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
+    
     sz->transform->y = y;
     return sz;
 }
@@ -265,7 +277,6 @@ Zombie* SuperZombie::Clone(int x , int y) {
     RenderingMG::getInstance()->myObjs.push_back(sz);
     sz->transform->x = x;
     CollisionMG::getInstance()->AddZombie(sz);
-    //std::cout<<"THE HEALTH OF THE CLONE IS :"<<health<<std::endl;
 
     sz->transform->y = y;
     return sz;

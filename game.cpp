@@ -385,9 +385,6 @@ void Game::SetGameOver()
 	gameoverbg->transform->y_sc = 5;
 
 	RenderingMG::getInstance()->AddObjectforRendering(gameoverbg);
-	//RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
-	//RenderingMG::getInstance()->AddObjectforRendering(End);
-	// also have to set sprites here
 }
 
 void Game::set_gameWon()

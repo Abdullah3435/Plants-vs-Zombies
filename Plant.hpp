@@ -7,7 +7,7 @@ class Plant;
 class Seed:public GameObject,public Clickable
 {
     private :
-        //PlantManager* plantmg;
+        
         int SeedIndex;
         bool ready;
         Utilities myDelay;
@@ -59,11 +59,6 @@ class Plant:public GameObject
         virtual ~Plant();
 };
 
-// class UtilityPlant: public Plant{
-//     public:
-//     void Update();
-//     UtilityPlant(int x, int y , int hp);
-// };
 
 class Bombplant: public Plant{
     public :
@@ -85,7 +80,7 @@ class Potatomine: public Plant{
 class Button:public GameObject,public Clickable
 {
     private :
-        //PlantManager* plantmg;
+        
         string ButtonName;
 
     public :

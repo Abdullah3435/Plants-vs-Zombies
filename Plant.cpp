@@ -1,15 +1,13 @@
 #include "Plant.hpp"
 #include "game.hpp"
 #include "AudioMG.hpp"
-//Projectile::Projectile(int x, int y, int damage) : GameObject(x, y), Damage(damage) {
-    // Damage = 100;  // No need for this line; damage is initialized in the member initializer list
-//}
+// Function called when the seed is clicked
 void Seed::OnClick()
 {
     std::cout<<"Seed Clicked\n";
     Game::getInstance()->SetSeedIndex(SeedIndex);
 }
-
+// Function to check if a point (x, y) is within the seed's clickable area
 bool Seed::CheckClick(int x, int y)
 {
     SDL_Rect* rect = transform->ToScreenPosition();
@@ -24,13 +22,16 @@ bool Seed::CheckClick(int x, int y)
     // If none of the above conditions are met, there is an overlap
     return true;
 }
+// Function to update the seed's state
 void Seed::Update()
 {
+    // Check if it's time to refresh
     if(myDelay.Delay(refreshtime))
     {
         ready = true;
         isInteractable = true;
     }
+    // Update the seed object if it is ready
     if(ready)
     {
         GameObject::Update();
@@ -41,11 +42,12 @@ void Seed::Update()
         render(true);
     }
 }
-
+// Function to use the seed
 bool Seed::Use()
 {
     if(ready&&cost<=Game::getInstance()->_resourcemg.getResources())
     {
+        // Subtract the cost from resources and reset the seed state
         Game::getInstance()->_resourcemg.subtractResource(cost);
         currenttime = 0;
         ready = false;
@@ -58,6 +60,7 @@ bool Seed::Use()
     {std::cout<<"The plant is not ready\n";return false;} 
 }
 
+// Function to give damage to a zombie from the projectile
 void Projectile::giveDamage(Zombie* zombie) {
     zombie->getDamage(Damage);
     AudioManager::getInstance()->playSound("hit");
@@ -71,6 +74,7 @@ Projectile::~Projectile() {
     // Destructor implementation (if needed)
 }
 
+// Function to handle the movement of the projectile
 void Projectile::movement()
 {
     transform->translate(1*speed);
@@ -81,6 +85,7 @@ void Projectile::Update()
     GameObject::Update();
     movement();
 
+    // Check if it's time to remove the projectile
     if(utilities.Delay(5000))
     {
         Game::getInstance()->DumpGarbage(this);
@@ -91,6 +96,7 @@ void Projectile::Update()
 // Plant.cpp
 #include "Plant.hpp"
 
+// Constructor 
 Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr){
     setCollider(50,50);
     _shooter = false;
@@ -98,6 +104,7 @@ Plant::Plant(int x, int y,int _hp) : GameObject(x, y), hp(_hp),Plantanim(nullptr
     // Initialization of Plant class members
 }
 
+// Function to make the plant shoot a projectile
 void Plant::shoot() {
     Projectile* proh = new Projectile(transform->x+45,transform->y-25,100);
     CollisionMG::getInstance()->AddProjectile(proh);
@@ -106,7 +113,6 @@ void Plant::shoot() {
     proh->speed = 10; //set shoot speed
     proh->transform->x_sc =0.35;
     proh->transform->y_sc =0.35;
-    //std::cout<<"Projectile created right";
     // Implementation of shoot function
     // You can create a Projectile and shoot it at a Zombie, for example
 }
@@ -120,7 +126,6 @@ void Plant::Update()
         {
             shoot();
         }
-        //std::cout<<"SHOOOTED PROJ";
     }
     if (Plantanim)
     {
@@ -154,23 +159,30 @@ Plant::~Plant()
 void Bombplant::Update()
 {
     GameObject::Update();
+    // Play the plant animation if available
     if (Plantanim)
     {
     Plantanim->PlayAnimation();
     }
+    // Check if it's time for the bomb to explode
     if (utilities.Delay(Blasttime))
-    {
+    {   
+        // Define a rectangular area for the blast aura
         SDL_Rect blastaura{transform->x-150,transform->y-150,300,300};
+        // Iterate through all zombies to check for collision with the blast aura
         for (int i = 0 ;i<CollisionMG::getInstance()->Zombies.size();i++) 
         {
             if(CollisionMG::getInstance()->Zombies[i])
             {
+                // Check if the zombie collides with the blast aura
                 if(CollisionMG::getInstance()->isCollision(CollisionMG::getInstance()->Zombies[i]->getCollider(),blastaura))
                 {
+                    // Apply damage to the zombie
                     dynamic_cast<Zombie*>(CollisionMG::getInstance()->Zombies[i])->getDamage(2000);
                 }
             }
         }
+        // Remove the bombplant from the game and free memory
         Game::getInstance()->DumpGarbage(this);
         delete this;
     }
@@ -178,6 +190,7 @@ void Bombplant::Update()
     
 }
 
+// Constructor for the Bombplant
 Bombplant::Bombplant(int x, int y , int hp, int blasttime):Plant(x,y,hp)
 {
     Blasttime=blasttime;
@@ -187,10 +200,12 @@ Bombplant::Bombplant(int x, int y , int hp, int blasttime):Plant(x,y,hp)
 void Potatomine::Update()
 {
     GameObject::Update();
+    // Check if the Potatomine is not ready and has waited for 3000 milliseconds
     if(!isReady&&utilities.Delay(3000))
     {
         isReady = true;
     }
+    // If Potatomine is ready
     if (isReady)
     {
         if (Plantanim)
@@ -199,7 +214,9 @@ void Potatomine::Update()
         std::cout<<"trying to switch anim";
         }
 
+        // Define a blast aura rectangle around the Potatomine
         SDL_Rect blastaura{transform->x-70,transform->y-15,140,30};
+        // Iterate through Zombies and check for collision with the blast aura
         for (int i = 0 ;i<CollisionMG::getInstance()->Zombies.size();i++) 
         {
             if(CollisionMG::getInstance()->Zombies[i])
@@ -215,6 +232,7 @@ void Potatomine::Update()
         }
         
     }
+    // If Potatomine's health is less than 0, remove it from the game
     if(gethp()<0)
     {
         Game::getInstance()->DumpGarbage(this);
@@ -223,6 +241,7 @@ void Potatomine::Update()
     
 }
 
+// Constructor
 Potatomine::Potatomine(int x, int y , int hp, int readytine):Plant(x,y,hp)
 {
     readyTime=readytine;
@@ -231,7 +250,7 @@ Potatomine::Potatomine(int x, int y , int hp, int readytine):Plant(x,y,hp)
 
 //=======================SomeButton=============================
 
-
+// Check if a point (x, y) is within the boundaries of the Button's rectangle
 bool Button::CheckClick(int x,int y){
     SDL_Rect* rect = transform->ToScreenPosition();
     if (x < rect->x ||                   // Point is to the left of the rect
@@ -248,6 +267,7 @@ bool Button::CheckClick(int x,int y){
 
 void Button::Update(){GameObject::Update();}
 
+// OnClick function to handle button click events
 void Button::OnClick(){
     if (ButtonName == "Restart")
     {

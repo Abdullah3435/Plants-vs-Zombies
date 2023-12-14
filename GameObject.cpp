@@ -4,17 +4,20 @@
 #include <thread>
 #include <algorithm>
 
+// Constructor
 Collider::Collider(int wd,int ht)
 {
     width = wd;
     height = ht;
 }
 
+//get the SDL_Rect for the collider based on position
 SDL_Rect Collider::getCollider(int posx,int posy)
 {
     return SDL_Rect{posx-(width/2),posy-(height/2),width,height};
 }
 
+//et the collider dimensions for the GameObject
 void GameObject::setCollider(int width, int height)
 {
     _collider = new Collider(width,height);
@@ -43,6 +46,8 @@ void GameObject::Update()
         render();
     }
 }
+
+//set the sprite for the GameObject
 void GameObject::SetSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,int TexWidth , int TexHeight, int _rows ,int _col)
 {
     printf("sprite is set");
@@ -59,26 +64,28 @@ void GameObject::StartAnimation()
     printf("creating animation\n");
     animation = new Animation(sprite, 2, 40, sprite->texture);
 
-    // Start the animation loop in a separate thread
-    // std::thread animThread(&Animation::PlayAnimation, animation);
-    // animThread.detach();  // Detach the thread to run independently
+    
 }
 
 Transform* GameObject::Getposition() {
     return transform;
 }
 
+//load a texture from a file path
 SDL_Texture* GameObject::loadTexture(std::string path) {
     SDL_Texture* newTexture = nullptr;
+    // Load the image from the specified path into an SDL_Surface
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
     if (loadedSurface == nullptr) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     } else {
+        // Create an SDL_Texture from the loaded SDL_Surface
         newTexture = SDL_CreateTextureFromSurface(sprite->renderer, loadedSurface);
         if (newTexture == nullptr) {
             printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
         }
+        // Free the loaded SDL_Surface since its data is now stored in the SDL_Texture
         SDL_FreeSurface(loadedSurface);
     }
     return newTexture;
@@ -94,8 +101,7 @@ void GameObject::render(bool DimRendering) {
     }
     else
     {SDL_RenderCopy(sprite->renderer,sprite->texture, &sprite->targetTexture, transform->ToScreenPosition());}
-    //std::cout<<"\nHere is the ACCESSED SDL Rect "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
-    //std::cout<<sprite<<std::endl;
+    
 }
 
 GameObject::~GameObject()
@@ -115,7 +121,7 @@ ObjectStates::ObjectStates() {
     // Set the current state to "idle"
     TransitToState("idle");
 }
-
+//to add a state to the states vector
 void ObjectStates::AddState(const std::string& state) {
     states.push_back(state);
 }
