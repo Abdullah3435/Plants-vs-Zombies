@@ -14,8 +14,6 @@ void SimpleZombie::Update() {
     if (health<0)
     {
         State = "Die";
-        // Game::getInstance()->DumpGarbage(this);
-        // delete this;
     }
 
     
@@ -50,6 +48,7 @@ void SimpleZombie::PlayAnim()
         if(DeathDelay.Delay(1200))
         {
             Game::getInstance()->DumpGarbage(this);
+            Game::getInstance()->ReduceZombiecount();
             delete this;
         }
 
@@ -157,6 +156,7 @@ void DefensiveZombie::PlayAnim()
         if(DeathDelay.Delay(34))
         {
             Game::getInstance()->DumpGarbage(this);
+            Game::getInstance()->ReduceZombiecount();
             delete this;
         }
 

@@ -82,19 +82,47 @@ ZombieInventory::ZombieInventory(int level)
     {
     case 1:
         allzombies[0] = simpleZombie();
+        allzombies[1] = simpleZombie();
+        allzombies[2] = simpleZombie();
+        allzombies[3] = simpleZombie();
+        allzombies[4] = simpleZombie();
         break;
 
     case 2:
         allzombies[0] = simpleZombie();
-        allzombies[1] = ConeHeadZombie();
+        allzombies[1] = simpleZombie();
+        allzombies[2] = simpleZombie();
+        allzombies[3] = simpleZombie();
+        allzombies[4] = ConeHeadZombie();
         break;
     case 3:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
-        allzombies[2] = BucketHeadZombie();
+        allzombies[2] = simpleZombie();
+        allzombies[1] = ConeHeadZombie();
+        allzombies[2] = simpleZombie();
         break;
+    case 4:
+        allzombies[0] = simpleZombie();
+        allzombies[1] = ConeHeadZombie();
+        allzombies[2] = BucketHeadZombie();
+        allzombies[3] = simpleZombie();
+        allzombies[4] = simpleZombie();
+        break;
+    case 5:
+        allzombies[0] = simpleZombie();
+        allzombies[1] = ConeHeadZombie();
+        allzombies[2] = BucketHeadZombie();
+        allzombies[3] = ConeHeadZombie();
+        allzombies[4] = ConeHeadZombie();
+        break;
+        
     default:
         allzombies[0] = simpleZombie();
+        allzombies[1] = simpleZombie();
+        allzombies[2] = simpleZombie();
+        allzombies[3] = simpleZombie();
+        allzombies[4] = simpleZombie();
         break;
     }
 }

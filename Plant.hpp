@@ -45,12 +45,15 @@ class Plant:public GameObject
         int hp;
         
         
+        
     public:
+        bool _shooter,_sunshooter;
         Animation* Plantanim;
         Plant(int x,int y,int hp);
         void shoot();
         void Update() override;
         bool getDamage(int );
+        virtual ~Plant();
 };
 
 // class UtilityPlant: public Plant{
@@ -64,4 +67,20 @@ class Bombplant: public Plant{
     void Update();
     int Blasttime;
     Bombplant(int x, int y , int hp,int );
+    
+};
+
+
+
+class Button:public GameObject,public Clickable
+{
+    private :
+        //PlantManager* plantmg;
+        string ButtonName;
+
+    public :
+        void OnClick();
+        bool CheckClick(int x, int y);
+        Button (int x, int y,string name):GameObject(x,y),ButtonName(name){};
+        void Update();
 };

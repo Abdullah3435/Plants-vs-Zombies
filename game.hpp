@@ -17,6 +17,7 @@
 #include "ResourceMG.hpp"
 #include "ProgressionMG.hpp"
 
+class Plant;
 class Game {
 private:
     Texturepaths paths;
@@ -48,9 +49,19 @@ public:
     void SpawnSun();
     void saveLevelNumber(int levelNumber);
     int loadLevelNumber();
-
+    void EndGame();
+    void StartGame();
+    void Updatelevel();
+    int getlevel();
     void SetGameOver();
+    void quitgame();
+    void set_gameWon();
+    void ReduceZombiecount();
+    void LeaveGridBlock(Plant*);
+
+
 private:
     static Game* instance;  // Singleton instance
     int currentlevel = 1; // Set level from here
+    bool forcequit;
 };

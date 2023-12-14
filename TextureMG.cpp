@@ -24,7 +24,8 @@ struct Texturepaths
     string CherryBomb = "Plant Sprite Sheets/Cherrybomb.png";
     string WallNut = "Plant Sprite Sheets/WallNut.png";
     string cone="Zombie Sprite Sheets/Conehead/Cone.png";
-    string buckethead="Zombie Sprite Sheets/buckethead.png";
+    string gameoverbar = "OpenOrEnd/GameOverBar.png";
+    string Nextlevel = "OpenOrEnd/Next LEvel.png";
     //string PotatoMine = ""
     
 
@@ -61,6 +62,9 @@ class Textures
         SDL_Texture* Cone;
         SDL_Texture* Buckethead;
         
+        SDL_Texture* gameoverbar;
+        SDL_Texture* nextlevel;
+
 
     Textures():plant_tex(nullptr), simple_zombie_walk(nullptr){}
 };

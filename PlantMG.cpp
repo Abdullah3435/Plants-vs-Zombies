@@ -12,6 +12,7 @@ void PlantManager::Peashooter(int x,int y)
     CollisionMG::getInstance()->AddPlant(plant);
     plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
     plant->Plantanim=new Animation(plant->sprite,0,74,nullptr);
+    plant->_shooter = true;
 
 }
 void PlantManager::Sunflower(int x,int y)
@@ -21,6 +22,7 @@ void PlantManager::Sunflower(int x,int y)
     CollisionMG::getInstance()->AddPlant(plant);
     plant->SetSprite(Game::getInstance()->assets.Sunflower, Game::getInstance()->gRenderer, 1810, 2904, 8, 5);
     plant->Plantanim=new Animation(plant->sprite,0,35,nullptr);
+    plant->_sunshooter= true;
 }
 
 void PlantManager::WallNut(int x,int y)
@@ -151,6 +153,7 @@ void PlantManager::InitializeSeeds(int level)
         case 2:
             PeashooterSeed(260,50);
             SunflowerSeed(330,50);
+            break;
 
         case 3:
             PeashooterSeed(260,50);
@@ -178,7 +181,6 @@ void PlantManager::InitializeSeeds(int level)
             PeashooterSeed(260,50);
             std::cout<<"\nShould have Created peashooter seed here\n";
             break; 
-            break;
 
     }
 
