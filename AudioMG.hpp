@@ -7,6 +7,7 @@
 #include <iostream>
 using namespace std;
 
+//storing paths for different audio management files
 struct AudioPaths
 {
     string BG = "music/background2.wav";
@@ -15,6 +16,7 @@ struct AudioPaths
     string SunClick =  "music/sun.wav";
     //add more paths here when needed
 };
+
 
 struct LoadedSound {
     Mix_Chunk* sound;
