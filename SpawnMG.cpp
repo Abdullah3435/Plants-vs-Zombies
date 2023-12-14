@@ -14,6 +14,20 @@ Spawner::Spawner() : zombieInventory(Game::getInstance()->getlevel()) {
     wave = false;
 }
 
+Spawner::~Spawner()
+{
+    
+}
+
+void Spawner::deleteSpawner()
+{
+    if (instance)
+    {
+        delete instance;
+    }
+    instance = nullptr;
+}
+
 Spawner* Spawner::getInstance() {
     if (instance == nullptr) {
         instance = new Spawner();
@@ -38,6 +52,15 @@ void Spawner::spawnRandomZombie() {
 }
 
 void Spawner::update() {
+    if (gamewonReady) // game won condition
+    {
+        if (zombiecount<=0)
+        {
+            Game::getInstance()->set_gameWon();
+        }
+    }
+
+
     if (WaveDelay.Delay(_wavedelay)) // check if its the time for wave
     {
         std::cout<<"Spawning Wave\n";
@@ -47,15 +70,16 @@ void Spawner::update() {
 
     if (wave)// do this only while the wave is being played
     {
-       
         if(Waveduration.Delay(_waveduration))//countdown for wave resetting
         {
-             _spawndelay = _generalspawndelay ;// back to normal delay
+            _spawndelay = _generalspawndelay ;// back to normal delay
             _passedwaves++;
             if(_passedwaves>=no_waves)
             {
                 Spawn = false; //infinite delay
                 std::cout<<"GameWon is true";
+                gamewonReady = true;
+                ;
                 // GameWonCondition
             }
             wave = false;
@@ -66,8 +90,9 @@ void Spawner::update() {
     {
         if(Spawn)
         {
-            std::cout<<"Spawning Zombie\n";
+        std::cout<<"Spawning Zombie\n";
         spawnRandomZombie();
+        zombiecount++;
         }
     }
 }

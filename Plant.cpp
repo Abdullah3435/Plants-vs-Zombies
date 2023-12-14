@@ -135,6 +135,10 @@ bool Plant::getDamage(int dmg)
     }
     return false;
 }
+Plant::~Plant()
+{
+    Game::getInstance()->LeaveGridBlock(this);
+}
 // You need to include the necessary headers and provide the implementation for Zombie,
 // GameObject, Projectile, and Plant in separate header and cpp files.
 
@@ -205,6 +209,7 @@ void Button::OnClick(){
 
     else if (ButtonName == "NextLevel")
     {
+        Game::getInstance()->Updatelevel();
         // Do Something
         Game::getInstance()->EndGame();
         Game::getInstance()->StartGame();
@@ -213,6 +218,7 @@ void Button::OnClick(){
     else if (ButtonName == "End")
     {
         // Do Something
+        Game::getInstance()->quitgame();
         
     }
 

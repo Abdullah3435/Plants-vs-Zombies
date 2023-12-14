@@ -153,6 +153,7 @@ void PlantManager::InitializeSeeds(int level)
         case 2:
             PeashooterSeed(260,50);
             SunflowerSeed(330,50);
+            break;
 
         case 3:
             PeashooterSeed(260,50);
@@ -180,7 +181,6 @@ void PlantManager::InitializeSeeds(int level)
             PeashooterSeed(260,50);
             std::cout<<"\nShould have Created peashooter seed here\n";
             break; 
-            break;
 
     }
 

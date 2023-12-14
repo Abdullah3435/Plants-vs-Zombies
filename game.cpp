@@ -24,7 +24,7 @@ bool Game::init()
 	//Initialization flag
 	bool success = true;
 	currentlevel =loadLevelNumber();
-	mygrid  = new Grid (1100,600,5,9,190,100);
+	mygrid  = new Grid (1100,600,5,9,190,110);
 	PlantMg_script = new PlantManager();
 	RenderingMG::getInstance()->PMscript = PlantMg_script; // injecting dependency (Sasta Dependency injetion) not at all a good programming practice just testing
 	//Initialize SDL
@@ -109,8 +109,10 @@ bool Game::loadMedia()
 	assets.Sunflower = loadTexture(paths.Sunflower);
 	assets.WallNut = loadTexture(paths.WallNut);
 	assets.CherryBomb = loadTexture(paths.CherryBomb);
+
 	assets.gameoverbar = loadTexture(paths.gameoverbar);
-	
+	assets.nextlevel = loadTexture(paths.Nextlevel);
+
     gTexture = loadTexture("BackgroundPVZ.png");
 	if(assets.plant_tex==NULL || gTexture==NULL||assets.Peashooter_Seed== NULL)
     {
@@ -203,6 +205,7 @@ void Game::EndGame()
 	RenderingMG::getInstance()->ClearVector();
 	CollisionMG::getInstance()->ClearVector();
 
+	Spawner::getInstance()->deleteSpawner();
 	std::cout<<"Successfully deleted singletons ";
 
 }
@@ -218,10 +221,11 @@ void Game::StartGame()
 	LevelManager::getInstance()->startLevel(currentlevel);
 	Gameover = false;
 	Gamewon = false;
+	Spawner::getInstance()->Spawn = true;
 	//Initialization flag
 	bool success = true;
 	delete mygrid;
-	mygrid  = new Grid (1100,600,5,9,190,100);
+	mygrid  = new Grid (1100,600,5,9,190,110);
 	std::cout <<"Done everything";
 
 }
@@ -243,7 +247,7 @@ void Game::run()
 	
 	while( !quit && !forcequit)
 	{
-		std::cout<<"D1";
+		//std::cout<<"D1";
 			if(!Gameover)
 			{
 				SpawnSun();
@@ -265,10 +269,10 @@ void Game::run()
 				//this is a good location to add pigeon in linked list.
 					int xMouse, yMouse;
 					SDL_GetMouseState(&xMouse,&yMouse);
-					std::cout<<"D2";
+					//std::cout<<"D2";
 					RenderingMG::getInstance()->createObject(xMouse, yMouse,gRenderer,&assets,*mygrid);
 					CollisionMG::getInstance()->CheckClicks(xMouse,yMouse);// check for multiple clicks ove here if needed
-					std::cout<<"D3";
+					//std::cout<<"D3";
 				}
 
 				if (e.type == SDL_KEYDOWN)
@@ -283,13 +287,13 @@ void Game::run()
 			SDL_RenderCopy(gRenderer, gTexture, targetbg, NULL);//Draws background to renderer
 			//***********************draw the objects here********************
 
-			std::cout<<"D4";
+			//std::cout<<"D4";
 			RenderingMG::getInstance()->drawObjects(gRenderer, &assets);
-			std::cout<<"D5";
+			//std::cout<<"D5";
 			CollisionMG::getInstance()->CollisionEventLoop(); //A huge freaking loop
-			std::cout<<"D6";
+			//std::cout<<"D6";
 			TextRenderer::getInstance()->renderText(Game::getInstance()->gRenderer,std::to_string(_resourcemg.getResources()),125,75);//Update Sun Count
-			std::cout<<"D1";
+			//std::cout<<"D1";
 			//****************************************************************
 			SDL_RenderPresent(gRenderer); //displays the updated renderer
 
@@ -314,6 +318,10 @@ void Game::DumpGarbage(GameObject* gameObject)
 	CollisionMG::getInstance()->RemoveGameObject(gameObject);
 }
 	
+void Game::LeaveGridBlock(Plant* someplant)
+{
+	mygrid->unoccupyBlock(someplant->transform->x,someplant->transform->y);
+}	
 void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
 	std::cout<<"keyboard working";
     switch (keysym.sym) {
@@ -375,7 +383,15 @@ void Game::SetGameOver()
 	RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
 	RenderingMG::getInstance()->AddObjectforRendering(End);
 	// also have to set sprites here
+}
 
+void Game::set_gameWon()
+{
+	Gamewon = true;
+	std::cout<<"Set Game Won";
+	Button* nextlev = new Button (300,300,"NextLevel");
+	nextlev->SetSprite(assets.nextlevel,gRenderer,228,51);
+	RenderingMG::getInstance()->AddObjectforRendering(nextlev);
 }
 void Game::SetSeedIndex(int i)
 {
@@ -465,4 +481,9 @@ int Game::loadLevelNumber() {
         std::cerr << "Warning: Unable to open level data file. Using default level number." << std::endl;
     }
     return levelNumber;
+}
+
+void Game::ReduceZombiecount()
+{
+	Spawner::getInstance()->zombiecount--;
 }

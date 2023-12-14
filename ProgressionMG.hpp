@@ -6,7 +6,6 @@
 class LevelManager {
 private:
     static LevelManager* instance;
-    Spawner* spawner;
     int currentWave;
     int zombiesPerWave;
 

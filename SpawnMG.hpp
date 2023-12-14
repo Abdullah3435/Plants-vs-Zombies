@@ -15,6 +15,9 @@ private:
     std::vector<Zombie*> spawnedZombies;
     Utilities SpawnDelay,WaveDelay, Waveduration;
     Spawner();
+    ~Spawner();
+    bool gamewonReady = false;
+
 
 public:
     bool Spawn, wave;
@@ -23,4 +26,6 @@ public:
     void spawnRandomZombie();
     void spawnwave();
     void update();
+    void deleteSpawner();
+    int zombiecount = 0;
 };

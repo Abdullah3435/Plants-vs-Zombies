@@ -17,6 +17,7 @@
 #include "ResourceMG.hpp"
 #include "ProgressionMG.hpp"
 
+class Plant;
 class Game {
 private:
     Texturepaths paths;
@@ -54,6 +55,9 @@ public:
     int getlevel();
     void SetGameOver();
     void quitgame();
+    void set_gameWon();
+    void ReduceZombiecount();
+    void LeaveGridBlock(Plant*);
 
 
 private:

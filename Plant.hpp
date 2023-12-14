@@ -53,6 +53,7 @@ class Plant:public GameObject
         void shoot();
         void Update() override;
         bool getDamage(int );
+        virtual ~Plant();
 };
 
 // class UtilityPlant: public Plant{
@@ -66,6 +67,7 @@ class Bombplant: public Plant{
     void Update();
     int Blasttime;
     Bombplant(int x, int y , int hp,int );
+    
 };
 
 
