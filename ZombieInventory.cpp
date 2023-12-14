@@ -12,7 +12,7 @@ SimpleZombie* ZombieInventory::simpleZombie()
     myzomb->State = "Idle";
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 500;
-    myzomb->movementspeed =1;
+    myzomb->movementspeed = 3;
     return myzomb;
 }
 
@@ -27,7 +27,7 @@ DefensiveZombie* ZombieInventory::ConeHeadZombie()
     myzomb->State = "Idle";
     myzomb->transform->y_sc = 1.7;
     myzomb->health = 1000;
-    myzomb->movementspeed =1;
+    myzomb->movementspeed = 3;
 
     //operator overloading to add a protection obj to an existing DEFENSIVE ZOmbie ONLY
     *myzomb + Cone();
@@ -43,7 +43,7 @@ SimpleZombie* ZombieInventory::BucketHeadZombie()
     myzomb->transform->x_sc = 2;
     myzomb->transform->y_sc = 2;
     myzomb->health = 2000;
-    myzomb->movementspeed =1;
+    myzomb->movementspeed = 3;
     return myzomb;
 }
 
@@ -98,14 +98,14 @@ ZombieInventory::ZombieInventory(int level)
     case 4:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
-        allzombies[2] = BucketHeadZombie();
+        allzombies[2] = ConeHeadZombie();
         allzombies[3] = simpleZombie();
         allzombies[4] = simpleZombie();
         break;
     case 5:
         allzombies[0] = simpleZombie();
         allzombies[1] = ConeHeadZombie();
-        allzombies[2] = BucketHeadZombie();
+        allzombies[2] = ConeHeadZombie();
         allzombies[3] = ConeHeadZombie();
         allzombies[4] = ConeHeadZombie();
         break;
