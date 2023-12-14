@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
         printf( "Failed to load media!\n" );
         return 0;
     }
-
+    
     Game::getInstance()->run();
     Game::getInstance()->close();
     return 0;

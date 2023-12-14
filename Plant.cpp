@@ -26,23 +26,31 @@ bool Seed::CheckClick(int x, int y)
 }
 void Seed::Update()
 {
-    if(currenttime>=refreshtime)
+    if(myDelay.Delay(refreshtime))
     {
         ready = true;
         isInteractable = true;
     }
-
-    currenttime++;
-    GameObject::Update();
+    if(ready)
+    {
+        GameObject::Update();
+    }
+    else 
+    {
+        std::cout<<"Calling From here";
+        render(true);
+    }
 }
 
 bool Seed::Use()
 {
-    if(ready)
+    if(ready&&cost<=Game::getInstance()->_resourcemg.getResources())
     {
+        Game::getInstance()->_resourcemg.subtractResource(cost);
         currenttime = 0;
         ready = false;
         isInteractable = false;
+        myDelay.resettime();
         return true;
     }
     
@@ -176,9 +184,50 @@ Bombplant::Bombplant(int x, int y , int hp, int blasttime):Plant(x,y,hp)
 }
 
 
+void Potatomine::Update()
+{
+    GameObject::Update();
+    if(!isReady&&utilities.Delay(3000))
+    {
+        isReady = true;
+    }
+    if (isReady)
+    {
+        if (Plantanim)
+        {
+        sprite=Plantanim->PlayAnimation();
+        std::cout<<"trying to switch anim";
+        }
 
+        SDL_Rect blastaura{transform->x-70,transform->y-15,140,30};
+        for (int i = 0 ;i<CollisionMG::getInstance()->Zombies.size();i++) 
+        {
+            if(CollisionMG::getInstance()->Zombies[i])
+            {
+                if(CollisionMG::getInstance()->isCollision(CollisionMG::getInstance()->Zombies[i]->getCollider(),blastaura))
+                {
+                    dynamic_cast<Zombie*>(CollisionMG::getInstance()->Zombies[i])->getDamage(3000);
+                    Game::getInstance()->DumpGarbage(this);
+                    delete this;
+                    return;
+                }
+            }
+        }
+        
+    }
+    if(gethp()<0)
+    {
+        Game::getInstance()->DumpGarbage(this);
+        delete this;
+    }
+    
+}
 
-
+Potatomine::Potatomine(int x, int y , int hp, int readytine):Plant(x,y,hp)
+{
+    readyTime=readytine;
+    SetSprite(Game::getInstance()->assets.unreadymine,Game::getInstance()->gRenderer,97,79);
+}
 
 //=======================SomeButton=============================
 

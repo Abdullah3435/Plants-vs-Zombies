@@ -10,8 +10,10 @@ class Seed:public GameObject,public Clickable
         //PlantManager* plantmg;
         int SeedIndex;
         bool ready;
+        Utilities myDelay;
         
     public :
+        int cost = 0;
         int refreshtime,currenttime=0;
         bool Use();
         void OnClick();
@@ -47,6 +49,7 @@ class Plant:public GameObject
         
         
     public:
+    int gethp(){return hp;}
         bool _shooter,_sunshooter;
         Animation* Plantanim;
         Plant(int x,int y,int hp);
@@ -70,7 +73,14 @@ class Bombplant: public Plant{
     
 };
 
-
+class Potatomine: public Plant{
+    public :
+    void Update();
+    int readyTime;
+    bool isReady = false;
+    Potatomine(int x, int y , int hp,int );
+    Sprite* unreadysprite = nullptr;
+};
 
 class Button:public GameObject,public Clickable
 {

@@ -26,6 +26,8 @@ struct Texturepaths
     string cone="Zombie Sprite Sheets/Conehead/Cone.png";
     string gameoverbar = "OpenOrEnd/GameOverBar.png";
     string Nextlevel = "OpenOrEnd/Next LEvel.png";
+    string UnreadyMine = "Plant Sprite Sheets/Unarmed_PotatoMine.png";
+    string readymine =  "Plant Sprite Sheets/PotatomineIDLE.png";
     //string PotatoMine = ""
     
 
@@ -63,6 +65,9 @@ class Textures
         
         SDL_Texture* gameoverbar;
         SDL_Texture* nextlevel;
+        SDL_Texture* readymine;
+        SDL_Texture* unreadymine;
+
 
 
     Textures():plant_tex(nullptr), simple_zombie_walk(nullptr){}

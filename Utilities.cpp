@@ -19,6 +19,13 @@ bool Utilities::Delay(int delay)
     }
     return false;
   }
+
+void Utilities::resettime()
+{
+    startTime = std::chrono::steady_clock::now();
+    SelfCount = 0;
+}
+
 Utilities::Utilities()
 {
     startTime = std::chrono::steady_clock::now();
