@@ -12,6 +12,7 @@ void PlantManager::Peashooter(int x,int y)
     CollisionMG::getInstance()->AddPlant(plant);
     plant->SetSprite(Game::getInstance()->assets.plant_tex, Game::getInstance()->gRenderer, 1760, 5680, 16, 5);
     plant->Plantanim=new Animation(plant->sprite,0,74,nullptr);
+    plant->shootdelay = 2000;
     plant->_shooter = true;
 
 }
@@ -22,6 +23,7 @@ void PlantManager::Sunflower(int x,int y)
     CollisionMG::getInstance()->AddPlant(plant);
     plant->SetSprite(Game::getInstance()->assets.Sunflower, Game::getInstance()->gRenderer, 1810, 2904, 8, 5);
     plant->Plantanim=new Animation(plant->sprite,0,35,nullptr);
+    plant->shootdelay = 10000;
     plant->_sunshooter= true;
 }
 

@@ -57,6 +57,7 @@ class Plant:public GameObject
         void Update() override;
         bool getDamage(int );
         virtual ~Plant();
+        int shootdelay = 0;
 };
 
 // class UtilityPlant: public Plant{

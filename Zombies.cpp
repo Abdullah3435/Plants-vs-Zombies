@@ -32,7 +32,10 @@ void SimpleZombie::PlayAnim()
     {
         //std::cout<<sprite<<std::endl;
         sprite = Walkanim.PlayAnimation();
-        Move();
+        if(utilities.Delay(100))
+        {
+            Move();
+        }
     }
     else if(State == "Eat")
     {
@@ -56,8 +59,10 @@ void SimpleZombie::PlayAnim()
 }
 
 void SimpleZombie::Move() const {
+    
     transform->translate(-1 * movementspeed);
-    // Implementation for moving
+    
+
 }
 
 void SimpleZombie::getDamage(int dmg) {
@@ -135,7 +140,10 @@ void DefensiveZombie::PlayAnim()
     {
         //std::cout<<sprite<<std::endl;
         sprite = Walkanim.PlayAnimation();
-        Move();
+        if(utilities.Delay(100))
+        {
+            Move();
+        }
         if(protection)
         {
             protection->transform->x = transform->x;
@@ -164,7 +172,9 @@ void DefensiveZombie::PlayAnim()
 }
 
 void DefensiveZombie::Move() const {
-    transform->translate(-1 * movementspeed);
+    
+        transform->translate(-1 * movementspeed);
+    
 
     // Implementation for moving
 }

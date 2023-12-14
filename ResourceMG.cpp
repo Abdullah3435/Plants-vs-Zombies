@@ -30,9 +30,10 @@ int ResourceMG::getResources()
 
 Sun::Sun(int x, int y):GameObject(x,y){
                                     SetSprite(Game::getInstance()->assets.Sun,Game::getInstance()->gRenderer,225,225);
+                                    Fall = true;
                                     RenderingMG::getInstance()->AddObjectforRendering(this);
                                     elapsedduration = 0;
-                                    Fallduration = 5+(rand()%20);
+                                    Fallduration = 100+(rand()%100);
                                     }
 
 
@@ -65,13 +66,13 @@ void Sun::Update()
     {
         elapsedduration++;
     }
-    else Fall = true;
+    else Fall = false;
     if (Fall)
     {
         transform->translate(0,1);
     }
     else{
-        if(utilities.Delay(2000))
+        if(utilities.Delay(5000))
         {
             Game::getInstance()->DumpGarbage(this);
             delete this;
