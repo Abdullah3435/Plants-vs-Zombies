@@ -38,7 +38,7 @@ Spawner* Spawner::getInstance() {
 //to spawn a random zombie at a random position
 void Spawner::spawnRandomZombie() {
     int ypos[5] = {140,270,400,530,660};
-    int spawnposx = 1200;
+    int spawnposx = 1400;
     int spawnposy = ypos[rand()%5];
 
     int randomIndex = rand() % 5;
@@ -48,7 +48,6 @@ void Spawner::spawnRandomZombie() {
     if(newZombie)
     {
         spawnedZombies.push_back(newZombie);
-
     }
 }
 

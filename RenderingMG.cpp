@@ -107,24 +107,19 @@ void CollisionMG::CollisionEventLoop()
         {
             if(Zombies[z]&&Plants[p])
             {
+                Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
+                Plant* currentplant = dynamic_cast<Plant*>(Plants[p]);
                 if(isCollision(Zombies[z]->getCollider(),Plants[p]->getCollider()))
                 {
                     std::cout<<"Collision Occured Here plant and zombie";
-
-                    // Dynamic casting to access specific methods of Zombie and Plant
-                    Zombie* currentzomb = dynamic_cast<Zombie*>(Zombies[z]); //dynamic casting at runtime
-                    Plant* currentplant = dynamic_cast<Plant*>(Plants[p]);
-
-                    // Check if the plant received damage and update Zombie state accordingly
-                    if(currentplant->getDamage(currentzomb->damage))
-                    {
-                        currentzomb->UpdateState ("Idle");
-                    }
-                    else 
-                    {
-                        currentzomb->UpdateState ("Eat");
-                    }
+                    currentplant->getDamage(currentzomb->damage);
+                    currentzomb->UpdateState ("Eat");
+                    
                     //Implement Zombie and plant Logic here
+                }
+                else
+                {
+                    currentzomb->UpdateState ("Idle");
                 }
             }
         }

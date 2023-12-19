@@ -120,12 +120,17 @@ void Plant::Update()
 {
     GameObject::Update();
 
-    if(utilities.Delay(2000))
+    if(utilities.Delay(shootdelay))
     {
         if(_shooter)
         {
             shoot();
         }
+        if(_sunshooter)
+        {
+            new Sun(transform->x+30,transform->y+30);
+        }
+        //std::cout<<"SHOOOTED PROJ";
     }
     if (Plantanim)
     {
@@ -290,6 +295,6 @@ void Button::OnClick(){
         Game::getInstance()->quitgame();
         
     }
-
     else {std::cout << "Game Event for such name not found";}
+    
 };

@@ -25,9 +25,10 @@ class Sun:public GameObject, public Clickable
     private:
         int Sun_energy = 25;
         bool Fall;
-        int Fallduration,elapsedduration;
+        
 
     public:
+        int Fallduration,elapsedduration;
         Sun(int x , int y);
         void Update();
         void OnClick();

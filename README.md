@@ -1,43 +1,75 @@
-# To compile your .cpp files you have the following options
+								Welcome to Plants vs. Zombies
+Objective:
+	Defend your home from the zombie invasion by strategically planting a variety of plants with unique abilities.
+
+Game Basics:
+	The game consists of multiple lanes where zombies approach your house.
+	You'll see a horizontal grid representing your lawn where you can plant various plants.
+
+Sunflowers:
+	Sunflowers generate sunlight, which is your in-game currency.
+	Click on the Sunflowers to collect the sunlight they produce.
+
+Sunlight:
+	Sunlight is used to plant new plants on your lawn.
+	Keep an eye on the sunlight counter at the top of the screen.
+
+Plant Selection:
+	Click on the plant icons at the top of the screen to select a plant.
+	Different plants have different abilities and costs in sunlight.
+
+Planting:
+	Click on an empty square on the lawn to plant the selected plant.
+	Some plants have offensive abilities, while others provide defensive support.
+
+Zombie Waves:
+	Zombies will approach your house in waves.
+	Each wave introduces new types of zombies with different abilities.
+	Prepare for stronger waves as you progress.
+
+Plant Types:
+1. Peashooter:
+Basic offensive plant that shoots peas at zombies.
+Good for early defense against basic zombies.
+
+2. Sunflower:
+Generates sunlight for planting more plants.
+Essential for building a strong defense.
+
+3. Wall-nut:
+Defensive plant with high health.
+Use Wall-nuts to protect against zombie attacks.
+
+4. Cherry Bomb:
+Explosive plant that damages all zombies in a small area.
+Use strategically to handle groups of zombies.
+
+Game Strategy:
+1. Early Defense
+2. Sunflower Management
+3. Adapt to Zombie Types
+4. Upgrade Plants
+
+Tips:
+1. Collect Sunlight
+2. Observe Zombie Patterns
+3. Experiment with Plant Combinations:
+
+Victory Conditions:
+	Successfully defend your house through all waves of zombie attacks. Your victory is secured when you complete the final wave of zombies in each level.
+
+
+# To compile your .cpp files:
 
 ## 1. Build code using the g++ compiler directly
 
-### <span style="color:red"> Note: In order to compile using the g++ compiler you will need to install and setup SDL and the mingw library in your machine's C drive. The tutorial to install these is given in the combined OOP lecture site on Canvas (https://hulms.instructure.com/courses/3244/files/367336?module_item_id=107766).
+## Note: In order to compile using the g++ compiler you will need to install and setup SDL and the mingw library in your machine's C drive.
 
 - Open this folder in VSCode
 - Open VSCode terminal and put this command to compile everything:
-
 	- For Windows:
-	`g++ *.cpp -IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -o odyssey.exe`
-
-  	- For MacOS:
-  	`clang++ *.cpp -o odyssey.out -I/Library/Frameworks/SDL2.framework/Headers -I/Library/Frameworks/SDL2_mixer.framework/Headers -I/Libaray/Frameworks/SDL2_image.framework/Headers -F/Library/Frameworks -framework SDL2 -framework SDL2_image -framework SDL2_mixer`
+	`g++ *.cpp -IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -o main.exe`
 
 - Run the game by this command:
-
 	- For Windows:
-	`.\odyssey.exe`
-
-	- For MacOS:
- 	`.\odyssey.out`
-
-## 2. Build using CMake (a more modern and portable approach)
-Please ensure you have gcc and cmake installed. You can check this by opening Powershell and typing:
- - `cmake --version` this should output the version of CMake
- - `gcc --version` this should tell you the version of gcc
-
-If cmake isn't installed, follow the instructions here:
-- Install cmake from the following link https://cmake.org/download/. To test if cmake has been installed properly run `cmake --version` from powershell or terminal
-
-To install gcc using mingw, you can follow the instructions from here:
-- https://code.visualstudio.com/docs/cpp/config-mingw
-
-Please don't install SDL upfront. If you have already installed SDL, try removing it completely.
-
-Run the following commands on Powershell on Windows or terminal on Linux and MacOS.
-- run `git clone https://github.com/habib-university/CS224-HW1-Fall2023.git`
-- `cd CS224-HW1-Fall2023`
-- `mkdir build`
-- `cd build`
-- On Linux use `cmake ..`. On windows use `cmake -G "MinGW Makefiles" ..` if you install gcc via MSYS2. If you installed gcc via strawberry perl, use `cmake -G "Unix Makefiles" ..`
-- On Linux use `make`. On windows use `mingw-make` if you used MSYS2 to install gcc. If you used strawberry perl, use `gmake`
+	`.\main.exe`

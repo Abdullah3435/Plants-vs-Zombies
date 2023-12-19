@@ -35,7 +35,10 @@ void SimpleZombie::PlayAnim()
     {
         
         sprite = Walkanim.PlayAnimation();
-        Move();
+        if(utilities.Delay(100))
+        {
+            Move();
+        }
     }
     else if(State == "Eat")
     {
@@ -59,8 +62,10 @@ void SimpleZombie::PlayAnim()
 }
 
 void SimpleZombie::Move() const {
+    
     transform->translate(-1 * movementspeed);
-    // Implementation for moving
+    
+
 }
 
 //reducing zombies health
@@ -147,7 +152,10 @@ void DefensiveZombie::PlayAnim()
     if(State == "Idle") //state based conditions check what is the state here
     {
         sprite = Walkanim.PlayAnimation();
-        Move();
+        if(utilities.Delay(100))
+        {
+            Move();
+        }
         if(protection)
         {
             protection->transform->x = transform->x;
@@ -176,7 +184,9 @@ void DefensiveZombie::PlayAnim()
 }
 
 void DefensiveZombie::Move() const {
-    transform->translate(-1 * movementspeed);
+    
+        transform->translate(-1 * movementspeed);
+    
 
     // Implementation for moving
 }
