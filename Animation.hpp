@@ -12,19 +12,18 @@ struct Unit {
 class Animation {
 private:
     Sprite* sprite;
-    // int frameWidth, frameHeight;
-    // int TotalRows, TotalCols;
-    int startframe,endframe,currentFrame; //frames to play starting from currentframe // in milliseconds
+    
+    int startframe,endframe,currentFrame; //frames to play starting from currentframe in milliseconds
     int lastFrameChangeTime;
-    bool Playanim;
-    SDL_Texture* Selftex;
+    bool Playanim;  
+    SDL_Texture* Selftex; // Pointer to an SDL_Texture associated with the Animation
     void ResetFrame();
 
 public:
     Animation(Sprite* _sprite,int _startframe ,int _endframe, SDL_Texture* newtex = nullptr);
 
     ~Animation();
-
+    //load texture using SDL functions
     SDL_Texture* loadTexture(SDL_Renderer* renderer, const char* imagePath, SDL_Texture* newtex);
     
     Sprite* PlayAnimation();

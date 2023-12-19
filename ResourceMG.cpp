@@ -5,12 +5,13 @@
 
 ResourceMG::ResourceMG() : sun(25) {}
 
+//add the amount of suns
 void ResourceMG::addResource(int amount)
 {
     sun += amount;
    
 }
-
+//subtract the amount of suns
 void ResourceMG::subtractResource(int amount)
 {
     if (sun < amount)
@@ -37,6 +38,7 @@ Sun::Sun(int x, int y):GameObject(x,y){
                                     }
 
 
+//function to delete sun when it is clicked
 void Sun::OnClick()
 {
     Game::getInstance()->_resourcemg.addResource(Sun_energy);
@@ -72,6 +74,7 @@ void Sun::Update()
         transform->translate(0,1);
     }
     else{
+        //adding delay
         if(utilities.Delay(5000))
         {
             Game::getInstance()->DumpGarbage(this);

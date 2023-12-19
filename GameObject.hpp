@@ -15,6 +15,7 @@ class Collider
 
     public: 
     Collider(int Width, int Height);
+    //SDL_Rect for the collider based on position
     SDL_Rect getCollider(int pos_x,int pos_y);
 };
 
@@ -38,11 +39,12 @@ public:
 
     void StartAnimation();
 
-    SDL_Texture* loadTexture(std::string path);
+    SDL_Texture* loadTexture(std::string path);// Method to load a texture from a file path
 
     void setCollider(int width, int height);
     SDL_Rect getCollider();
 
+    // Virtual method to be overridden for updating the GameObject
     virtual void Update();
     void render(bool DimRendering = false);
 
@@ -55,7 +57,7 @@ public:
 
 class ObjectStates {
 private:
-    std::vector<std::string> states;
+    std::vector<std::string> states; // Vector to store states
     std::string currentState;
 
 public:

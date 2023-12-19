@@ -4,41 +4,37 @@
 #include <future>
 #include <chrono>
 #include "game.hpp"
+
+//constructor
 Animation::Animation(Sprite* _sprite, int _startframe ,int _endframe,SDL_Texture* selftex)
     : sprite(_sprite), currentFrame(0), lastFrameChangeTime(0) 
 {
-    startframe = _startframe;endframe = _endframe;
+    startframe = _startframe;
+    endframe = _endframe;
     Selftex = selftex;
 }
-
+//destructor
 Animation::~Animation() {
     
 }
 
 void Animation::ResetFrame() {
     SDL_Rect* unit = new SDL_Rect();
-    //printf("resettiing frame\n");
+    // Calculate x and y coordinates based on the current frame and sprite's dimensions
     unit->x = currentFrame%sprite->cols * sprite->Texturewidth/sprite->cols;
     unit->y = abs(currentFrame/sprite->cols) * sprite->Textureheight/sprite->rows;
+    // Set the width and height based on sprite's dimensions
     unit->w = sprite->Texturewidth/sprite->cols;
     unit->h = sprite->Textureheight/sprite->rows;
+    //update the target texture
     sprite->targetTexture = *unit;
-    //std::cout<<"SDL Rext "<<sprite->targetTexture.x<<","<<sprite->targetTexture.y<<","<<sprite->targetTexture.w<<","<<sprite->targetTexture.h<<std::endl;
     
 }
 
 Sprite* Animation::PlayAnimation() {
     Playanim = true;
-    // if(parentSprite != sprite)
-    // set to the Animation Sprite if parent sprite != Animation Sprite
-
-    // }
     ResetFrame();
-    //printf("Animation Playing with current frame:");
-    
-    // std::future<void> result = std::async(std::launch::async, delayedFunction);
-    // result.get(); // Wait for the async operation to complete
-    // std::this_thread::sleep_for(std::chrono::seconds(animationSpeed/(endframe-startframe)));
+    // Increment the current frame to change frames and a condition for resetting the fram to the start frame
     if (currentFrame<endframe)
     {
         currentFrame++;
@@ -55,13 +51,12 @@ void Animation::InitializeSprite(SDL_Texture* tex, SDL_Renderer* sourcerenderer,
 {
     sprite =  new Sprite(tex , SDL_Rect{ 0, 0, TexWidth/_col, TexHeight/_rows},sourcerenderer);
 
+    // Set the rows and columns of the sprite
     sprite->rows = _rows;
     sprite->cols= _col;
+    
+    // Set the texture width and height of the sprite
     sprite->Texturewidth = TexWidth;
     sprite->Textureheight = TexHeight;//Play animation atleast once to synchronize the animation sprite with gameobj sprite before rendering 
 }
 
-// void delayedFunction() {
-//     std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulates delay
-//     std::cout << "Delayed function executed after 2 seconds." << std::endl;
-// }

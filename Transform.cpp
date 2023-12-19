@@ -12,8 +12,9 @@ Transform::Transform(int _x = 0, int _y = 0) {
     yy =  100;
 }
 
-
+// to convert the transform's position to screen coordinates
 SDL_Rect* Transform::ToScreenPosition() {
+    // Calculate screen position based on the transformation parameters
     SDL_Rect* screenpos = new SDL_Rect{x-(xx*x_sc/2), y-(yy*y_sc/2), xx*x_sc, yy*y_sc};
     return screenpos;
 }
