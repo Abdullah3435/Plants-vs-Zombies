@@ -8,11 +8,12 @@ SimpleZombie::SimpleZombie(int x, int y) :ZombieTemplate<Simple>(x, y),
                                             Eatanim(sprite,0,39,Game::getInstance()->assets.simple_zombie_eat),Zombie(){}
 
 void SimpleZombie::Update() {
+    // Check if the zombie reached the left boundary of the screen
     if(transform->x<50)
     {
         Game::getInstance()->SetGameOver();
     }
-
+    // Check if zombie's health is below zero
     if (health<0)
     {
         State = "Die";
@@ -60,7 +61,7 @@ void SimpleZombie::PlayAnim()
 
     }
 }
-
+// Move the zombie to the left
 void SimpleZombie::Move() const {
     
     transform->translate(-1 * movementspeed);
@@ -122,12 +123,12 @@ void DefensiveZombie::operator+(GameObject& other)
 }
 
 void DefensiveZombie::Update(){
-
+    // Check if the zombie reached the left boundary of the screen
     if(transform->x<50)
     {
         Game::getInstance()->SetGameOver();
     }
-
+    // Check if zombie's health is below a certain threshold
     if(health <= 500)
     {
         Game::getInstance()->DumpGarbage(protection);
@@ -146,7 +147,7 @@ void DefensiveZombie::Update(){
     
 }
 
-
+//play animation as per the zombies state
 void DefensiveZombie::PlayAnim()
 {
     if(State == "Idle") //state based conditions check what is the state here

@@ -13,7 +13,7 @@ Animation::Animation(Sprite* _sprite, int _startframe ,int _endframe,SDL_Texture
     endframe = _endframe;
     Selftex = selftex;
 }
-
+//destructor
 Animation::~Animation() {
     
 }

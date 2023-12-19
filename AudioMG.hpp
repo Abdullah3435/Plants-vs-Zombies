@@ -7,6 +7,7 @@
 #include <iostream>
 using namespace std;
 
+//struct for audio paths
 struct AudioPaths
 {
     string BG = "music/background2.wav";
@@ -16,6 +17,7 @@ struct AudioPaths
     //add more paths here when needed
 };
 
+//struct to load file paths
 struct LoadedSound {
     Mix_Chunk* sound;
     int channel;
@@ -24,21 +26,25 @@ struct LoadedSound {
     LoadedSound(Mix_Chunk* snd, int ch);
 };
 
+
 class AudioManager {
 private:
+    // Singleton instance
     static AudioManager* instance;
+    // Map to store loaded sound chunks
     std::unordered_map<std::string, Mix_Chunk*> soundMap;
+    // Structure to hold file paths for audio resources
     AudioPaths audiopaths;
-
+    //private constructor
     AudioManager();
 
 public:
     ~AudioManager();
-
+    // Get the singleton instance of AudioManager
     static AudioManager* getInstance();
 
     void addSound(const std::string& soundName, Mix_Chunk* sound);
-
+    // Load a sound from file and add it to the map
     Mix_Chunk* loadSound(const std::string& filePath);
 
     LoadedSound exportSound(const std::string& soundName);

@@ -133,6 +133,7 @@ void ObjectStates::RemoveState(const std::string& state) {
     }
 }
 
+//to transite stares of zombie
 void ObjectStates::TransitToState(const std::string& newState) {
     if (std::find(states.begin(), states.end(), newState) != states.end()) {
         currentState = newState;
@@ -145,6 +146,7 @@ const std::string& ObjectStates::GetCurrentState() const {
     return currentState;
 }
 
+//display state of zombie
 void ObjectStates::DisplayStates() const {
     std::cout << "Available States: ";
     for (const auto& state : states) {

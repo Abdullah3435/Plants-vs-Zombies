@@ -28,10 +28,7 @@ void LevelManager::startLevel(int level) {
 
 
 
-    // For example:
-    // Spawner::getInstance()->_wavedelay =100000;   // 100 seconds delay between waves         // 60 second delay before starting the level
-    // Spawner::getInstance()->_spawndelay = 10000;  // 1 second delay between zombie spawns
-    //spawnDelay.setDelay(10000);  
+     
 
     // You can set other parameters as needed
 }
@@ -76,32 +73,3 @@ void LevelManager::level5(){
 }
 
 
-// void LevelManager::update() {
-//     if (levelDelay.isTimeElapsed()) {
-//         // Level loop
-//         // Check if it's time to spawn a new wave
-//         if (waveDelay.isTimeElapsed()) {
-//             spawner->spawnRandomZombie();  // You can modify this based on your requirements
-
-//             // Check if the wave is completed
-//             if (spawner->getSpawnedZombies().size() >= zombiesPerWave) {
-//                 currentWave++;
-//                 spawner->clearSpawnedZombies();  // Clear zombies for the next wave
-//                 waveDelay.reset();  // Reset the wave delay for the next wave
-//             }
-//         }
-
-//         // Update the spawner
-//         spawner->update();
-//     }
-// }
-
-// void LevelManager::endLevel() {
-//     // Clean up and reset level-specific data
-//     // You can add additional logic based on your game requirements
-
-//     // For example:
-//     currentWave = 1;
-//     spawner->clearSpawnedZombies();
-//     levelDelay.reset();
-// }

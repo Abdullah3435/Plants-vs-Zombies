@@ -371,42 +371,52 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
 
 void Game::SetGameOver()
 {
+	//set game over state using flag
 	Gameover = true;
+	//disable spawning
 	Spawner::getInstance()->Spawn = false;
+	// Create game over background and buttons
 	GameObject* gameoverbg = new GameObject(600,350);
 	Button* restartbutton = new Button (550,430,"Restart");
 	Button* End = new Button (650,430,"End");
-
+	// Set sprites for game over elements
 	gameoverbg->SetSprite(assets.gameoverbar,gRenderer,717,348); // set all the sprites here
 	restartbutton->SetSprite(assets.gameoverbar,gRenderer,717,348);
 	End->SetSprite(assets.gameoverbar,gRenderer,717,348);
-
+	// Adjust scale for the game over background
 	gameoverbg->transform->x_sc = 8;
 	gameoverbg->transform->y_sc = 5;
-
+	// Add game over background for rendering
 	RenderingMG::getInstance()->AddObjectforRendering(gameoverbg);
 }
 
 void Game::set_gameWon()
 {
+	//flag to set game won state
 	Gamewon = true;
 	std::cout<<"Set Game Won";
+	// Create "Next Level" button
 	Button* nextlev = new Button (300,300,"NextLevel");
+	// Set sprite for the "Next Level" button
 	nextlev->SetSprite(assets.nextlevel,gRenderer,228,51);
+	// Add "Next Level" button for rendering
 	RenderingMG::getInstance()->AddObjectforRendering(nextlev);
 }
 void Game::SetSeedIndex(int i)
 {
+	// Set selected plant index and select the plant
 	PlantMg_script->selectedindex = i;
 	PlantMg_script->SelectPlant();
 }
 
 void Game::Updatelevel()
 {
+	// Increment current level
 	currentlevel ++;
 }
 int Game::getlevel()
 {
+	// Return the current level
 	return currentlevel;
 }
 
@@ -414,7 +424,7 @@ bool Game::WelcomeScreen()
 {
 	bool Clicked = false;
 	SDL_Event e;
-
+	// Handle events until the user clicks
 	while( !Clicked)
 	{
 		
@@ -452,15 +462,19 @@ bool Game::WelcomeScreen()
 	return false;
 }
 
+/// to create sun
 void Game::SpawnSun()
 {
+	// Spawn a sun every 5 seconds
 	if (SunDelay.Delay(5000))
 	{
 		new Sun(rand()%1000,0);
 	}
 }
 
-void Game::saveLevelNumber(int levelNumber) {
+void Game::saveLevelNumber(int levelNumber) 
+{
+	// Save the current level number to a file
     std::ofstream file("level_data.txt");
     if (file.is_open()) {
         file << levelNumber;
@@ -473,7 +487,7 @@ void Game::saveLevelNumber(int levelNumber) {
 
 int Game::loadLevelNumber() {
     int levelNumber = 1; // Default level number if the file is not found or cannot be read
-
+	//Load the level number from level_data.txt file
     std::ifstream file("level_data.txt");
     if (file.is_open()) {
         file >> levelNumber;
@@ -487,5 +501,6 @@ int Game::loadLevelNumber() {
 
 void Game::ReduceZombiecount()
 {
+	// Decrement zombie count in the Spawner
 	Spawner::getInstance()->zombiecount--;
 }

@@ -133,20 +133,27 @@ ZombieInventory::ZombieInventory(int level)
         break;
     }
 }
-
+// Create a zombie based on the specified prototype index
 Zombie* ZombieInventory::createZombie(int i,int x,int y)
-{   if (allzombies[i]){
+{   
+    // Check if the prototype at index i exists
+    if (allzombies[i]){
+        // Clone the zombie prototype at index i with the specified position (x, y)
         return allzombies[i]->Clone(x,y);
     }
     return nullptr;
 }
 
+// Create and return a Cone zombie GameObject
 GameObject& ZombieInventory::Cone()
 {
+    // Create a new GameObject representing a Cone 
     GameObject* cone = new GameObject(0,0);
+    // Set the sprite and scaling for the Cone 
     cone->SetSprite(Game::getInstance()->assets.Cone,Game::getInstance()->gRenderer,178,57,1,3);
     cone->transform->x_sc = 0.5;
     cone->transform->y_sc = 0.65;
+    // Add the Cone to the rendering manager
     RenderingMG::getInstance()->AddObjectforRendering(cone);
     return *cone;
 }
