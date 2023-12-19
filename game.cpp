@@ -397,6 +397,7 @@ void Game::SetGameOver()
 	//RenderingMG::getInstance()->AddObjectforRendering(End);
 	// also have to set sprites here
 }
+}
 
 void Game::set_gameWon()
 {
