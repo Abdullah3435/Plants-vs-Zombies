@@ -65,6 +65,7 @@ void Spawner::update() {
         std::cout<<"Spawning Wave\n";
         spawnwave();
         wave = true;
+        AudioManager::getInstance()->playSound("Hugewave");
     }
 
     if (wave)// do this only while the wave is being played
@@ -75,12 +76,14 @@ void Spawner::update() {
             _passedwaves++;
             if(_passedwaves>=no_waves)
             {
+
                 Spawn = false; //infinite delay
                 std::cout<<"GameWon is true";
                 gamewonReady = true;
                 ;
                 // GameWonCondition
             }
+            else {gamewonReady = false;}
             wave = false;
         }
     }

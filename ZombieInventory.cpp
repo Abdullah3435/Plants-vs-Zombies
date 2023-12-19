@@ -86,7 +86,7 @@ ZombieInventory::ZombieInventory(int level)
         allzombies[1] = simpleZombie();
         allzombies[2] = simpleZombie();
         allzombies[3] = simpleZombie();
-        allzombies[4] = ConeHeadZombie();
+        allzombies[4] = simpleZombie();
         break;
     case 3:
         allzombies[0] = simpleZombie();

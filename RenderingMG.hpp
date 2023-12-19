@@ -30,9 +30,7 @@ public:
   void createObject(int x, int y, SDL_Renderer* renderer, Textures* assets, Grid& myGrid);
   void AddObjectforRendering(GameObject* obj);
   void ClearVector();
-
 };
-
 
 class CollisionMG {
 private:

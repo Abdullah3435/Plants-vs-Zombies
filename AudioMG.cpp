@@ -13,6 +13,9 @@ AudioManager::AudioManager() {
     addSound("chomp",loadSound(audiopaths.Chomp));
     addSound("hit",loadSound(audiopaths.Hit));
     addSound("Sunclick",loadSound(audiopaths.SunClick));
+    addSound("Won",loadSound(audiopaths.GameWon));
+    addSound("Lost",loadSound(audiopaths.GameOver));
+    addSound("Hugewave",loadSound(audiopaths.hugewave));
     
 }
 

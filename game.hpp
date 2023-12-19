@@ -63,5 +63,5 @@ public:
 private:
     static Game* instance;  // Singleton instance
     int currentlevel = 1; // Set level from here
-    bool forcequit;
+    bool forcequit, gameovertrig = false;
 };

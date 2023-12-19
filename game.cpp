@@ -217,6 +217,7 @@ void Game::EndGame()
 
 void Game::StartGame()
 {
+	gameovertrig = false;
 	CollisionMG::getInstance();
 	RenderingMG::getInstance();
 
@@ -317,7 +318,7 @@ void Game::DumpGarbage(GameObject* gameObject)
         {
 			//std::cout<<"......NULLIFIEDDDDD....";
             temp[i] = nullptr;
-            break;  // No need to continue searching
+             // No need to continue searching
         }
 	}
 	CollisionMG::getInstance()->RemoveGameObject(gameObject);
@@ -371,6 +372,9 @@ void Game::handleKeyboardInput(const SDL_Keysym& keysym) {
 
 void Game::SetGameOver()
 {
+	if(!gameovertrig)
+	{
+		gameovertrig = true;
 	Gameover = true;
 	Spawner::getInstance()->Spawn = false;
 	GameObject* gameoverbg = new GameObject(600,350);
@@ -384,7 +388,9 @@ void Game::SetGameOver()
 	gameoverbg->transform->x_sc = 8;
 	gameoverbg->transform->y_sc = 5;
 
+	AudioManager::getInstance()->playSound("Lost");
 	RenderingMG::getInstance()->AddObjectforRendering(gameoverbg);
+	}
 	//RenderingMG::getInstance()->AddObjectforRendering(restartbutton);
 	//RenderingMG::getInstance()->AddObjectforRendering(End);
 	// also have to set sprites here
@@ -393,6 +399,7 @@ void Game::SetGameOver()
 void Game::set_gameWon()
 {
 	Gamewon = true;
+	AudioManager::getInstance()->playSound("Won");
 	std::cout<<"Set Game Won";
 	Button* nextlev = new Button (300,300,"NextLevel");
 	nextlev->SetSprite(assets.nextlevel,gRenderer,228,51);

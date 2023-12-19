@@ -13,6 +13,9 @@ struct AudioPaths
     string Hit = "music/hit.wav";
     string Chomp = "music/chomp.wav";
     string SunClick =  "music/sun.wav";
+    string GameOver = "music/gameover.wav";
+    string GameWon = "music/win.wav";
+    string hugewave = "music/hugewave.wav";
     //add more paths here when needed
 };
 

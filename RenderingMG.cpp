@@ -198,7 +198,7 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
         if (plant == gameObject)
         {
             plant = nullptr;
-            break;  // No need to continue searching
+             // No need to continue searching
         }
     }
 
@@ -208,7 +208,7 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
         if (projectile == gameObject)
         {
             projectile = nullptr;
-            break;  // No need to continue searching
+             // No need to continue searching
         }
     }
 
@@ -218,7 +218,7 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
         if (zombie == gameObject)
         {
             zombie = nullptr;
-            break;  // No need to continue searching
+            // No need to continue searching
         }
     }
     for (auto& collectible : Collectibles)
@@ -226,7 +226,7 @@ void CollisionMG::RemoveGameObject(GameObject* gameObject)
         if (collectible == dynamic_cast<Clickable*>(gameObject))
         {
             collectible = nullptr;
-            break;
+        
         }
     }
 }
