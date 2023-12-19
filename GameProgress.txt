@@ -1,0 +1,42 @@
+-------------------------------------------------Phase 1 start 2 weeks----------------------------------------------------
+Setting Up environment
+making up main Gamemanager class
+Loading Management
+Loaded elements manager
+downloading sprites and background
+Object creator for testing Object creation
+GameObject Creation(Central GameObject to deal all in game objects) {Most Important Class}
+GameObject components(transform, sprite, Animator, MAjor functions)
+Update function integration gamemanager
+Animator partially implemented
+Management classes
+Zombie Creator
+Zombie Classes
+Spawner
+Collision template
+Collision detection
+Garbage Collection
+
+Most of the above work is in the template form and will be changed later on based on the needs and reuirements of the game
+
+<<<<<<<<<<<----------------We are Here-------------------->>>>>>>>>>>
+
+-----------------------------------------------Phase 2 next 1.5 weeks---------------------------------------------------
+BITMAPPING for planting plants
+Plant Manager
+Plant(almost done)
+Seeds
+Seed Manager
+Resource Manager
+click event management most probably integrated with plantMG and BITMAP
+------------------------------------------------Phase 3 next 1 week-----------------------------------------------------
+Managers(Almost done)
+Collision(Almost done)
+Sounds(In Progress)
+More On Garbage Collection and object destruction
+integrating Animations and Phases partially done
+----------------------------------------------------last 3-4 days-----------------------------------------------------
+Gameover and Game Won EVENT trigger
+Testing
+Cleanup
+If time more on difficulty management or levels
