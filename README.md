@@ -68,8 +68,8 @@ Victory Conditions:
 - Open this folder in VSCode
 - Open VSCode terminal and put this command to compile everything:
 	- For Windows:
-	`g++ *.cpp -IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -o main.exe`
+	`g++ *.cpp -IC:\mingw_dev_lib\include\SDL2 -LC:\mingw_dev_lib\lib -w -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -o PlantsVZombies.exe`
 
 - Run the game by this command:
 	- For Windows:
-	`.\main.exe`
+	`.\PlantsVZombies.exe`
